@@ -15,10 +15,9 @@ import javax.validation.constraints.NotNull;
  * @author jhona
  */
 @Entity
-
-public class Aluno implements Serializable{
-
-    @Id   
+public class Professor implements Serializable{
+    
+    @Id    
     private Long matricula;
     @NotNull
     private String nome;
@@ -27,9 +26,7 @@ public class Aluno implements Serializable{
     @NotNull
     private String senha;
     @NotNull
-    private CursoENUM curso; 
-
-    
+    private CursoENUM curso;
 
     @Override
     public String toString() {
@@ -44,6 +41,13 @@ public class Aluno implements Serializable{
         this.nome = nome;
     }
 
+    public Long getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(Long matricula) {
+        this.matricula = matricula;
+    }
 
     public String getEmail() {
         return email;
@@ -61,14 +65,6 @@ public class Aluno implements Serializable{
         this.senha = senha;
     }
 
-    public Long getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(Long matricula) {
-        this.matricula = matricula;
-    }
-
     public CursoENUM getCurso() {
         return curso;
     }
@@ -78,5 +74,5 @@ public class Aluno implements Serializable{
     }
     
     
-    
+
 }

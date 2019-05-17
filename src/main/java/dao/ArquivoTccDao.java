@@ -8,14 +8,14 @@ package dao;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import model.Aluno;
+import model.ArquivoTcc;
 
 /**
  *
  * @author Windows 10
  */
 @Stateless
-public class AlunoDao extends AbstractFacade<Aluno> {
+public class ArquivoTccDao extends AbstractFacade<ArquivoTcc> {
 
     @PersistenceContext(unitName = "br.com.femass_gestao-tcc-femass_war_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class AlunoDao extends AbstractFacade<Aluno> {
         return em;
     }
 
-    public AlunoDao() {
-        super(Aluno.class);
+    public ArquivoTccDao() {
+        super(ArquivoTcc.class);
     }
     
 }

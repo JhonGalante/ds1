@@ -5,17 +5,19 @@
  */
 package dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import model.Aluno;
+import model.TccInicio;
 
 /**
  *
  * @author Windows 10
  */
 @Stateless
-public class AlunoDao extends AbstractFacade<Aluno> {
+public class TccInicioDao extends AbstractFacade<TccInicio> {
 
     @PersistenceContext(unitName = "br.com.femass_gestao-tcc-femass_war_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -25,8 +27,18 @@ public class AlunoDao extends AbstractFacade<Aluno> {
         return em;
     }
 
-    public AlunoDao() {
-        super(Aluno.class);
+    public TccInicioDao() {
+        super(TccInicio.class);
+    }
+    
+    public TccInicio tccInicio(Aluno aluno) {
+        List<TccInicio> listaInformacoes = super.findAll();
+        for(TccInicio t : listaInformacoes) {
+            if(aluno.getMatricula().equals(t)) {
+                return t;
+            }
+        }
+        return null;
     }
     
 }

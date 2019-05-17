@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template-menu.xhtml"
+             xmlns:p="http://primefaces.org/ui">
+
+    <h1>CONTROLE TCC</h1>
+        
+        <h3>Comentar</h3>
+        <p:inputTextarea rows="5" cols="50" counter="display" maxlength="300" counterTemplate="{0} caractéres restantes." autoResize="false" />
+        <br/>
+        <h:outputText id="display" />
+
+        <br/><br/><hr/><br/>
+           
+        <h:form enctype="multipart/form-data">
+            Upload de Arquivo:
+            <p:growl id="messages" showDetail="true" />
+            
+            <p:fileUpload value="#{uploadTccBean.tcc}" mode="simple"/>
+            <br/><br/>
+            <p:commandButton value="Enviar Comentário e Arquivo" ajax="false" action="#{uploadTccBean.upload()}"/>
+        </h:form>
+        <br/><br/>
+            
+</ui:decorate>
