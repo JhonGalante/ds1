@@ -6,12 +6,15 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -31,7 +34,10 @@ public class TccFinal implements Serializable {
     private Professor orientador;
     @OneToOne
     private Professor professorTcc;
-    private List<String> professoresBanca;
+    @OneToMany
+    private List<Professor> professoresBanca;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dataApresentacao;
     private Double nota;
     @OneToOne
     private ArquivoTcc tcc;
@@ -101,11 +107,11 @@ public class TccFinal implements Serializable {
         this.professorTcc = professorTcc;
     }
 
-    public List<String> getProfessoresBanca() {
+    public List<Professor> getProfessoresBanca() {
         return professoresBanca;
     }
 
-    public void setProfessoresBanca(List<String> professoresBanca) {
+    public void setProfessoresBanca(List<Professor> professoresBanca) {
         this.professoresBanca = professoresBanca;
     }    
 
@@ -124,6 +130,15 @@ public class TccFinal implements Serializable {
     public void setTcc(ArquivoTcc tcc) {
         this.tcc = tcc;
     }
+
+    public Date getDataApresentacao() {
+        return dataApresentacao;
+    }
+
+    public void setDataApresentacao(Date dataApresentacao) {
+        this.dataApresentacao = dataApresentacao;
+    }
+    
     
     
 }
