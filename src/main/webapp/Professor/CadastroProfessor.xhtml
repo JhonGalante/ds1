@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Cadastro de Professor</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:panelGrid columns="2">
+                <h:outputLabel for="nome" value="Nome"></h:outputLabel>
+                <p:inputText id="nome" value="#{guiCadastrarProfessor.professor.nome}"></p:inputText>
+                <h:outputLabel for="matricula" value="Matricula"></h:outputLabel>
+                <p:inputText id="matricula" value="#{guiCadastrarProfessor.professor.matricula}"></p:inputText>
+                <h:outputLabel for="email" value="Email"></h:outputLabel>
+                <p:inputText id="email" value="#{guiCadastrarProfessor.professor.email}"></p:inputText>
+                <h:outputLabel for="senha" value="Senha"></h:outputLabel>
+                <p:inputText id="senha" value="#{guiCadastrarProfessor.professor.senha}"></p:inputText>
+                <h:outputLabel for="curso" value="Curso"></h:outputLabel>
+                <p:inputText id="curso" value="#{guiCadastrarProfessor.curso}"></p:inputText>               
+                <p:commandButton value="Cadastrar" action="#{guiCadastrarProfessor.cadastrarProfessor()}" update="msg"></p:commandButton>
+                <h:outputText id="msg" value="#{guiCadastrarProfessor.mensagem}"></h:outputText>
+            </p:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+

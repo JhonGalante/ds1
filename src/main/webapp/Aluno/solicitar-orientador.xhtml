@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template-menu.xhtml"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <br/><br/>
+    <p:panel> 
+        <h1>Solicitar Orientador</h1>   
+        <h:form id="form">  
+
+            <p:dataTable id="tabelaOrientadores" var="orientador" value="#{tabelaSelecionarOrientadorBean.orientadores()}" selectionMode="single" selection="#{tabelaSelecionarOrientadorBean.orientador}" rowKey="#{orientador.matricula}">
+                <f:facet name="header">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputLabel value="Título" for="titulo" /> 
+                        <h:outputLabel value="Breve descrição do tema" for="descricao" />
+                        <p:inputTextarea id="titulo" rows="1" cols="60" counter="display-titulo" maxlength="60" counterTemplate="{0} caracteres restates." autoResize="false" value="#{tabelaSelecionarOrientadorBean.titulo}" />
+                        <p:inputTextarea id="descricao" rows="1" cols="60" counter="display-descricao" maxlength="120" counterTemplate="{0} caracteres restates." autoResize="false" value="#{tabelaSelecionarOrientadorBean.tema}" />
+                        <h:outputText id="display-titulo" />                   
+                        <h:outputText id="display-descricao" />
+                        <h:outputText id="msg" value="#{tabelaSelecionarOrientadorBean.mensagem}"></h:outputText>
+                    </h:panelGrid>
+                    <br/>
+                    <p:commandButton process="tabelaOrientadores" value="Solicitar Orientação" action="#{tabelaSelecionarOrientadorBean.definirOrientador()}" update="msg"/>
+                    <br/><br/>
+                </f:facet>
+
+                <p:column headerText="Nome do Orientador">
+                    <h:outputText value="#{orientador.nome}" />
+                </p:column>
+                <p:column headerText="Curso">
+                    <h:outputText value="#{orientador.curso}" />
+                </p:column> 
+
+            </p:dataTable>
+
+        </h:form>
+    </p:panel> 
+
+
+</ui:decorate>
+
