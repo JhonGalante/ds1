@@ -27,6 +27,11 @@ public class SolicitacaoOrientadorDao extends AbstractFacade<SolicitacaoOrientad
 
     public SolicitacaoOrientadorDao() {
         super(SolicitacaoOrientador.class);
+<<<<<<< HEAD
     }
+=======
+    }    
+    
+>>>>>>> controletcc
     
 }

@@ -19,6 +19,7 @@ import org.primefaces.model.UploadedFile;
  */
 @Entity
 public class ArquivoTcc implements Serializable {
+<<<<<<< HEAD
     
    private static final long serialVersionUID = 1L;
     @Id
@@ -26,6 +27,14 @@ public class ArquivoTcc implements Serializable {
     private Long id;
    private UploadedFile tcc;
    private Byte[] binario;
+=======
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private byte[] tcc;
+>>>>>>> controletcc
 
     public Long getId() {
         return id;
@@ -35,6 +44,7 @@ public class ArquivoTcc implements Serializable {
         this.id = id;
     }
 
+<<<<<<< HEAD
     public UploadedFile getTcc() {
         return tcc;
     }
@@ -54,4 +64,16 @@ public class ArquivoTcc implements Serializable {
    
     
     
+=======
+    public byte[] getTcc() {
+        return tcc;
+    }
+
+    public void setTcc(byte[] tcc) {
+        this.tcc = tcc;
+    }
+
+    
+
+>>>>>>> controletcc
 }

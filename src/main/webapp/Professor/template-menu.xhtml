@@ -9,10 +9,18 @@
     </h:head>
     <h:body>
         <p:menubar>
+<<<<<<< HEAD
             <p:menuitem value="Home" url="index.xhtml"></p:menuitem>             
             <p:menuitem value="Solicitações de Orientação" url="Professor/solicitacoes-orientacao.xhtml"></p:menuitem>
             <p:menuitem value="Controle TCC" url="controle-tcc-aluno.xhtml"></p:menuitem>
             <p:menuitem value="Sair"> <p:commandButton value="Sair" action="#{loginBean.logout()}"></p:commandButton></p:menuitem>
+=======
+            <p:menuitem value="Home" url="home.xhtml"></p:menuitem>             
+            <p:menuitem value="Solicitações de Orientação" url="solicitacoes-orientacao.xhtml"></p:menuitem>
+            <p:menuitem value="Controle TCC" url="controle-tcc-professor.xhtml"></p:menuitem>
+            <p:menuitem value="Acompanhar TCC" url="acompanhar-tcc.xhtml"></p:menuitem>
+            <p:menuitem value="Sair" url="/login.xhtml"></p:menuitem>
+>>>>>>> controletcc
         </p:menubar>
         <ui:insert></ui:insert>
     </h:body>

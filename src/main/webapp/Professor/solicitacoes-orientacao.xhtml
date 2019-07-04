@@ -7,6 +7,7 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+<<<<<<< HEAD
     <h1>Solicitar Orientador</h1>   
 
     <h:form id="form">  
@@ -32,6 +33,35 @@
             </f:facet>
         </p:dataTable>
     </h:form>
+=======
+     <br/><br/><br/>
+    <p:panel>
+        <h1>Solicitações disponíveis</h1> 
+        <h:form id="form">  
+            <h:outputText id="display" />
+            <p:dataTable id="tabelaSolicitacoes" var="solicitacao" value="#{tabelaAceitarOrientacaoBean.solicitacoesOrientacao}" selectionMode="single" selection="#{tabelaAceitarOrientacaoBean.solicitacao}" rowKey="#{solicitacao.id}">
+                <f:facet name="header">
+                    Informações:
+                </f:facet>
+                <p:column headerText="Nome">
+                    <h:outputText value="#{solicitacao.aluno.nome}" />
+                </p:column>
+                <p:column headerText="Curso">
+                    <h:outputText value="#{solicitacao.aluno.curso}" />
+                </p:column>
+                <p:column headerText="Titulo">
+                    <h:outputText value="#{solicitacao.tituloTcc}" />
+                </p:column>  
+                <p:column headerText="Descrição">
+                    <h:outputText value="#{solicitacao.descricaoTema}" />
+                </p:column>  
+                <f:facet name="footer">
+                    <p:commandButton process="tabelaSolicitacoes" value="Aceitar Solicitação" action="#{tabelaAceitarOrientacaoBean.criarTermoDeCompromisso()}" update="tabelaSolicitacoes"/>
+                </f:facet>
+            </p:dataTable>
+        </h:form>
+    </p:panel>
+>>>>>>> controletcc
 
 
 

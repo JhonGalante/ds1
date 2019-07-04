@@ -6,15 +6,22 @@
 package model;
 
 import java.io.Serializable;
+<<<<<<< HEAD
 import java.util.Date;
+=======
+>>>>>>> controletcc
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+<<<<<<< HEAD
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
+=======
+import javax.persistence.OneToOne;
+>>>>>>> controletcc
 
 /**
  *
@@ -34,10 +41,14 @@ public class TccFinal implements Serializable {
     private Professor orientador;
     @OneToOne
     private Professor professorTcc;
+<<<<<<< HEAD
     @OneToMany
     private List<Professor> professoresBanca;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataApresentacao;
+=======
+    private List<String> professoresBanca;
+>>>>>>> controletcc
     private Double nota;
     @OneToOne
     private ArquivoTcc tcc;
@@ -107,11 +118,19 @@ public class TccFinal implements Serializable {
         this.professorTcc = professorTcc;
     }
 
+<<<<<<< HEAD
     public List<Professor> getProfessoresBanca() {
         return professoresBanca;
     }
 
     public void setProfessoresBanca(List<Professor> professoresBanca) {
+=======
+    public List<String> getProfessoresBanca() {
+        return professoresBanca;
+    }
+
+    public void setProfessoresBanca(List<String> professoresBanca) {
+>>>>>>> controletcc
         this.professoresBanca = professoresBanca;
     }    
 
@@ -130,6 +149,7 @@ public class TccFinal implements Serializable {
     public void setTcc(ArquivoTcc tcc) {
         this.tcc = tcc;
     }
+<<<<<<< HEAD
 
     public Date getDataApresentacao() {
         return dataApresentacao;
@@ -139,6 +159,8 @@ public class TccFinal implements Serializable {
         this.dataApresentacao = dataApresentacao;
     }
     
+=======
+>>>>>>> controletcc
     
     
 }
