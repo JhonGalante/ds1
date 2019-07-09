@@ -50,12 +50,11 @@ public class UploadTccBean {
             Movimentacao movimentacao = new Movimentacao();
             movimentacao.setInformacoesTcc(daoTccInicio.tccInicio(new Usuario().getAluno()));
             ArquivoTcc arquivoTcc = new ArquivoTcc();
-            arquivoTcc.setTcc(tcc);
+            arquivoTcc.setArquivoTcc(tcc);
             daoArquivoTcc.create(arquivoTcc);
             movimentacao.setTcc(arquivoTcc);
             movimentacao.setData(LocalDate.now());
             daoMovimentacao.create(movimentacao);
-            
         }
     }
     

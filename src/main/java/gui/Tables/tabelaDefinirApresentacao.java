@@ -35,7 +35,7 @@ public class tabelaDefinirApresentacao implements Serializable {
     private List<Professor> professoresSelec;
     private Professor professor;
     private Date data;
-    private TccFinal tcc;
+    private final TccFinal tcc;
     
     public tabelaDefinirApresentacao() {
         tcc = new TccFinal();

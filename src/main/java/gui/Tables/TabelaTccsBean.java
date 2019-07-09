@@ -10,8 +10,10 @@ import java.util.Collections;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import model.Aluno;
 import model.Movimentacao;
 import model.Professor;
@@ -62,6 +64,8 @@ public class TabelaTccsBean implements Serializable {
     public void salvaComentarioProfessor(){
         movimentacaoSelecionada.setComentarioOrientador(comentarioProfessor);
         daoMovimentacao.edit(movimentacaoSelecionada);
+        saveMessage();
+        
     }
 
     public TabelaTccsBean() {
@@ -115,6 +119,9 @@ public class TabelaTccsBean implements Serializable {
         this.comentarioProfessor = comentarioProfessor;
     }
     
-    
+    public void saveMessage() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Sucesso", "Informações Gravadas!") );
+    }
 
 }

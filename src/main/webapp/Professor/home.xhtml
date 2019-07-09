@@ -3,24 +3,16 @@
 <ui:decorate xmlns="http://www.w3.org/1999/xhtml"
              xmlns:h="http://xmlns.jcp.org/jsf/html"
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-<<<<<<< HEAD
-             template="template-menu.xhtml">
-
-        <h1>Inicio</h1>
-        <h:outputText id="msg" value="Olá #{usuario.professor.nome}"></h:outputText>
-
-        
-        
-=======
              template="template-menu.xhtml"
              xmlns:p="http://primefaces.org/ui">
+    <h:body>
+        <h:form id="form">
+            <p:growl id="growl" showDetail="true" sticky="true" />
+            <p:panel header="Sistema de Controle de TCC - FeMASS">
+                <h:outputText id="msg" value="Olá, professor #{usuario.professor.nome}!"></h:outputText>
+            </p:panel>
+        </h:form>
+    </h:body>
 
-    <p:panel>
-        <h1>Inicio</h1>
-        <h:outputText id="msg" value="Olá #{usuario.professor.nome}"></h:outputText>
-    </p:panel>
-
-
->>>>>>> controletcc
 </ui:decorate>
 

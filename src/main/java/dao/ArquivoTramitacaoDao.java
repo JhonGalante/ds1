@@ -8,15 +8,17 @@ package dao;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import model.SolicitacaoOrientador;
+import model.ArquivoTcc;
+import model.ArquivoTramitacao;
 
 /**
  *
- * @author Windows 10
+ * @author jhona
  */
-@Stateless
-public class SolicitacaoOrientadorDao extends AbstractFacade<SolicitacaoOrientador> {
 
+@Stateless
+public class ArquivoTramitacaoDao extends AbstractFacade<ArquivoTramitacao>{
+    
     @PersistenceContext(unitName = "br.com.femass_gestao-tcc-femass_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -25,9 +27,8 @@ public class SolicitacaoOrientadorDao extends AbstractFacade<SolicitacaoOrientad
         return em;
     }
 
-    public SolicitacaoOrientadorDao() {
-        super(SolicitacaoOrientador.class);
-    }    
-    
+    public ArquivoTramitacaoDao() {
+        super(ArquivoTramitacao.class);
+    }
     
 }

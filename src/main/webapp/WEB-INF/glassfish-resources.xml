@@ -6,17 +6,9 @@
         <property name="portNumber" value="5432"/>
         <property name="databaseName" value="gestaotccbd"/>
         <property name="User" value="postgres"/>
-<<<<<<< HEAD
-        <property name="Password" value="localhost"/>
+        <property name="Password" value="12345"/>
         <property name="URL" value="jdbc:postgresql://localhost:5432/gestaotccbd"/>
         <property name="driverClass" value="org.postgresql.Driver"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="java:app/jdbc/gestaotccbd" object-type="user" pool-name="post-gre-sql_gestaotccbd_postgresPool"/>
-=======
-        <property name="Password" value="Aqueiroga28"/>
-        <property name="URL" value="jdbc:postgresql://localhost:5432/gestaotccbd"/>
-        <property name="driverClass" value="org.postgresql.Driver"/>
-    </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="java:app/gestaotccfemassbd" object-type="user" pool-name="post-gre-sql_gestaotccbd_postgresPool"/>
->>>>>>> controletcc
+    <jdbc-resource enabled="true" jndi-name="java:app/gestaotccbd" object-type="user" pool-name="post-gre-sql_gestaotccbd_postgresPool"/>
 </resources>

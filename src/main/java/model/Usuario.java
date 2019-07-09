@@ -17,6 +17,7 @@ public class Usuario{
 
     private static Aluno aluno = null;
     private static Professor professor = null;
+    private static Secretaria secretaria = null;
 
     public Aluno getAluno() {
         return aluno;
@@ -32,6 +33,14 @@ public class Usuario{
 
     public void setProfessor(Professor professor) {
         this.professor = professor;
+    }
+
+    public Secretaria getSecretaria() {
+        return secretaria;
+    }
+
+    public void setSecretaria(Secretaria secretaria) {
+        this.secretaria = secretaria;
     }
     
     

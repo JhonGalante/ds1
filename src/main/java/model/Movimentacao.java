@@ -7,18 +7,12 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-<<<<<<< HEAD
-=======
 import javax.persistence.CascadeType;
->>>>>>> controletcc
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-<<<<<<< HEAD
-=======
 import javax.persistence.ManyToOne;
->>>>>>> controletcc
 import javax.persistence.OneToOne;
 
 /**
@@ -33,12 +27,6 @@ public class Movimentacao implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate data;
-<<<<<<< HEAD
-    @OneToOne
-    private ArquivoTcc tcc;
-    @OneToOne
-    private TccInicio informacoesTcc;
-=======
     @OneToOne(cascade=CascadeType.ALL)
     private ArquivoTcc tcc;
     @OneToOne
@@ -46,8 +34,8 @@ public class Movimentacao implements Serializable {
     private String comentarioAluno;
     private String comentarioProfessor;
     private String comentarioOrientador;
->>>>>>> controletcc
-
+    private TipoMovimentacaoENUM tipoMovimentacao;
+    
     public Long getId() {
         return id;
     }
@@ -85,8 +73,6 @@ public class Movimentacao implements Serializable {
         this.informacoesTcc = informacoesTcc;
     }
 
-<<<<<<< HEAD
-=======
     public String getComentarioAluno() {
         return comentarioAluno;
     }
@@ -110,11 +96,18 @@ public class Movimentacao implements Serializable {
     public void setComentarioOrientador(String comentarioOrientador) {
         this.comentarioOrientador = comentarioOrientador;
     }
+
+    public TipoMovimentacaoENUM getTipoMovimentacao() {
+        return tipoMovimentacao;
+    }
+
+    public void setTipoMovimentacao(TipoMovimentacaoENUM tipoMovimentacao) {
+        this.tipoMovimentacao = tipoMovimentacao;
+    }
     
     
     
 
->>>>>>> controletcc
     @Override
     public int hashCode() {
         int hash = 0;

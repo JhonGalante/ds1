@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.faces.context.FacesContext;
 import model.Aluno;
 import model.ArquivoTcc;
 import model.Movimentacao;

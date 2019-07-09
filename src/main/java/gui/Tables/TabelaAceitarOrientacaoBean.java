@@ -12,9 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import model.Aluno;
 import model.Professor;
 import model.SolicitacaoOrientador;
@@ -61,6 +63,7 @@ public class TabelaAceitarOrientacaoBean implements Serializable{
         termoCompromisso.setTitulo(solicitacao.getTituloTcc());
         daoTccInicio.create(termoCompromisso);
         daoSolicitarOrientador.remove(solicitacao);
+        saveMessage();
     }
     
     @PostConstruct
@@ -118,5 +121,8 @@ public class TabelaAceitarOrientacaoBean implements Serializable{
         this.termoCompromisso = termoCompromisso;
     }
     
-    
+    public void saveMessage() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Sucesso", "Informações Gravadas.") );
+    }
 }

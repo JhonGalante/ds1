@@ -22,28 +22,6 @@ import model.Usuario;
  */
 @ManagedBean
 @ViewScoped
-<<<<<<< HEAD
-public class TabelaSelecionarOrientadorBean implements Serializable{
-    
-    @EJB 
-    ProfessorDao daoProfessor;
-    @EJB
-    SolicitacaoOrientadorDao daoSolicitarOrientador;
-    
-    private Professor orientador;
-    private SolicitacaoOrientador solicitacao = new SolicitacaoOrientador();
-    private String tema;
-    
-    public List<Professor> orientadores() {
-        return daoProfessor.findAll();
-    }
-    
-    public void definirOrientador() {
-        solicitacao.setAluno(new Usuario().getAluno());
-        solicitacao.setOrientador(orientador);
-        solicitacao.setDescricaoTema(tema);
-        daoSolicitarOrientador.create(solicitacao);
-=======
 public class TabelaSelecionarOrientadorBean implements Serializable {
 
     @EJB
@@ -117,7 +95,6 @@ public class TabelaSelecionarOrientadorBean implements Serializable {
 
     public void mensagemFaltaDescricao() {
         mensagem = "Por favor, escreva um pouco sobre seu tema";
->>>>>>> controletcc
     }
 
     public Professor getOrientador() {
@@ -143,12 +120,6 @@ public class TabelaSelecionarOrientadorBean implements Serializable {
     public void setTema(String tema) {
         this.tema = tema;
     }
-<<<<<<< HEAD
-    
-    
-    
-    
-=======
 
     public ProfessorDao getDaoProfessor() {
         return daoProfessor;
@@ -182,5 +153,4 @@ public class TabelaSelecionarOrientadorBean implements Serializable {
         this.mensagem = mensagem;
     }
 
->>>>>>> controletcc
 }

@@ -2,15 +2,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-<<<<<<< HEAD
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Login</title>
-    </h:head>
-    <h:body>
-        <img src="logo.png" />
-            <h:form>
-=======
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
@@ -22,31 +13,19 @@
     </f:metadata>
     <p:growl showDetail="true"/>
     <h:body>
+        <img src="logo.png" />
         <p:panel>            
-            
             <h:form>
-                
->>>>>>> controletcc
                 <h:panelGrid columns="2" cellpadding="5">      
                     <h:outputLabel value="Login " for="login" />
                     <p:inputText id="login" value="#{loginBean.matricula}" />
 
                     <h:outputLabel value="Senha " for="senha"/>
-<<<<<<< HEAD
-                    <p:password id="senha" value="#{loginBean.senha}"/>
-                </h:panelGrid>
-                
-                <p:commandButton value="Entrar no sistema" id="logar" ajax="false" action="#{loginBean.logar()}" />
-            </h:form>
-=======
                     <p:password id="senha" value="#{loginBean.senha}"/>                  
-                    
                 </h:panelGrid>
-
                 <p:commandButton value="Entrar no sistema" id="logar" ajax="false" action="#{loginBean.logar()}"/>
             </h:form>
         </p:panel>
->>>>>>> controletcc
     </h:body>
 </html>
 

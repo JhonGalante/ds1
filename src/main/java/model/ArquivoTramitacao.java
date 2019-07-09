@@ -5,7 +5,6 @@
  */
 package model;
 
-import java.io.File;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,17 +14,16 @@ import org.primefaces.model.UploadedFile;
 
 /**
  *
- * @author Jardelmc
+ * @author jhona
  */
 @Entity
-public class ArquivoTcc implements Serializable {
-
+public class ArquivoTramitacao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private byte[] tcc;
-    private UploadedFile arquivoTcc;
+    private UploadedFile arquivoTramitacao;
+    private Byte[] binario;
 
     public Long getId() {
         return id;
@@ -35,21 +33,19 @@ public class ArquivoTcc implements Serializable {
         this.id = id;
     }
 
-    public byte[] getTcc() {
-        return tcc;
+    public UploadedFile getArquivoTramitacao() {
+        return arquivoTramitacao;
     }
 
-    public void setTcc(byte[] tcc) {
-        this.tcc = tcc;
+    public void setArquivoTramitacao(UploadedFile arquivoTramitacao) {
+        this.arquivoTramitacao = arquivoTramitacao;
     }
 
-    public UploadedFile getArquivoTcc() {
-        return arquivoTcc;
+    public Byte[] getBinario() {
+        return binario;
     }
 
-    public void setArquivoTcc(UploadedFile arquivoTcc) {
-        this.arquivoTcc = arquivoTcc;
+    public void setBinario(Byte[] binario) {
+        this.binario = binario;
     }
-
-
 }

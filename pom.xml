@@ -31,10 +31,7 @@
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>7.0</version>
-<<<<<<< HEAD
-=======
             <type>jar</type>
->>>>>>> controletcc
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -42,8 +39,6 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-<<<<<<< HEAD
-=======
         
         <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
         <dependency>
@@ -60,7 +55,6 @@
         </dependency>
 
 
->>>>>>> controletcc
     </dependencies>
 
     <build>
