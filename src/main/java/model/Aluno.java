@@ -23,9 +23,7 @@ public class Aluno implements Serializable{
     @NotNull
     private String nome;
     @NotNull
-    private String email;
-    @NotNull
-    private String senha;
+    private Usuario usuario;
     @NotNull
     private CursoENUM curso; 
 
@@ -44,23 +42,6 @@ public class Aluno implements Serializable{
         this.nome = nome;
     }
 
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public Long getMatricula() {
         return matricula;
     }
@@ -76,6 +57,15 @@ public class Aluno implements Serializable{
     public void setCurso(CursoENUM curso) {
         this.curso = curso;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
     
     
     

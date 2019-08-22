@@ -9,7 +9,7 @@ package model;
  *
  * @author jhona
  */
-public enum TipoUsuario {
+public enum TipoUsuarioENUM {
     ALUNO, 
     PROFESSOR, 
     SECRETARIA, 
