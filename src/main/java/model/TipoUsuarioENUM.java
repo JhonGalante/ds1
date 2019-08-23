@@ -7,11 +7,11 @@ package model;
 
 /**
  *
- * @author jhona
+ * @author Ygor
  */
 public enum TipoUsuarioENUM {
-    ALUNO, 
-    PROFESSOR, 
-    SECRETARIA, 
-    VISITANTE;
+    ALUNO,
+    PROFESSOR,
+    SECRETARIA,
+    VISITANTE
 }

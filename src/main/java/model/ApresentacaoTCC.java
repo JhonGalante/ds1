@@ -6,11 +6,12 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -18,49 +19,37 @@ import javax.validation.constraints.NotNull;
  * @author Ygor
  */
 @Entity
-public class Aluno implements Serializable {
+public class ApresentacaoTCC implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
-    private String nome;
+    private LocalDate dataApresentacao;
     @NotNull
-    @OneToOne
-    private Usuario usuario;
-    @NotNull
-    @OneToOne
-    private CursoENUM curso;
+    private List<String> professoresBanca;
 
     public Long getId() {
         return id;
     }
 
-    public String getNome() {
-        return nome;
+    public LocalDate getDataApresentacao() {
+        return dataApresentacao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setDataApresentacao(LocalDate dataApresentacao) {
+        this.dataApresentacao = dataApresentacao;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public List<String> getProfessoresBanca() {
+        return professoresBanca;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setProfessoresBanca(List<String> professoresBanca) {
+        this.professoresBanca = professoresBanca;
     }
-
-    public CursoENUM getCurso() {
-        return curso;
-    }
-
-    public void setCurso(CursoENUM curso) {
-        this.curso = curso;
-    }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -71,10 +60,10 @@ public class Aluno implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Aluno)) {
+        if (!(object instanceof ApresentacaoTCC)) {
             return false;
         }
-        Aluno other = (Aluno) object;
+        ApresentacaoTCC other = (ApresentacaoTCC) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -83,7 +72,14 @@ public class Aluno implements Serializable {
 
     @Override
     public String toString() {
-        return nome;
+        return dataApresentacao.toString();
     }
     
+    public void adicionarProfessorBanca(String nome){
+        this.professoresBanca.add(nome);
+    }
+    
+    public void removerProfessorBanca(String nome){
+        this.professoresBanca.remove(nome);
+    }
 }

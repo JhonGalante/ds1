@@ -7,30 +7,31 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author jhona
+ * @author Ygor
  */
 @Entity
-public class Professor implements Serializable{
-    
-    @Id    
-    private Long matricula;
+public class Professor implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     @NotNull
     private String nome;
     @NotNull
-    private String email;
-    @NotNull
-    private String senha;
-    @NotNull
-    private CursoENUM curso;
+    @OneToOne
+    private Usuario usuario;
 
-    @Override
-    public String toString() {
-        return this.nome;
+    public Long getId() {
+        return id;
     }
 
     public String getNome() {
@@ -41,38 +42,37 @@ public class Professor implements Serializable{
         this.nome = nome;
     }
 
-    public Long getMatricula() {
-        return matricula;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setMatricula(Long matricula) {
-        this.matricula = matricula;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public String getEmail() {
-        return email;
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Professor)) {
+            return false;
+        }
+        Professor other = (Professor) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public CursoENUM getCurso() {
-        return curso;
-    }
-
-    public void setCurso(CursoENUM curso) {
-        this.curso = curso;
+    @Override
+    public String toString() {
+        return nome;
     }
     
-    
-
 }

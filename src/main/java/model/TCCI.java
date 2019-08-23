@@ -6,92 +6,138 @@
 package model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.List;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Ronald Tadeu
+ * @author Ygor
  */
-public class TCCI implements Serializable {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String tema;
-    @NotNull
-    @OneToOne
-    private Aluno aluno;
-    @OneToOne
-    private Professor orientador;
-    @NotNull
-    @OneToOne
-    private Professor professorTCC;
-    private LocalDate dataApresentacao;
-    private float nota;
-    private EstadoTccENUM estado;
-    
+@Entity
+public class TCCI implements Serializable{
 
-    public long getId() {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @NotNull
+    @OneToOne
+    private TermoCompromisso termoCompromisso;
+    @NotNull
+    @OneToOne
+    private Professor professorTcc;
+    @NotNull
+    private EstadoTccENUM estadoTccENUM;
+    @OneToOne
+    private ApresentacaoTCC apresentacao;
+    @OneToOne
+    private ArquivoTramitacao arquivoTramitacao;
+    private Float nota;
+    @OneToMany
+    private List<MovimentacaoTCC> movimentacoes;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public TermoCompromisso getTermoCompromisso() {
+        return termoCompromisso;
     }
 
-    public String getTema() {
-        return tema;
+    public void setTermoCompromisso(TermoCompromisso termoCompromisso) {
+        this.termoCompromisso = termoCompromisso;
     }
 
-    public void setTema(String tema) {
-        this.tema = tema;
+    public Professor getProfessorTcc() {
+        return professorTcc;
     }
 
-    public Aluno getAluno() {
-        return aluno;
+    public void setProfessorTcc(Professor professorTcc) {
+        this.professorTcc = professorTcc;
     }
 
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
+    public EstadoTccENUM getEstadoTccENUM() {
+        return estadoTccENUM;
     }
 
-    public Professor getOrientador() {
-        return orientador;
+    public void setEstadoTccENUM(EstadoTccENUM estadoTccENUM) {
+        this.estadoTccENUM = estadoTccENUM;
     }
 
-    public void setOrientador(Professor orientador) {
-        this.orientador = orientador;
+    public ApresentacaoTCC getApresentacao() {
+        return apresentacao;
     }
 
-    public Professor getProfessorTCC() {
-        return professorTCC;
+    public void setApresentacao(ApresentacaoTCC apresentacao) {
+        this.apresentacao = apresentacao;
     }
 
-    public void setProfessorTCC(Professor professorTCC) {
-        this.professorTCC = professorTCC;
+    public ArquivoTramitacao getArquivoTramitacao() {
+        return arquivoTramitacao;
     }
 
-    public LocalDate getDataApresentacao() {
-        return dataApresentacao;
+    public void setArquivoTramitacao(ArquivoTramitacao arquivoTramitacao) {
+        this.arquivoTramitacao = arquivoTramitacao;
     }
 
-    public void setDataApresentacao(LocalDate dataApresentacao) {
-        this.dataApresentacao = dataApresentacao;
-    }
-
-    public float getNota() {
+    public Float getNota() {
         return nota;
     }
 
-    public void setNota(float nota) {
+    public void setNota(Float nota) {
         this.nota = nota;
     }
+
+    public List<MovimentacaoTCC> getMovimentacoes() {
+        return movimentacoes;
+    }
+
+    public void setMovimentacoes(List<MovimentacaoTCC> movimentacoes) {
+        this.movimentacoes = movimentacoes;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof TCCI)) {
+            return false;
+        }
+        TCCI other = (TCCI) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return termoCompromisso.getTema();
+    }
     
+    public void adicionarMovimentacao(MovimentacaoTCC movimentacao){
+        this.movimentacoes.add(new MovimentacaoTCC());
+    }
     
+    public void removerMovimentacao(MovimentacaoTCC movimentacao){
+        this.movimentacoes.remove(movimentacao);
+    }
+    
+    public void finalizarTcc(Float nota){
+        this.estadoTccENUM = EstadoTccENUM.FINALIZADO;
+        this.nota = nota;
+    }
     
 }

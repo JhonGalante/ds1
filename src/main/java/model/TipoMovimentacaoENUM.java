@@ -7,11 +7,11 @@ package model;
 
 /**
  *
- * @author jhona
+ * @author Ygor
  */
 public enum TipoMovimentacaoENUM {
-    TERMO_COMPROMISSO, 
-    ENTREGA, 
+    TERMO_COMPROMISSO,
+    ENTREGA,
     CONSULTA,
-    APRESENTACAO;
+    APRESENTACAO
 }

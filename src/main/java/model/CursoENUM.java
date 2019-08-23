@@ -7,8 +7,11 @@ package model;
 
 /**
  *
- * @author Windows 10
+ * @author Ygor
  */
 public enum CursoENUM {
-    ADMINISTRACAO, ENG_PRODUCAO, MATEMATICA, SIS_INFORMACAO;
+    ADMINISTRACAO,
+    ENGENHARIA_PRODUCAO,
+    LICENCIATURA_MATEMATICA,
+    SISTEMAS_INFORMACAO
 }

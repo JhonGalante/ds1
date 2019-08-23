@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -18,47 +17,25 @@ import javax.validation.constraints.NotNull;
  * @author Ygor
  */
 @Entity
-public class Aluno implements Serializable {
+public class ArquivoMovimentacao implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
-    private String nome;
-    @NotNull
-    @OneToOne
-    private Usuario usuario;
-    @NotNull
-    @OneToOne
-    private CursoENUM curso;
+    private Byte[] binario;
 
     public Long getId() {
         return id;
     }
 
-    public String getNome() {
-        return nome;
+    public Byte[] getBinario() {
+        return binario;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public CursoENUM getCurso() {
-        return curso;
-    }
-
-    public void setCurso(CursoENUM curso) {
-        this.curso = curso;
+    public void setBinario(Byte[] binario) {
+        this.binario = binario;
     }
 
     @Override
@@ -71,10 +48,10 @@ public class Aluno implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Aluno)) {
+        if (!(object instanceof ArquivoMovimentacao)) {
             return false;
         }
-        Aluno other = (Aluno) object;
+        ArquivoMovimentacao other = (ArquivoMovimentacao) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -83,7 +60,7 @@ public class Aluno implements Serializable {
 
     @Override
     public String toString() {
-        return nome;
+        return id.toString();
     }
     
 }

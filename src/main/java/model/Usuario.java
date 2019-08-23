@@ -5,42 +5,44 @@
  */
 package model;
 
-
 import java.io.Serializable;
-import javax.faces.bean.ManagedBean;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author jhona
+ * @author Ygor
  */
-@ManagedBean
-public class Usuario implements Serializable{
-    
+@Entity
+public class Usuario implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     @NotNull
-    private String login;
+    private String matricula;
     @NotNull
     private String senha;
-    @NotNull
     private String email;
     @NotNull
-    private TipoUsuarioENUM tipoUsuario;
+    @OneToOne
+    private TipoUsuarioENUM tipoUsuarioENUM;
 
-    
-    @Override
-    public String toString() {
-        return this.login;
-    }
-    
-    public String getUsuario() {
-        return login;
+    public Long getId() {
+        return id;
     }
 
-    public void setUsuario(String usuario) {
-        this.login = usuario;
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
     }
 
     public String getSenha() {
@@ -51,16 +53,45 @@ public class Usuario implements Serializable{
         this.senha = senha;
     }
 
-    public TipoUsuarioENUM getTipoUsuario() {
-        return tipoUsuario;
+    public String getEmail() {
+        return email;
     }
 
-    public void setTipoUsuario(TipoUsuarioENUM tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public long getId() {
-        return id;
+    public TipoUsuarioENUM getTipoUsuarioENUM() {
+        return tipoUsuarioENUM;
+    }
+
+    public void setTipoUsuarioENUM(TipoUsuarioENUM tipoUsuarioENUM) {
+        this.tipoUsuarioENUM = tipoUsuarioENUM;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Usuario)) {
+            return false;
+        }
+        Usuario other = (Usuario) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return matricula;
     }
     
 }
