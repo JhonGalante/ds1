@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import model.MovimentacaoTCCII;
 
 /**
  *
@@ -24,24 +25,24 @@ public class MovimentacaoTCCIIDAO implements InterfaceDAO{
 
     @Override
     public void incluir(Object objeto) throws Exception {
-        MovimentacaoTCCIIDAO movimentacaoTCCII = (MovimentacaoTCCIIDAO) objeto;
+        MovimentacaoTCCII movimentacaoTCCII = (MovimentacaoTCCII) objeto;
         em.persist(movimentacaoTCCII);
     }
 
     @Override
     public void alterar(Object objeto) throws Exception {
-        MovimentacaoTCCIIDAO movimentacaoTCCII = (MovimentacaoTCCIIDAO) objeto;
+        MovimentacaoTCCII movimentacaoTCCII = (MovimentacaoTCCII) objeto;
         em.merge(movimentacaoTCCII);
     }
 
     @Override
     public void excluir(Object objeto) throws Exception {
-        MovimentacaoTCCIIDAO movimentacaoTCCII = (MovimentacaoTCCIIDAO) objeto;
+        MovimentacaoTCCII movimentacaoTCCII = (MovimentacaoTCCII) objeto;
         em.remove(movimentacaoTCCII);
     }
 
     @Override
-    public List<Object> listar() throws Exception {
+    public List<MovimentacaoTCCII> listar() throws Exception {
         Query q = em.createQuery("select m from MovimentacaoTCCII m order by m.id");
         return q.getResultList();
     }

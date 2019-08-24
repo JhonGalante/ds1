@@ -42,7 +42,7 @@ public class ArquivoAprovacaoDAO implements InterfaceDAO{
     }
 
     @Override
-    public List<Object> listar() throws Exception {
+    public List<ArquivoAprovacao> listar() throws Exception {
         Query q = em.createQuery("select ar from ArquivoAprovacao ar order by ar.id");
         return q.getResultList();
     }

@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import model.ArquivoMovimentacao;
 
 /**
  *
@@ -24,24 +25,24 @@ public class ArquivoMovimentacaoDAO implements InterfaceDAO{
 
     @Override
     public void incluir(Object objeto) throws Exception {
-        ArquivoMovimentacaoDAO arquivoMovimentacao = (ArquivoMovimentacaoDAO) objeto;
+        ArquivoMovimentacao arquivoMovimentacao = (ArquivoMovimentacao) objeto;
         em.persist(arquivoMovimentacao);
     }
 
     @Override
     public void alterar(Object objeto) throws Exception {
-        ArquivoMovimentacaoDAO arquivoMovimentacao = (ArquivoMovimentacaoDAO) objeto;
+        ArquivoMovimentacao arquivoMovimentacao = (ArquivoMovimentacao) objeto;
         em.merge(arquivoMovimentacao);
     }
 
     @Override
     public void excluir(Object objeto) throws Exception {
-        ArquivoMovimentacaoDAO arquivoMovimentacao = (ArquivoMovimentacaoDAO) objeto;
+        ArquivoMovimentacao arquivoMovimentacao = (ArquivoMovimentacao) objeto;
         em.remove(arquivoMovimentacao);
     }
 
     @Override
-    public List<Object> listar() throws Exception {
+    public List<ArquivoMovimentacao> listar() throws Exception {
         Query q = em.createQuery("select ar from ArquivoMovimentacao ar order by ar.id");
         return q.getResultList();
     }

@@ -42,7 +42,7 @@ public class UsuarioDAO implements InterfaceDAO{
     }
 
     @Override
-    public List<Object> listar() throws Exception {
+    public List<Usuario> listar() throws Exception {
         Query q = em.createQuery("select u from Usuario u order by u.nome");
         return q.getResultList();
     }

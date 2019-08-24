@@ -42,7 +42,7 @@ public class TermoCompromissoDAO implements InterfaceDAO{
     }
 
     @Override
-    public List<Object> listar() throws Exception {
+    public List<TermoCompromisso> listar() throws Exception {
         Query q = em.createQuery("select t from TermoCompromisso t order by t.id");
         return q.getResultList();
     }

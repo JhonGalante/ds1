@@ -42,7 +42,7 @@ public class TCCIDAO implements InterfaceDAO{
     }
 
     @Override
-    public List<Object> listar() throws Exception {
+    public List<TCCI> listar() throws Exception {
         Query q = em.createQuery("select t from TCCI t order by t.id");
         return q.getResultList();
     }

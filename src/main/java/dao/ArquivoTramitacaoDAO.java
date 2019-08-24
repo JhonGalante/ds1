@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import model.ArquivoTramitacao;
 
 /**
  *
@@ -24,24 +25,24 @@ public class ArquivoTramitacaoDAO implements InterfaceDAO{
 
     @Override
     public void incluir(Object objeto) throws Exception {
-        ArquivoTramitacaoDAO arquivoTramitacao = (ArquivoTramitacaoDAO) objeto;
+        ArquivoTramitacao arquivoTramitacao = (ArquivoTramitacao) objeto;
         em.persist(arquivoTramitacao);
     }
 
     @Override
     public void alterar(Object objeto) throws Exception {
-        ArquivoTramitacaoDAO arquivoTramitacao = (ArquivoTramitacaoDAO) objeto;
+        ArquivoTramitacao arquivoTramitacao = (ArquivoTramitacao) objeto;
         em.merge(arquivoTramitacao);
     }
 
     @Override
     public void excluir(Object objeto) throws Exception {
-        ArquivoTramitacaoDAO arquivoTramitacao = (ArquivoTramitacaoDAO) objeto;
+        ArquivoTramitacao arquivoTramitacao = (ArquivoTramitacao) objeto;
         em.remove(arquivoTramitacao);
     }
 
     @Override
-    public List<Object> listar() throws Exception {
+    public List<ArquivoTramitacao> listar() throws Exception {
         Query q = em.createQuery("select ar from ArquivoTramitacao ar order by ar.id");
         return q.getResultList();
     }

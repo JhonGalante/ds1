@@ -15,5 +15,5 @@ public interface InterfaceDAO {
     public void incluir(Object objeto) throws Exception;
     public void alterar(Object objeto) throws Exception;
     public void excluir(Object objeto) throws Exception;
-    public List<Object> listar() throws Exception;
+    public List listar() throws Exception;
 }

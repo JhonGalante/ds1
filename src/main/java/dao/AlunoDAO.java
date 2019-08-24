@@ -42,7 +42,7 @@ public class AlunoDAO implements InterfaceDAO{
     }
 
     @Override
-    public List<Object> listar() throws Exception {
+    public List<Aluno> listar() throws Exception {
         Query q = em.createQuery("select a from Aluno a order by a.usuario.nome");
         return q.getResultList();
     }
