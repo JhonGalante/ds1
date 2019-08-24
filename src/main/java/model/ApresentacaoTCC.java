@@ -20,7 +20,8 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 public class ApresentacaoTCC implements Serializable {
-
+    
+    //Atributos
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,6 +31,8 @@ public class ApresentacaoTCC implements Serializable {
     @NotNull
     private List<String> professoresBanca;
 
+    
+    //Métodos
     public Long getId() {
         return id;
     }

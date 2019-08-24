@@ -7,7 +7,9 @@ package model;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,25 +25,35 @@ import javax.validation.constraints.NotNull;
 public class TCCI implements Serializable{
 
     private static final long serialVersionUID = 1L;
+    
+    //Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
     @NotNull
     @OneToOne
     private TermoCompromisso termoCompromisso;
+    
     @NotNull
     @OneToOne
     private Professor professorTcc;
+    
     @NotNull
     private EstadoTccENUM estadoTccENUM;
+    
     @OneToOne
     private ApresentacaoTCC apresentacao;
+    
     @OneToOne
     private ArquivoTramitacao arquivoTramitacao;
+    
     private Float nota;
-    @OneToMany
-    private List<MovimentacaoTCC> movimentacoes;
+    
+    @OneToMany(mappedBy = "TCCI", targetEntity = MovimentacaoTCCI.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<MovimentacaoTCCI> movimentacoesTCCI;
 
+    //Métodos
     public Long getId() {
         return id;
     }
@@ -94,12 +106,12 @@ public class TCCI implements Serializable{
         this.nota = nota;
     }
 
-    public List<MovimentacaoTCC> getMovimentacoes() {
-        return movimentacoes;
+    public List<MovimentacaoTCCI> getMovimentacoes() {
+        return movimentacoesTCCI;
     }
 
-    public void setMovimentacoes(List<MovimentacaoTCC> movimentacoes) {
-        this.movimentacoes = movimentacoes;
+    public void setMovimentacoes(List<MovimentacaoTCCI> movimentacoes) {
+        this.movimentacoesTCCI = movimentacoes;
     }
 
     @Override
@@ -127,12 +139,12 @@ public class TCCI implements Serializable{
         return termoCompromisso.getTema();
     }
     
-    public void adicionarMovimentacao(MovimentacaoTCC movimentacao){
-        this.movimentacoes.add(new MovimentacaoTCC());
+    public void adicionarMovimentacao(MovimentacaoTCCI movimentacao){
+        this.movimentacoesTCCI.add(new MovimentacaoTCCI());
     }
     
-    public void removerMovimentacao(MovimentacaoTCC movimentacao){
-        this.movimentacoes.remove(movimentacao);
+    public void removerMovimentacao(MovimentacaoTCCI movimentacao){
+        this.movimentacoesTCCI.remove(movimentacao);
     }
     
     public void finalizarTcc(Float nota){

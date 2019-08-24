@@ -20,7 +20,8 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 public class TermoCompromisso implements Serializable {  //substitui o "SolicitacaoOrientador"
-
+    
+    //Atributos
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,7 +40,9 @@ public class TermoCompromisso implements Serializable {  //substitui o "Solicita
     private LocalDateTime dataHoraSolicitacao;
     @NotNull
     private Boolean aceito;  // aceito pelo professor == true, recursado pelo professor == false
-
+    
+    
+    //Métodos
     public Long getId() {
         return id;
     }
@@ -114,7 +117,7 @@ public class TermoCompromisso implements Serializable {  //substitui o "Solicita
 
     @Override
     public String toString() {
-        return aluno.getNome();
+        return aluno.getUsuario().getNome();
     }
     
 }

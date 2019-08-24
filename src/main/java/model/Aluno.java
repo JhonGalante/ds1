@@ -19,13 +19,12 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 public class Aluno implements Serializable {
-
+    
+    //Atributos
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NotNull
-    private String nome;
     @NotNull
     @OneToOne
     private Usuario usuario;
@@ -33,16 +32,10 @@ public class Aluno implements Serializable {
     @OneToOne
     private CursoENUM curso;
 
+    
+    //Métodos
     public Long getId() {
         return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public Usuario getUsuario() {
@@ -83,7 +76,7 @@ public class Aluno implements Serializable {
 
     @Override
     public String toString() {
-        return nome;
+        return usuario.getNome();
     }
     
 }

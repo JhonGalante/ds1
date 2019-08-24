@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
@@ -18,11 +20,17 @@ import javax.validation.constraints.NotNull;
  * @author Ygor
  */
 @Entity
-public class MovimentacaoTCC implements Serializable {
+public class MovimentacaoTCCII implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @NotNull
     private LocalDateTime dataHora;
+    @NotNull
+    @OneToOne
+    private TCCII tccII;
     @NotNull
     @OneToOne
     private TipoMovimentacaoENUM tipoMovimentacaoENUM;
@@ -30,8 +38,20 @@ public class MovimentacaoTCC implements Serializable {
     private ArquivoMovimentacao arquivoMovimentacao;
     private String comentario;
 
+    public Long getId() {
+        return id;
+    }
+
     public LocalDateTime getDataHora() {
         return dataHora;
+    }
+
+    public TCCII getTccII() {
+        return tccII;
+    }
+
+    public void setTccII(TCCII tccII) {
+        this.tccII = tccII;
     }
 
     public TipoMovimentacaoENUM getTipoMovimentacaoENUM() {
@@ -61,7 +81,7 @@ public class MovimentacaoTCC implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.dataHora);
+        hash = 19 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -76,13 +96,12 @@ public class MovimentacaoTCC implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final MovimentacaoTCC other = (MovimentacaoTCC) obj;
-        if (!Objects.equals(this.dataHora, other.dataHora)) {
+        final MovimentacaoTCCII other = (MovimentacaoTCCII) obj;
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
-
 
     @Override
     public String toString() {

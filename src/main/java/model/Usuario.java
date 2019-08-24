@@ -19,7 +19,8 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 public class Usuario implements Serializable {
-
+    
+    //Atributos
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,11 +31,22 @@ public class Usuario implements Serializable {
     private String senha;
     private String email;
     @NotNull
+    private String nome;
+    @NotNull
     @OneToOne
     private TipoUsuarioENUM tipoUsuarioENUM;
-
+    
+    //Métodos
     public Long getId() {
         return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getMatricula() {

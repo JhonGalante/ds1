@@ -18,14 +18,17 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 public class ArquivoTramitacao implements Serializable {
-
+    
+    //Atributos
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
     private Byte[] binario;
-
+    
+    
+    //Métodos
     public Long getId() {
         return id;
     }

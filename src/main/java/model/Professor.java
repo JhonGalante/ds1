@@ -19,27 +19,20 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 public class Professor implements Serializable {
-
+    
+    //Atributos
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
-    private String nome;
-    @NotNull
     @OneToOne
     private Usuario usuario;
-
+    
+    
+    //Métodos
     public Long getId() {
         return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public Usuario getUsuario() {
@@ -72,7 +65,7 @@ public class Professor implements Serializable {
 
     @Override
     public String toString() {
-        return nome;
+        return usuario.getNome();
     }
     
 }

@@ -7,7 +7,9 @@ package model;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,32 +23,45 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 public class TCCII implements Serializable {
-
+    
+    //Atributos
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
     @NotNull
     @OneToOne
     private TermoCompromisso termoCompromisso;
+    
     @NotNull
     @OneToOne
     private TCCI tccI;
+    
     @NotNull
     @OneToOne
     private Professor professorTcc;
+    
     @NotNull
     private EstadoTccENUM estadoTccENUM;
+    
     @OneToOne
     private ApresentacaoTCC apresentacao;
+    
     @OneToOne
     private ArquivoTramitacao arquivoTramitacao;
+    
     @OneToOne
     private ArquivoAprovacao arquivoAprovacao;
+    
     private Float nota;
-    @OneToMany
-    private List<MovimentacaoTCC> movimentacoes;
-
+    
+    @OneToMany(mappedBy = "TCCII", targetEntity = MovimentacaoTCCII.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<MovimentacaoTCCI> movimentacoesTCCII;
+    
+    
+    //Métodos
     public Long getId() {
         return id;
     }
@@ -115,12 +130,12 @@ public class TCCII implements Serializable {
         this.nota = nota;
     }
 
-    public List<MovimentacaoTCC> getMovimentacoes() {
-        return movimentacoes;
+    public List<MovimentacaoTCCI> getMovimentacoes() {
+        return movimentacoesTCCII;
     }
 
-    public void setMovimentacoes(List<MovimentacaoTCC> movimentacoes) {
-        this.movimentacoes = movimentacoes;
+    public void setMovimentacoes(List<MovimentacaoTCCI> movimentacoes) {
+        this.movimentacoesTCCII = movimentacoes;
     }
 
     @Override
@@ -148,12 +163,12 @@ public class TCCII implements Serializable {
         return termoCompromisso.getTema();
     }
     
-    public void adicionarMovimentacao(MovimentacaoTCC movimentacao){
-        this.movimentacoes.add(new MovimentacaoTCC());
+    public void adicionarMovimentacao(MovimentacaoTCCI movimentacao){
+        this.movimentacoesTCCII.add(new MovimentacaoTCCI());
     }
     
-    public void removerMovimentacao(MovimentacaoTCC movimentacao){
-        this.movimentacoes.remove(movimentacao);
+    public void removerMovimentacao(MovimentacaoTCCI movimentacao){
+        this.movimentacoesTCCII.remove(movimentacao);
     }
     
     public void finalizarTcc(Float nota){
