@@ -46,5 +46,11 @@ public class UsuarioDAO implements InterfaceDAO{
         Query q = em.createQuery("select u from Usuario u order by u.nome");
         return q.getResultList();
     }
+    
+    public Usuario buscarMatricula(String matricula) {
+        Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.matricula = :matricula");
+        Usuario usuario = (Usuario) q.getSingleResult();
+        return usuario;
+    }
 
 }

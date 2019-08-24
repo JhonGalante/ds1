@@ -57,8 +57,8 @@ public class TCCII implements Serializable {
     
     private Float nota;
     
-    @OneToMany(mappedBy = "TCCII", targetEntity = MovimentacaoTCCII.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<MovimentacaoTCCI> movimentacoesTCCII;
+    @OneToMany(mappedBy = "tccII", targetEntity = MovimentacaoTCCII.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<MovimentacaoTCCII> movimentacoesTCCII;
     
     
     //Métodos
@@ -130,11 +130,11 @@ public class TCCII implements Serializable {
         this.nota = nota;
     }
 
-    public List<MovimentacaoTCCI> getMovimentacoes() {
+    public List<MovimentacaoTCCII> getMovimentacoes() {
         return movimentacoesTCCII;
     }
 
-    public void setMovimentacoes(List<MovimentacaoTCCI> movimentacoes) {
+    public void setMovimentacoes(List<MovimentacaoTCCII> movimentacoes) {
         this.movimentacoesTCCII = movimentacoes;
     }
 
@@ -161,14 +161,6 @@ public class TCCII implements Serializable {
     @Override
     public String toString() {
         return termoCompromisso.getTema();
-    }
-    
-    public void adicionarMovimentacao(MovimentacaoTCCI movimentacao){
-        this.movimentacoesTCCII.add(new MovimentacaoTCCI());
-    }
-    
-    public void removerMovimentacao(MovimentacaoTCCI movimentacao){
-        this.movimentacoesTCCII.remove(movimentacao);
     }
     
     public void finalizarTcc(Float nota){

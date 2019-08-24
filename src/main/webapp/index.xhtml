@@ -7,23 +7,18 @@
     <h:head>
         <title>Login</title>
     </h:head>
-
-    <f:metadata>
-        <f:event type="preRenderView" listener="#{loginBean.logout()}"/>
-    </f:metadata>
-    <p:growl showDetail="true"/>
     <h:body>
         <h:graphicImage library="images" name="logo.png"/>
         <p:panel>            
             <h:form>
                 <h:panelGrid columns="2" cellpadding="5">      
                     <h:outputLabel value="Login " for="login" />
-                    <p:inputText id="login" value="#{loginBean.matricula}" />
+                    <p:inputText id="login" value="#{guiLogin.matricula}" />
 
                     <h:outputLabel value="Senha " for="senha"/>
-                    <p:password id="senha" value="#{loginBean.senha}"/>                  
+                    <p:password id="senha" value="#{guiLogin.senha}"/>                  
                 </h:panelGrid>
-                <p:commandButton value="Entrar no sistema" id="logar" ajax="false" action="#{loginBean.logar()}"/>
+                <p:commandButton value="Entrar no sistema" id="logar" ajax="false" action="#{guiLogin.logar()}"/>
             </h:form>
         </p:panel>
     </h:body>

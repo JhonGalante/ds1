@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
@@ -29,11 +30,9 @@ public class MovimentacaoTCCI implements Serializable {
     private Long id;
     @NotNull
     private LocalDateTime dataHora;
-    @NotNull
-    @OneToOne
+    @ManyToOne
     private TCCI tccI;
     @NotNull
-    @OneToOne
     private TipoMovimentacaoENUM tipoMovimentacaoENUM;
     @OneToOne
     private ArquivoMovimentacao arquivoMovimentacao;

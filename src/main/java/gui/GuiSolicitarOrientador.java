@@ -23,7 +23,9 @@ import model.TermoCompromisso;
 @Named(value = "guiSolicitarOrientador")
 @SessionScoped
 public class GuiSolicitarOrientador {
+    /*
     private List<Professor> professoresOrientadores;
+    private List<TermoCompromisso> termosCompromisso;
     private Professor professorOrientador;
     private TermoCompromisso termoCompromiso;
     
@@ -40,9 +42,24 @@ public class GuiSolicitarOrientador {
     public String iniciarListaProfessores(){
         try {
             professoresOrientadores = professorDAO.listar();
-        } catch(Exception ex){
+        } catch(Exception ex) {
             Logger.getLogger(GuiSolicitarOrientador.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "ListaProfessores";
+        return "SolicitacaoOrientador";
     }
+    
+    public String novaSolicitacao(){
+        try {
+            termosCompromisso = termoCompromissoDAO.listar();
+        } catch(Exception ex) {
+            Logger.getLogger(GuiSolicitarOrientador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for(TermoCompromisso t : termosCompromisso){
+
+        }
+        termoCompromiso = new TermoCompromisso();
+        return null;
+    }
+    
+    */
 }

@@ -50,7 +50,7 @@ public class TCCI implements Serializable{
     
     private Float nota;
     
-    @OneToMany(mappedBy = "TCCI", targetEntity = MovimentacaoTCCI.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tccI", targetEntity = MovimentacaoTCCI.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<MovimentacaoTCCI> movimentacoesTCCI;
 
     //Métodos
@@ -137,14 +137,6 @@ public class TCCI implements Serializable{
     @Override
     public String toString() {
         return termoCompromisso.getTema();
-    }
-    
-    public void adicionarMovimentacao(MovimentacaoTCCI movimentacao){
-        this.movimentacoesTCCI.add(new MovimentacaoTCCI());
-    }
-    
-    public void removerMovimentacao(MovimentacaoTCCI movimentacao){
-        this.movimentacoesTCCI.remove(movimentacao);
     }
     
     public void finalizarTcc(Float nota){

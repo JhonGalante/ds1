@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import model.Aluno;
+import model.Usuario;
 
 /**
  *
@@ -45,6 +46,12 @@ public class AlunoDAO implements InterfaceDAO{
     public List<Aluno> listar() throws Exception {
         Query q = em.createQuery("select a from Aluno a order by a.usuario.nome");
         return q.getResultList();
+    }
+    
+    public Aluno buscarMatricula(String matricula) {
+        Query q = em.createQuery("SELECT a FROM Aluno a WHERE a.usuario.matricula = :matricula");
+        Aluno aluno = (Aluno) q.getSingleResult();
+        return aluno;
     }
 
 }

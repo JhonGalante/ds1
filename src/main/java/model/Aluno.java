@@ -29,7 +29,6 @@ public class Aluno implements Serializable {
     @OneToOne
     private Usuario usuario;
     @NotNull
-    @OneToOne
     private CursoENUM curso;
 
     
