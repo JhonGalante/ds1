@@ -43,7 +43,7 @@ public class ProfessorDAO implements InterfaceDAO{
 
     @Override
     public List<Object> listar() throws Exception {
-        Query q = em.createQuery("select ap from Professor");
+        Query q = em.createQuery("select p from Professor p order by p.usuario.nome");
         return q.getResultList();
     }
 
