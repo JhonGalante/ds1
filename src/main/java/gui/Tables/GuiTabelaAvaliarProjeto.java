@@ -26,7 +26,7 @@ import model.TccFinal;
 @ManagedBean
 @ViewScoped
 @SessionScoped
-public class TabelaAvaliarProjetoBean implements Serializable{
+public class GuiTabelaAvaliarProjeto implements Serializable{
     
     @EJB
     TccFinalDao daoTccFinal;

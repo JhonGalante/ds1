@@ -23,7 +23,7 @@ import model.TccFinal;
  */
 @ManagedBean
 @ViewScoped
-public class tabelaDefinirApresentacao implements Serializable {
+public class GuiTabelaDefinirApresentacao implements Serializable {
 
     /**
      * Creates a new instance of tabelaDefinirApresentacao
@@ -37,7 +37,7 @@ public class tabelaDefinirApresentacao implements Serializable {
     private Date data;
     private final TccFinal tcc;
     
-    public tabelaDefinirApresentacao() {
+    public GuiTabelaDefinirApresentacao() {
         tcc = new TccFinal();
     }
     

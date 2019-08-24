@@ -29,7 +29,7 @@ import org.primefaces.model.StreamedContent;
 @ManagedBean
 @ViewScoped
 @SessionScoped
-public class TabelaTccsBean implements Serializable {
+public class GuiTabelaTccs implements Serializable {
 
     @EJB
     private MovimentacaoDao daoMovimentacao;
@@ -68,7 +68,7 @@ public class TabelaTccsBean implements Serializable {
         
     }
 
-    public TabelaTccsBean() {
+    public GuiTabelaTccs() {
     }
 
     public List<Movimentacao> getMovimentacoesAluno() {

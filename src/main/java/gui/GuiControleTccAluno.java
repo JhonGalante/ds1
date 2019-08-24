@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beans;
+package gui;
 
 import dao.MovimentacaoDao;
 import java.io.ByteArrayInputStream;
@@ -29,7 +29,7 @@ import org.primefaces.model.StreamedContent;
  */
 @Named(value = "controleTccAluno")
 @SessionScoped
-public class ControleTccAluno implements Serializable {
+public class GuiControleTccAluno implements Serializable {
 
     @EJB
     private MovimentacaoDao daoMovimentacaoDao;
@@ -67,7 +67,7 @@ public class ControleTccAluno implements Serializable {
     
    
     
-    public ControleTccAluno() {
+    public GuiControleTccAluno() {
     }
 
     public List<Movimentacao> getMovimentacoesAluno() {

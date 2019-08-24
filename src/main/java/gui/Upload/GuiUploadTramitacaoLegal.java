@@ -19,7 +19,7 @@ import org.primefaces.model.UploadedFile;
  */
 
 @ManagedBean (name = "uploadTramitacaoLegal")
-public class UploadTramitacaoLegal {
+public class GuiUploadTramitacaoLegal {
     @EJB
     private ArquivoTramitacaoDao tramitacaoDao;
     

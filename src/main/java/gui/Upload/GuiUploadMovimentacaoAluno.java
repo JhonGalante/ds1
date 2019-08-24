@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beans;
+package gui.Upload;
 
 import controller.TccInicioController;
 import dao.MovimentacaoDao;
@@ -31,7 +31,7 @@ import org.primefaces.model.UploadedFile;
  */
 @Named(value = "uploadMovimentacaoAlunoBean")
 @SessionScoped
-public class UploadMovimentacaoAlunoBean implements Serializable {
+public class GuiUploadMovimentacaoAluno implements Serializable {
 
     @EJB
     private MovimentacaoDao daoMovimentacao;
@@ -82,7 +82,7 @@ public class UploadMovimentacaoAlunoBean implements Serializable {
     }
     
     
-    public UploadMovimentacaoAlunoBean() {
+    public GuiUploadMovimentacaoAluno() {
     }
 
     public Movimentacao getMovimentacao() {

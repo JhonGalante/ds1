@@ -28,7 +28,7 @@ import model.Usuario;
  */
 @ManagedBean
 @ViewScoped
-public class TabelaAcompanharTccBean implements Serializable{
+public class GuiTabelaAcompanharTcc implements Serializable{
     
     @EJB
     TccInicioDao daoTccInicio; // Ygor: Confirmar se realmente será a classe início, uma vez que o tcc final terá movimentações também

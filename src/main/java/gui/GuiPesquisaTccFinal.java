@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beans;
+package gui;
 
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
@@ -16,6 +16,6 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean(name="dtFilterView")
 @ViewScoped
-public class PesqusaTccFinal implements Serializable{
+public class GuiPesquisaTccFinal implements Serializable{
     
 }

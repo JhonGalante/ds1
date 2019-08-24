@@ -22,7 +22,7 @@ import model.Usuario;
  */
 @ManagedBean
 @ViewScoped
-public class TabelaSelecionarOrientadorBean implements Serializable {
+public class GuiTabelaSelecionarOrientador implements Serializable {
 
     @EJB
     ProfessorDao daoProfessor;

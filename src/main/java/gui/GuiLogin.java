@@ -26,7 +26,7 @@ import model.Usuario;
  */
 @SessionScoped
 @ManagedBean
-public class LoginBean implements Serializable {
+public class GuiLogin implements Serializable {
 
     @EJB
     AlunoDao daoAluno;

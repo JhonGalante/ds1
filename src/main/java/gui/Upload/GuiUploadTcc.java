@@ -23,7 +23,7 @@ import org.primefaces.model.UploadedFile;
  * @author Jardelmc
  */
 @ManagedBean
-public class UploadTccBean {
+public class GuiUploadTcc {
     
     @EJB
     MovimentacaoDao daoMovimentacao;

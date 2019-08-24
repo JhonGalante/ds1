@@ -26,7 +26,7 @@ import org.primefaces.model.UploadedFile;
  * @author Ygor
  */
 @ManagedBean
-public class DownloadTccBean {
+public class GuiDownloadTcc {
     
     @EJB
     MovimentacaoDao daoMovimentacao;
@@ -37,7 +37,7 @@ public class DownloadTccBean {
     
     private StreamedContent file;
      
-    public DownloadTccBean() {        
+    public GuiDownloadTcc() {        
     //    Ygor: Dúvida.
     //    InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/demo/images/boromir.jpg");
     //    file = new DefaultStreamedContent(stream, "image/jpg", "downloaded_boromir.jpg");

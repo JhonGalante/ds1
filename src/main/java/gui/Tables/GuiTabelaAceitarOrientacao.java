@@ -30,7 +30,7 @@ import model.Usuario;
 @ManagedBean
 @ViewScoped
 @SessionScoped
-public class TabelaAceitarOrientacaoBean implements Serializable{
+public class GuiTabelaAceitarOrientacao implements Serializable{
 
     @EJB
     SolicitacaoOrientadorDao daoSolicitarOrientador;

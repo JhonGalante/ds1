@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beans;
+package gui;
 
 import dao.TccFinalDao;
 import java.io.ByteArrayInputStream;
@@ -28,7 +28,7 @@ import org.primefaces.model.StreamedContent;
 @ManagedBean(name="dtFilterView")
 @ViewScoped
 @SessionScoped
-public class PesquisaBean implements Serializable{
+public class GuiPesquisa implements Serializable{
     
    @EJB
    TccFinalDao daoTccFinal;
