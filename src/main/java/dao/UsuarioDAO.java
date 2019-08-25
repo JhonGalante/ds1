@@ -14,7 +14,7 @@ import model.Usuario;
 
 /**
  *
- * @author ygor.daudt
+ * @author jhonata.galante
  */
 
 public class UsuarioDAO implements InterfaceDAO{

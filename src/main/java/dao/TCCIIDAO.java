@@ -6,18 +6,15 @@
 package dao;
 
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import model.TCCI;
 import model.TCCII;
 
 /**
  *
- * @author ygor.daudt
+ * @author jhonata.galante
  */
 
 public class TCCIIDAO implements InterfaceDAO{

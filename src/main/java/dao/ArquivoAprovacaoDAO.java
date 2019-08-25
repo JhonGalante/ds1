@@ -14,7 +14,7 @@ import model.ArquivoAprovacao;
 
 /**
  *
- * @author ygor.daudt
+ * @author jhonata.galante
  */
 
 public class ArquivoAprovacaoDAO implements InterfaceDAO{

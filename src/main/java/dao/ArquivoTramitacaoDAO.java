@@ -14,7 +14,7 @@ import model.ArquivoTramitacao;
 
 /**
  *
- * @author ygor.daudt
+ * @author jhonata.galante
  */
 
 public class ArquivoTramitacaoDAO implements InterfaceDAO{

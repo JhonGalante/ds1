@@ -6,21 +6,17 @@
 package dao;
 
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import model.TCCII;
 import model.TermoCompromisso;
 
 /**
  *
- * @author ygor.daudt
+ * @author jhonata.galante
  */
 
-@Stateless
 public class TermoCompromissoDAO implements InterfaceDAO{
     
     private static TermoCompromissoDAO instance;

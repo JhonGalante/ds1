@@ -10,12 +10,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import model.Professor;
 import model.TCCI;
 
 /**
  *
- * @author ygor.daudt
+ * @author jhonata.galante
  */
 
 public class TCCIDAO implements InterfaceDAO{

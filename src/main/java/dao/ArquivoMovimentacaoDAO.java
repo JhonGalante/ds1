@@ -14,7 +14,7 @@ import model.ArquivoMovimentacao;
 
 /**
  *
- * @author ygor.daudt
+ * @author jhonata.galante
  */
 
 public class ArquivoMovimentacaoDAO implements InterfaceDAO{

@@ -14,7 +14,7 @@ import model.MovimentacaoTCCI;
 
 /**
  *
- * @author ygor.daudt
+ * @author jhonata.galante
  */
 
 public class MovimentacaoTCCIDAO implements InterfaceDAO{

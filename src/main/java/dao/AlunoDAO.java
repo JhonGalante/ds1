@@ -15,7 +15,7 @@ import model.Usuario;
 
 /**
  *
- * @author ygor.daudt
+ * @author jhonata.galante
  */
 
 public class AlunoDAO implements InterfaceDAO{
