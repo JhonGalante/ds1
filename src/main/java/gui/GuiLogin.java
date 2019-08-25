@@ -6,6 +6,7 @@ import javax.ejb.EJB;
 import dao.UsuarioDAO;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import model.TipoUsuarioENUM;
 import model.Usuario;
 
@@ -32,7 +33,9 @@ public class GuiLogin {
         }
         
         if (usuario.getSenha().equals(senha)){
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", usuario.getMatricula());
+            //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", usuario.getMatricula());
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+            session.setAttribute("usuarioLogado", usuario);
             if (usuario.getTipoUsuarioENUM().equals(TipoUsuarioENUM.ALUNO)){
                 return "Aluno/home.xhtml";
             }
@@ -48,7 +51,9 @@ public class GuiLogin {
     }
     
     public String logout(){
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", null);
+        //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", null);
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        session.invalidate();
         return "index.xhtml";
     }
 
