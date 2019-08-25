@@ -6,9 +6,9 @@
 package dao;
 
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.ArquivoTramitacao;
 
@@ -17,28 +17,69 @@ import model.ArquivoTramitacao;
  * @author ygor.daudt
  */
 
-@Stateless
 public class ArquivoTramitacaoDAO implements InterfaceDAO{
     
-    @PersistenceContext
-    EntityManager em;
+    private static ArquivoTramitacaoDAO instance;
+    protected EntityManager em;
+    
+    //Singleton
+    public static ArquivoTramitacaoDAO getInstance(){
+        if(instance == null){
+            instance = new ArquivoTramitacaoDAO();
+        }
+        return instance;
+    }
+    
+    private ArquivoTramitacaoDAO(){
+        em = getEntityManager();
+    }
+    
+    private EntityManager getEntityManager(){
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("gestaotccPU");
+        if(em == null){
+            em = factory.createEntityManager();
+        }
+        return em;
+    }
 
     @Override
     public void incluir(Object objeto) throws Exception {
         ArquivoTramitacao arquivoTramitacao = (ArquivoTramitacao) objeto;
-        em.persist(arquivoTramitacao);
+        try{
+            em.getTransaction().begin();
+            em.persist(arquivoTramitacao);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override
     public void alterar(Object objeto) throws Exception {
         ArquivoTramitacao arquivoTramitacao = (ArquivoTramitacao) objeto;
-        em.merge(arquivoTramitacao);
+        try{
+            em.getTransaction().begin();
+            em.merge(arquivoTramitacao);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override
     public void excluir(Object objeto) throws Exception {
         ArquivoTramitacao arquivoTramitacao = (ArquivoTramitacao) objeto;
-        em.remove(arquivoTramitacao);
+        try{
+            em.getTransaction().begin();
+            ArquivoTramitacao arquivoTramitacaoRemover = em.find(ArquivoTramitacao.class, arquivoTramitacao.getId());
+            em.remove(arquivoTramitacaoRemover);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override

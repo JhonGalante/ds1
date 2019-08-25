@@ -6,9 +6,9 @@
 package dao;
 
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.ArquivoAprovacao;
 
@@ -17,28 +17,69 @@ import model.ArquivoAprovacao;
  * @author ygor.daudt
  */
 
-@Stateless
 public class ArquivoAprovacaoDAO implements InterfaceDAO{
     
-    @PersistenceContext
-    EntityManager em;
+    private static ArquivoAprovacaoDAO instance;
+    protected EntityManager em;
+    
+    //Singleton
+    public static ArquivoAprovacaoDAO getInstance(){
+        if(instance == null){
+            instance = new ArquivoAprovacaoDAO();
+        }
+        return instance;
+    }
+    
+    private ArquivoAprovacaoDAO(){
+        em = getEntityManager();
+    }
+    
+    private EntityManager getEntityManager(){
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("gestaotccPU");
+        if(em == null){
+            em = factory.createEntityManager();
+        }
+        return em;
+    }
 
     @Override
     public void incluir(Object objeto) throws Exception {
         ArquivoAprovacao arquivoAprovacao = (ArquivoAprovacao) objeto;
-        em.persist(arquivoAprovacao);
+        try{
+            em.getTransaction().begin();
+            em.persist(arquivoAprovacao);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override
     public void alterar(Object objeto) throws Exception {
         ArquivoAprovacao arquivoAprovacao = (ArquivoAprovacao) objeto;
-        em.merge(arquivoAprovacao);
+        try{
+            em.getTransaction().begin();
+            em.merge(arquivoAprovacao);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override
     public void excluir(Object objeto) throws Exception {
         ArquivoAprovacao arquivoAprovacao = (ArquivoAprovacao) objeto;
-        em.remove(arquivoAprovacao);
+        try{
+            em.getTransaction().begin();
+            ArquivoAprovacao arquivoExcluir = em.find(ArquivoAprovacao.class, arquivoAprovacao.getId());
+            em.remove(arquivoExcluir);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override

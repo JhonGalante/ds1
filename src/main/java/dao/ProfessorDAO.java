@@ -8,8 +8,11 @@ package dao;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import model.MovimentacaoTCCII;
 import model.Professor;
 
 /**
@@ -17,28 +20,69 @@ import model.Professor;
  * @author ygor.daudt
  */
 
-@Stateless
 public class ProfessorDAO implements InterfaceDAO{
     
-    @PersistenceContext
-    EntityManager em;
+    private static ProfessorDAO instance;
+    protected EntityManager em;
+    
+    //Singleton
+    public static ProfessorDAO getInstance(){
+        if(instance == null){
+            instance = new ProfessorDAO();
+        }
+        return instance;
+    }
+    
+    private ProfessorDAO(){
+        em = getEntityManager();
+    }
+    
+    private EntityManager getEntityManager(){
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("gestaotccPU");
+        if(em == null){
+            em = factory.createEntityManager();
+        }
+        return em;
+    }
 
     @Override
     public void incluir(Object objeto) throws Exception {
         Professor professor = (Professor) objeto;
-        em.persist(professor);
+        try{
+            em.getTransaction().begin();
+            em.persist(professor);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override
     public void alterar(Object objeto) throws Exception {
         Professor professor = (Professor) objeto;
-        em.merge(professor);
+        try{
+            em.getTransaction().begin();
+            em.merge(professor);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override
     public void excluir(Object objeto) throws Exception {
         Professor professor = (Professor) objeto;
-        em.remove(professor);
+        try{
+            em.getTransaction().begin();
+            Professor professorRemover = em.find(Professor.class, professor.getId());
+            em.remove(professorRemover);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override

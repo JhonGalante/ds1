@@ -6,10 +6,11 @@
 package dao;
 
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
+import model.Professor;
 import model.TCCI;
 
 /**
@@ -17,28 +18,69 @@ import model.TCCI;
  * @author ygor.daudt
  */
 
-@Stateless
 public class TCCIDAO implements InterfaceDAO{
     
-    @PersistenceContext
-    EntityManager em;
+    private static TCCIDAO instance;
+    protected EntityManager em;
+    
+    //Singleton
+    public static TCCIDAO getInstance(){
+        if(instance == null){
+            instance = new TCCIDAO();
+        }
+        return instance;
+    }
+    
+    private TCCIDAO(){
+        em = getEntityManager();
+    }
+    
+    private EntityManager getEntityManager(){
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("gestaotccPU");
+        if(em == null){
+            em = factory.createEntityManager();
+        }
+        return em;
+    }
 
     @Override
     public void incluir(Object objeto) throws Exception {
         TCCI tccI = (TCCI) objeto;
-        em.persist(tccI);
+        try{
+            em.getTransaction().begin();
+            em.persist(tccI);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override
     public void alterar(Object objeto) throws Exception {
         TCCI tccI = (TCCI) objeto;
-        em.merge(tccI);
+        try{
+            em.getTransaction().begin();
+            em.merge(tccI);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override
     public void excluir(Object objeto) throws Exception {
         TCCI tccI = (TCCI) objeto;
-        em.remove(tccI);
+        try{
+            em.getTransaction().begin();
+            TCCI tccIRemover = em.find(TCCI.class, tccI.getId());
+            em.remove(tccIRemover);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override

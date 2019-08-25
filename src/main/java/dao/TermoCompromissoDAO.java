@@ -8,8 +8,11 @@ package dao;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import model.TCCII;
 import model.TermoCompromisso;
 
 /**
@@ -20,25 +23,67 @@ import model.TermoCompromisso;
 @Stateless
 public class TermoCompromissoDAO implements InterfaceDAO{
     
-    @PersistenceContext
-    EntityManager em;
+    private static TermoCompromissoDAO instance;
+    protected EntityManager em;
+    
+    //Singleton
+    public static TermoCompromissoDAO getInstance(){
+        if(instance == null){
+            instance = new TermoCompromissoDAO();
+        }
+        return instance;
+    }
+    
+    private TermoCompromissoDAO(){
+        em = getEntityManager();
+    }
+    
+    private EntityManager getEntityManager(){
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("gestaotccPU");
+        if(em == null){
+            em = factory.createEntityManager();
+        }
+        return em;
+    }
 
     @Override
     public void incluir(Object objeto) throws Exception {
         TermoCompromisso termoCompromisso = (TermoCompromisso) objeto;
-        em.persist(termoCompromisso);
+        try{
+            em.getTransaction().begin();
+            em.persist(termoCompromisso);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override
     public void alterar(Object objeto) throws Exception {
         TermoCompromisso termoCompromisso = (TermoCompromisso) objeto;
-        em.merge(termoCompromisso);
+        try{
+            em.getTransaction().begin();
+            em.merge(termoCompromisso);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override
     public void excluir(Object objeto) throws Exception {
         TermoCompromisso termoCompromisso = (TermoCompromisso) objeto;
-        em.remove(termoCompromisso);
+        try{
+            em.getTransaction().begin();
+            TermoCompromisso termoCompromissoRemover = em.find(TermoCompromisso.class, termoCompromisso.getId());
+            em.remove(termoCompromissoRemover);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override

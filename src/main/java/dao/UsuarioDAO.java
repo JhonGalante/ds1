@@ -6,9 +6,9 @@
 package dao;
 
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.Usuario;
 
@@ -17,40 +17,75 @@ import model.Usuario;
  * @author ygor.daudt
  */
 
-@Stateless
 public class UsuarioDAO implements InterfaceDAO{
     
-    @PersistenceContext
-    EntityManager em;
+    private static UsuarioDAO instance;
+    protected EntityManager em;
+    
+    //Singleton
+    public static UsuarioDAO getInstance(){
+        if(instance == null){
+            instance = new UsuarioDAO();
+        }
+        return instance;
+    }
+    
+    private UsuarioDAO(){
+        em = getEntityManager();
+    }
+    
+    private EntityManager getEntityManager(){
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("gestaotccPU");
+        if(em == null){
+            em = factory.createEntityManager();
+        }
+        return em;
+    }
 
-    @Override
     public void incluir(Object objeto) throws Exception {
         Usuario usuario = (Usuario) objeto;
-        em.persist(usuario);
+       try{
+           em.getTransaction().begin();
+           em.persist(usuario);
+           em.getTransaction().commit();
+       }catch(Exception ex){
+           ex.printStackTrace();
+           em.getTransaction().rollback();
+       }
     }
 
-    @Override
     public void alterar(Object objeto) throws Exception {
         Usuario usuario = (Usuario) objeto;
-        em.merge(usuario);
+        try{
+           em.getTransaction().begin();
+           em.merge(usuario);
+           em.getTransaction().commit();
+       }catch(Exception ex){
+           ex.printStackTrace();
+           em.getTransaction().rollback();
+       }
     }
 
-    @Override
     public void excluir(Object objeto) throws Exception {
         Usuario usuario = (Usuario) objeto;
-        em.remove(usuario);
+        try{
+           em.getTransaction().begin();
+           Usuario usuarioRemover = em.find(Usuario.class, usuario.getMatricula());
+           em.remove(usuarioRemover);
+           em.getTransaction().commit();
+       }catch(Exception ex){
+           ex.printStackTrace();
+           em.getTransaction().rollback();
+       }
     }
 
-    @Override
     public List<Usuario> listar() throws Exception {
         Query q = em.createQuery("select u from Usuario u order by u.nome");
         return q.getResultList();
     }
     
     public Usuario buscarMatricula(String matricula) {
-        Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.matricula = :matricula");
-        Usuario usuario = (Usuario) q.getSingleResult();
-        return usuario;
+        return em.find(Usuario.class, matricula);
     }
 
 }

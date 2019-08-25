@@ -6,9 +6,9 @@
 package dao;
 
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.MovimentacaoTCCI;
 
@@ -17,28 +17,69 @@ import model.MovimentacaoTCCI;
  * @author ygor.daudt
  */
 
-@Stateless
 public class MovimentacaoTCCIDAO implements InterfaceDAO{
     
-    @PersistenceContext
-    EntityManager em;
+    private static MovimentacaoTCCIDAO instance;
+    protected EntityManager em;
+    
+    //Singleton
+    public static MovimentacaoTCCIDAO getInstance(){
+        if(instance == null){
+            instance = new MovimentacaoTCCIDAO();
+        }
+        return instance;
+    }
+    
+    private MovimentacaoTCCIDAO(){
+        em = getEntityManager();
+    }
+    
+    private EntityManager getEntityManager(){
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("gestaotccPU");
+        if(em == null){
+            em = factory.createEntityManager();
+        }
+        return em;
+    }
 
     @Override
     public void incluir(Object objeto) throws Exception {
         MovimentacaoTCCI movimentacaoTCCI = (MovimentacaoTCCI) objeto;
-        em.persist(movimentacaoTCCI);
+        try{
+            em.getTransaction().begin();
+            em.persist(movimentacaoTCCI);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override
     public void alterar(Object objeto) throws Exception {
         MovimentacaoTCCI movimentacaoTCCI = (MovimentacaoTCCI) objeto;
-        em.merge(movimentacaoTCCI);
+        try{
+            em.getTransaction().begin();
+            em.merge(movimentacaoTCCI);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override
     public void excluir(Object objeto) throws Exception {
         MovimentacaoTCCI movimentacaoTCCI = (MovimentacaoTCCI) objeto;
-        em.remove(movimentacaoTCCI);
+        try{
+            em.getTransaction().begin();
+            MovimentacaoTCCI movimentacaoTCCIRemover = em.find(MovimentacaoTCCI.class, movimentacaoTCCI.getId());
+            em.remove(movimentacaoTCCIRemover);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override

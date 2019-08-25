@@ -8,6 +8,8 @@ package dao;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import model.ApresentacaoTCC;
@@ -17,28 +19,70 @@ import model.ApresentacaoTCC;
  * @author ygor.daudt
  */
 
-@Stateless
 public class ApresentacaoTCCDAO implements InterfaceDAO{
     
-    @PersistenceContext
-    EntityManager em;
+    private static ApresentacaoTCCDAO instance;
+    protected EntityManager em;
+    
+    //Singleton
+    public static ApresentacaoTCCDAO getInstance(){
+        if(instance == null){
+            instance = new ApresentacaoTCCDAO();
+        }
+        return instance;
+    }
+    
+    private ApresentacaoTCCDAO(){
+        em = getEntityManager();
+    }
+    
+    private EntityManager getEntityManager(){
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("gestaotccPU");
+        if(em == null){
+            em = factory.createEntityManager();
+        }
+        return em;
+    }
 
     @Override
     public void incluir(Object objeto) throws Exception {
         ApresentacaoTCC apresentacaoTCC = (ApresentacaoTCC) objeto;
-        em.persist(apresentacaoTCC);
+        try{
+            em.getTransaction().begin();
+            em.persist(apresentacaoTCC);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+           ex.printStackTrace();
+           em.getTransaction().rollback();
+        }
+        
     }
 
     @Override
     public void alterar(Object objeto) throws Exception {
         ApresentacaoTCC apresentacaoTCC = (ApresentacaoTCC) objeto;
-        em.merge(apresentacaoTCC);
+        try{
+            em.getTransaction().begin();
+            em.merge(apresentacaoTCC);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+           ex.printStackTrace();
+           em.getTransaction().rollback();
+        }
     }
 
     @Override
     public void excluir(Object objeto) throws Exception {
         ApresentacaoTCC apresentacaoTCC = (ApresentacaoTCC) objeto;
-        em.remove(apresentacaoTCC);
+        try{
+            em.getTransaction().begin();
+            ApresentacaoTCC apresentacaoRemover = em.find(ApresentacaoTCC.class, apresentacaoTCC.getId());
+            em.remove(apresentacaoRemover);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+           ex.printStackTrace();
+           em.getTransaction().rollback();
+        }
     }
 
     @Override

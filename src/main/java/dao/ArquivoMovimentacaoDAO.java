@@ -6,9 +6,9 @@
 package dao;
 
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.ArquivoMovimentacao;
 
@@ -17,28 +17,69 @@ import model.ArquivoMovimentacao;
  * @author ygor.daudt
  */
 
-@Stateless
 public class ArquivoMovimentacaoDAO implements InterfaceDAO{
     
-    @PersistenceContext
-    EntityManager em;
+    private static ArquivoMovimentacaoDAO instance;
+    protected EntityManager em;
+    
+    //Singleton
+    public static ArquivoMovimentacaoDAO getInstance(){
+        if(instance == null){
+            instance = new ArquivoMovimentacaoDAO();
+        }
+        return instance;
+    }
+    
+    private ArquivoMovimentacaoDAO(){
+        em = getEntityManager();
+    }
+    
+    private EntityManager getEntityManager(){
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("gestaotccPU");
+        if(em == null){
+            em = factory.createEntityManager();
+        }
+        return em;
+    }
 
     @Override
     public void incluir(Object objeto) throws Exception {
         ArquivoMovimentacao arquivoMovimentacao = (ArquivoMovimentacao) objeto;
-        em.persist(arquivoMovimentacao);
+        try{
+            em.getTransaction().begin();
+            em.persist(arquivoMovimentacao);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override
     public void alterar(Object objeto) throws Exception {
         ArquivoMovimentacao arquivoMovimentacao = (ArquivoMovimentacao) objeto;
-        em.merge(arquivoMovimentacao);
+        try{
+            em.getTransaction().begin();
+            em.merge(arquivoMovimentacao);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override
     public void excluir(Object objeto) throws Exception {
         ArquivoMovimentacao arquivoMovimentacao = (ArquivoMovimentacao) objeto;
-        em.remove(arquivoMovimentacao);
+        try{
+            em.getTransaction().begin();
+            ArquivoMovimentacao arquivoMovimentacaoRemover = em.find(ArquivoMovimentacao.class, arquivoMovimentacao.getId());
+            em.remove(arquivoMovimentacaoRemover);
+            em.getTransaction().commit();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     @Override
