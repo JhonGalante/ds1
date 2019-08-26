@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import dao.UsuarioDAO;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import model.TipoUsuarioENUM;
@@ -33,28 +34,39 @@ public class GuiLogin {
         }
         
         if (usuario.getSenha().equals(senha)){
-            //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", usuario.getMatricula());
+            ExternalContext ext = FacesContext.getCurrentInstance().getExternalContext();
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             session.setAttribute("usuarioLogado", usuario);
-            if (usuario.getTipoUsuarioENUM().equals(TipoUsuarioENUM.ALUNO)){
-                return "Aluno/home.xhtml";
-            }
-            if (usuario.getTipoUsuarioENUM().equals(TipoUsuarioENUM.PROFESSOR)){
-                return "Professor/home.xhtml";
-            }
-            if (usuario.getTipoUsuarioENUM().equals(TipoUsuarioENUM.SECRETARIA)){
-                return "Secretaria/home.xhtml";
+            try{
+                if (usuario.getTipoUsuarioENUM().equals(TipoUsuarioENUM.ALUNO)){
+                    ext.redirect("Aluno/home.xhtml");
+                    return null;
+                }
+                if (usuario.getTipoUsuarioENUM().equals(TipoUsuarioENUM.PROFESSOR)){
+                    ext.redirect("Professor/home.xhtml");
+                    return null;
+                }
+                if (usuario.getTipoUsuarioENUM().equals(TipoUsuarioENUM.SECRETARIA)){
+                    ext.redirect("Secretaria/home.xhtml");
+                    return null;
+                }
+            }catch(Exception ex){
+                ex.printStackTrace();
             }
         }
         
-        return "index.xhtml";
+        return null;
     }
     
-    public String logout(){
-        //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("currentUser", null);
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        session.invalidate();
-        return "index.xhtml";
+    public void logout(){
+        try{
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+            session.invalidate();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+      
     }
 
     public Usuario getUsuario() {
