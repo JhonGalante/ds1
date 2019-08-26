@@ -10,8 +10,18 @@ package model;
  * @author Ygor
  */
 public enum CursoENUM {
-    ADMINISTRACAO,
-    ENGENHARIA_PRODUCAO,
-    LICENCIATURA_MATEMATICA,
-    SISTEMAS_INFORMACAO
+    ADMINISTRACAO("Administração"),
+    ENGENHARIA_PRODUCAO("Engenharia de Produção"),
+    LICENCIATURA_MATEMATICA("Licenc. em Matemática"),
+    SISTEMAS_INFORMACAO("Sistemas de Informação");
+    
+    private final String descricao;
+    
+    CursoENUM(String descricao) {
+        this.descricao = descricao;
+    }
+    
+    public String getDescricao() {
+        return descricao;
+    }
 }

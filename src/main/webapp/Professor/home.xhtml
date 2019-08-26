@@ -9,10 +9,9 @@
         <h:form id="form">
             <p:growl id="growl" showDetail="true" sticky="true" />
             <p:panel header="Sistema de Controle de TCC - FeMASS">
-                <h:outputText id="msg" value="Olá, professor #{usuario.professor.nome}!"></h:outputText>
+                <h:outputText id="msg" value="Olá, professor #{guiSessao.usuarioSessao.nome}!"></h:outputText>
             </p:panel>
         </h:form>
     </h:body>
 
 </ui:decorate>
-

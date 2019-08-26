@@ -2,10 +2,11 @@ package gui;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJB;
 import dao.UsuarioDAO;
+import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import model.TipoUsuarioENUM;
@@ -15,28 +16,28 @@ import model.Usuario;
  *
  * @author ygor.daudt
  */
-
+@SessionScoped
 @ManagedBean
 public class GuiLogin {
     
-    private UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
+    private final UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
     private Usuario usuario;
     private String matricula;
     private String senha;
     
     
-    public String logar(){
-        
+    public String logar() throws IOException{
         try {
             usuario = usuarioDAO.buscarMatricula(matricula);
         } catch (Exception ex) {
             Logger.getLogger(GuiLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         if (usuario.getSenha().equals(senha)){
             ExternalContext ext = FacesContext.getCurrentInstance().getExternalContext();
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             session.setAttribute("usuarioLogado", usuario);
+
             try{
                 if (usuario.getTipoUsuarioENUM().equals(TipoUsuarioENUM.ALUNO)){
                     ext.redirect("Aluno/home.xhtml");
@@ -66,7 +67,6 @@ public class GuiLogin {
         }catch(Exception ex){
             ex.printStackTrace();
         }
-      
     }
 
     public Usuario getUsuario() {
