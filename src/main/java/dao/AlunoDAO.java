@@ -43,6 +43,7 @@ public class AlunoDAO implements InterfaceDAO{
         return em;
     }
 
+    @Override
     public void incluir(Object objeto) throws Exception {
         Aluno aluno = (Aluno) objeto;
        try{
@@ -55,6 +56,7 @@ public class AlunoDAO implements InterfaceDAO{
        }
     }
 
+    @Override
     public void alterar(Object objeto) throws Exception {
         Aluno aluno = (Aluno) objeto;
         try{
@@ -67,6 +69,7 @@ public class AlunoDAO implements InterfaceDAO{
        }
     }
 
+    @Override
     public void excluir(Object objeto) throws Exception {
         Aluno aluno = (Aluno) objeto;
         try{
@@ -80,7 +83,8 @@ public class AlunoDAO implements InterfaceDAO{
        }
     }
 
-    public List<Usuario> listar() throws Exception {
+    @Override
+    public List<Aluno> listar() throws Exception {
         Query q = em.createQuery("select a from Aluno a order by a.id");
         return q.getResultList();
     }

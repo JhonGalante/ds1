@@ -6,6 +6,7 @@
 package gui;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import model.Usuario;
@@ -14,18 +15,17 @@ import model.Usuario;
  *
  * @author jhonata
  */
-
+@SessionScoped
 @ManagedBean
 public class GuiSessao {
-    
-    
-    public String getUsuarioSessao(){
+
+    public Usuario getUsuarioSessao(){
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
         if(usuarioLogado != null){
-          System.out.println(usuarioLogado.getNome());
+            return usuarioLogado;
         }
-        
+        session.invalidate();
         return null;
     }
 }

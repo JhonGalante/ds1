@@ -4,27 +4,64 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       template="template-menu.xhtml"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     
     <h:body>
-        <h:form>
+        <h:form> 
+            <p:growl id="growl" showDetail="true" sticky="true" />  
             <p:panel header="Cadastro de Aluno">
                 <br></br>
-                <p:panelGrid columns="2">
-                    <h:outputLabel for="nome" value="Nome"></h:outputLabel>
-                    <p:inputText id="nome" value="#{guiCadastrarAluno.aluno.nome}"></p:inputText>
-                    <h:outputLabel for="matricula" value="Matricula"></h:outputLabel>
-                    <p:inputText id="matricula" value="#{guiCadastrarAluno.aluno.matricula}"></p:inputText>
-                    <h:outputLabel for="email" value="Email"></h:outputLabel>
-                    <p:inputText id="email" value="#{guiCadastrarAluno.aluno.email}"></p:inputText>
-                    <h:outputLabel for="senha" value="Senha"></h:outputLabel>
-                    <p:inputText id="senha" value="#{guiCadastrarAluno.aluno.senha}"></p:inputText>
-                    <h:outputLabel for="curso" value="Curso"></h:outputLabel>
-                    <p:inputText id="curso" value="#{guiCadastrarAluno.curso}"></p:inputText>               
-                    <p:commandButton value="Cadastrar" action="#{guiCadastrarAluno.cadastrarAluno()}" update="msg"></p:commandButton>
-                    <h:outputText id="msg" value="#{guiCadastrarAluno.mensagem}"></h:outputText>
-                </p:panelGrid>
+                <h:panelGrid columns="2" cellpadding="5" cellspacing="0">
+                    <p:outputLabel for="nome" value="Nome"/>
+                    <p:inputText id="nome" value="#{guiCadastrarAluno.nome}" required="true"/>
+                    
+                    <p:outputLabel for="matricula" value="Matricula"/>
+                    <p:inputText id="matricula" value="#{guiCadastrarAluno.matricula}" required="true"/>
+                    
+                    <p:outputLabel for="email" value="Email"/>
+                    <p:inputText id="email" value="#{guiCadastrarAluno.email}" required="true"/>
+                    
+                    <p:outputLabel for="senha" value="Senha"/>
+                    <p:password id="senha" value="#{guiCadastrarAluno.senha}" required="true"/>
+                    
+                    <p:outputLabel for="cursosENUM" value="Curso"/>
+                    <p:selectOneMenu id="cursosENUM" value="#{guiCadastrarAluno.cursosENUM}">
+                        <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
+                        <f:selectItems value="#{guiCadastrarAluno.cursosENUM}"/>
+                    </p:selectOneMenu>  
+                    
+                </h:panelGrid>          
+                
+            <p:commandButton value="Cadastrar" action="#{guiCadastrarAluno.cadastrar()}"/>
+            
             </p:panel>
+            
+            <br></br>
+            
+            <p:dataTable id="tabela" var="al" value="#{guiCadastrarAluno.alunos}">
+                <f:facet name="header">
+                    Alunos
+                </f:facet>
+                
+                <p:column headerText="Nome">
+                    <h:outputText value="#{al.usuario.nome}" />
+                </p:column>
+                
+                <p:column headerText="Matricula">
+                    <h:outputText value="#{al.usuario.matricula}" />
+                </p:column>
+                
+                <p:column headerText="Email">
+                    <h:outputText value="#{al.usuario.email}" />
+                </p:column>
+                
+                <p:column headerText="Curso">
+                    <h:outputText value="#{al.curso}" />
+                </p:column>
+                
+            </p:dataTable>
+
         </h:form>
     </h:body>
 </ui:decorate>

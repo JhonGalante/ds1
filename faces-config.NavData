@@ -3,8 +3,8 @@
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
         <Node id="Aluno/template-menu.xhtml" x="400" y="750" zoom="true"/>
-        <Node id="Pesquisa/template-menu.xhtml" x="1150" y="300" zoom="true"/>
         <Node id="Secretaria/tramitacao-legal.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="Pesquisa/template-menu.xhtml" x="1150" y="300" zoom="true"/>
         <Node id="Professor/template-menu.xhtml" x="900" y="600" zoom="true"/>
         <Node id="Professor/controleTcc.html" x="150" y="900" zoom="true"/>
         <Node id="Aluno/home.xhtml" x="150" y="750" zoom="true"/>
@@ -17,8 +17,8 @@
         <Node id="index.xhtml" x="150" y="150" zoom="true"/>
         <Node id="Professor/avaliar-projeto.xhtml" x="1650" y="150" zoom="true"/>
         <Node id="Secretaria/cadastro-professor.xhtml" x="400" y="600" zoom="true"/>
-        <Node id="Pesquisa/home.xhtml" x="1400" y="300" zoom="true"/>
         <Node id="Secretaria/template-menu.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="Pesquisa/home.xhtml" x="1400" y="300" zoom="true"/>
         <Node id="Professor/solicitacoes-orientacao.xhtml" x="650" y="300" zoom="true"/>
         <Node id="Secretaria/cadastro-aluno.xhtml" x="150" y="1050" zoom="true"/>
         <Node id="Aluno/controle-tcc-aluno.xhtml" x="1150" y="450" zoom="true"/>
