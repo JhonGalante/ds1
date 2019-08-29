@@ -50,8 +50,8 @@ public class TCCI implements Serializable{
     
     private Float nota;
     
-    @OneToMany(mappedBy = "tccI", targetEntity = MovimentacaoTCCI.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<MovimentacaoTCCI> movimentacoesTCCI;
+    @OneToMany(mappedBy = "tccI", targetEntity = MovimentacaoTCC.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<MovimentacaoTCC> movimentacoesTCC;
 
     //Métodos
     public Long getId() {
@@ -106,12 +106,12 @@ public class TCCI implements Serializable{
         this.nota = nota;
     }
 
-    public List<MovimentacaoTCCI> getMovimentacoes() {
-        return movimentacoesTCCI;
+    public List<MovimentacaoTCC> getMovimentacoes() {
+        return movimentacoesTCC;
     }
 
-    public void setMovimentacoes(List<MovimentacaoTCCI> movimentacoes) {
-        this.movimentacoesTCCI = movimentacoes;
+    public void setMovimentacoes(List<MovimentacaoTCC> movimentacoes) {
+        this.movimentacoesTCC = movimentacoes;
     }
 
     @Override

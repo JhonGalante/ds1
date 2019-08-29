@@ -57,8 +57,8 @@ public class TCCII implements Serializable {
     
     private Float nota;
     
-    @OneToMany(mappedBy = "tccII", targetEntity = MovimentacaoTCCII.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<MovimentacaoTCCII> movimentacoesTCCII;
+    @OneToMany(mappedBy = "tccII", targetEntity = MovimentacaoTCC.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<MovimentacaoTCC> movimentacoesTCC;
     
     
     //Métodos
@@ -130,12 +130,12 @@ public class TCCII implements Serializable {
         this.nota = nota;
     }
 
-    public List<MovimentacaoTCCII> getMovimentacoes() {
-        return movimentacoesTCCII;
+    public List<MovimentacaoTCC> getMovimentacoes() {
+        return movimentacoesTCC;
     }
 
-    public void setMovimentacoes(List<MovimentacaoTCCII> movimentacoes) {
-        this.movimentacoesTCCII = movimentacoes;
+    public void setMovimentacoes(List<MovimentacaoTCC> movimentacoes) {
+        this.movimentacoesTCC = movimentacoes;
     }
 
     @Override

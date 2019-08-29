@@ -20,26 +20,27 @@
         }
         //]]>
     </script>
+    
     <div class="container">
         <p:panel style="text-align:left" header="Controle de TCC">
         <br></br>
             <p:growl showDetail="true"/>
             <h:form enctype="multipart/form-data">
-
                 <br/><br/>
-                <p:fileUpload value="#{uploadMovimentacaoAlunoBean.file}" mode="simple"/>
+                <p:fileUpload value="#{guiControleTCCIAluno.file}" mode="simple"/>
                 <h4>Comentários</h4>
-                <p:inputTextarea value="#{uploadMovimentacaoAlunoBean.comentario}" rows="4" cols="30" counter="display" maxlength="5000" counterTemplate="{0} caracteres restantes." autoResize="false" />
+                <p:inputTextarea value="#{guiControleTCCIAluno.comentario}" rows="4" cols="30" counter="display" maxlength="5000" counterTemplate="{0} caracteres restantes." autoResize="false" />
                 <br/>
                 <h:outputText id="display" />           
 
                 <br/><br/>
-                <p:commandButton value="Enviar" ajax="false" actionListener="#{uploadMovimentacaoAlunoBean.uploadTcc()}"/>
+                <p:commandButton value="Enviar" ajax="false" actionListener="#{guiControleTCCIAluno.uploadTCC()}"/>
             </h:form>
 
 
         </p:panel>
-    </div>    
+    </div>  
+    
     <div class="container">
         <p:commandButton value="Histórico" ajax="true" action="#{controleTccAluno.retornaMovimentacoesAluno()}" update="movimentacoes"/>
         <p:panel id="movimentacoes">
@@ -67,4 +68,5 @@
             </h:form>
         </p:panel>
     </div>
+    
 </ui:decorate>

@@ -30,7 +30,6 @@ public class Aluno implements Serializable {
     private Usuario usuario;
     @NotNull
     private CursoENUM curso;
-
     
     //Métodos
     public Long getId() {

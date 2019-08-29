@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
  * @author Ygor
  */
 @Entity
-public class MovimentacaoTCCI implements Serializable {
+public class MovimentacaoTCC implements Serializable {
     
     //Atributos
     private static final long serialVersionUID = 1L;
@@ -30,8 +30,6 @@ public class MovimentacaoTCCI implements Serializable {
     private Long id;
     @NotNull
     private LocalDateTime dataHora;
-    @ManyToOne
-    private TCCI tccI;
     @NotNull
     private TipoMovimentacaoENUM tipoMovimentacaoENUM;
     @OneToOne
@@ -46,14 +44,6 @@ public class MovimentacaoTCCI implements Serializable {
 
     public LocalDateTime getDataHora() {
         return dataHora;
-    }
-
-    public TCCI getTccI() {
-        return tccI;
-    }
-
-    public void setTccI(TCCI tccI) {
-        this.tccI = tccI;
     }
 
     public TipoMovimentacaoENUM getTipoMovimentacaoENUM() {
@@ -98,7 +88,7 @@ public class MovimentacaoTCCI implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final MovimentacaoTCCI other = (MovimentacaoTCCI) obj;
+        final MovimentacaoTCC other = (MovimentacaoTCC) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
