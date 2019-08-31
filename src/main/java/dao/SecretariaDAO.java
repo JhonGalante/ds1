@@ -10,27 +10,27 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import model.MovimentacaoTCCII;
+import model.Secretaria;
 
 /**
  *
  * @author jhonata.galante
  */
 
-public class MovimentacaoTCCIIDAO implements InterfaceDAO{
+public class SecretariaDAO implements InterfaceDAO{
     
-    private static MovimentacaoTCCIIDAO instance;
+    private static SecretariaDAO instance;
     protected EntityManager em;
     
     //Singleton
-    public static MovimentacaoTCCIIDAO getInstance(){
+    public static SecretariaDAO getInstance(){
         if(instance == null){
-            instance = new MovimentacaoTCCIIDAO();
+            instance = new SecretariaDAO();
         }
         return instance;
     }
     
-    private MovimentacaoTCCIIDAO(){
+    private SecretariaDAO(){
         em = getEntityManager();
     }
     
@@ -44,10 +44,10 @@ public class MovimentacaoTCCIIDAO implements InterfaceDAO{
 
     @Override
     public void incluir(Object objeto) throws Exception {
-        MovimentacaoTCCII movimentacaoTCCII = (MovimentacaoTCCII) objeto;
+        Secretaria secretaria = (Secretaria) objeto;
         try{
             em.getTransaction().begin();
-            em.persist(movimentacaoTCCII);
+            em.persist(secretaria);
             em.getTransaction().commit();
         }catch(Exception ex){
             ex.printStackTrace();
@@ -57,10 +57,10 @@ public class MovimentacaoTCCIIDAO implements InterfaceDAO{
 
     @Override
     public void alterar(Object objeto) throws Exception {
-        MovimentacaoTCCII movimentacaoTCCI = (MovimentacaoTCCII) objeto;
+        Secretaria secretaria = (Secretaria) objeto;
         try{
             em.getTransaction().begin();
-            em.merge(movimentacaoTCCI);
+            em.merge(secretaria);
             em.getTransaction().commit();
         }catch(Exception ex){
             ex.printStackTrace();
@@ -70,11 +70,11 @@ public class MovimentacaoTCCIIDAO implements InterfaceDAO{
 
     @Override
     public void excluir(Object objeto) throws Exception {
-        MovimentacaoTCCII movimentacaoTCCII = (MovimentacaoTCCII) objeto;
+        Secretaria secretaria = (Secretaria) objeto;
         try{
             em.getTransaction().begin();
-            MovimentacaoTCCII movimentacaoTCCIIRemover = em.find(MovimentacaoTCCII.class, movimentacaoTCCII.getId());
-            em.remove(movimentacaoTCCIIRemover);
+            Secretaria secretariaRemover = em.find(Secretaria.class, secretaria.getId());
+            em.remove(secretariaRemover);
             em.getTransaction().commit();
         }catch(Exception ex){
             ex.printStackTrace();
@@ -83,8 +83,8 @@ public class MovimentacaoTCCIIDAO implements InterfaceDAO{
     }
 
     @Override
-    public List<MovimentacaoTCCII> listar() throws Exception {
-        Query q = em.createQuery("select m from MovimentacaoTCCII m order by m.id");
+    public List<Secretaria> listar() throws Exception {
+        Query q = em.createQuery("select s from Secretaria s order by s.usuario.nome");
         return q.getResultList();
     }
 
