@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
  * @author Ygor
  */
 @Entity
-public class MovimentacaoTCC implements Serializable {
+public class MovimentacaoTCCI implements Serializable {
     
     //Atributos
     private static final long serialVersionUID = 1L;
@@ -35,6 +35,8 @@ public class MovimentacaoTCC implements Serializable {
     @OneToOne
     private ArquivoMovimentacao arquivoMovimentacao;
     private String comentario;
+    @ManyToOne
+    private TCCI tccI;
     
     
     //Métodos
@@ -70,6 +72,16 @@ public class MovimentacaoTCC implements Serializable {
         this.comentario = comentario;
     }
 
+    public TCCI getTcci() {
+        return tccI;
+    }
+
+    public void setTcci(TCCI tccI) {
+        this.tccI = tccI;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -88,7 +100,7 @@ public class MovimentacaoTCC implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final MovimentacaoTCC other = (MovimentacaoTCC) obj;
+        final MovimentacaoTCCI other = (MovimentacaoTCCI) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }

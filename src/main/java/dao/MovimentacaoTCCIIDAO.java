@@ -10,27 +10,27 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import model.MovimentacaoTCC;
+import model.MovimentacaoTCCI;
 
 /**
  *
  * @author jhonata.galante
  */
 
-public class MovimentacaoTCCDAO implements InterfaceDAO{
+public class MovimentacaoTCCIIDAO implements InterfaceDAO{
     
-    private static MovimentacaoTCCDAO instance;
+    private static MovimentacaoTCCIIDAO instance;
     protected EntityManager em;
     
     //Singleton
-    public static MovimentacaoTCCDAO getInstance(){
+    public static MovimentacaoTCCIIDAO getInstance(){
         if(instance == null){
-            instance = new MovimentacaoTCCDAO();
+            instance = new MovimentacaoTCCIIDAO();
         }
         return instance;
     }
     
-    private MovimentacaoTCCDAO(){
+    private MovimentacaoTCCIIDAO(){
         em = getEntityManager();
     }
     
@@ -44,7 +44,7 @@ public class MovimentacaoTCCDAO implements InterfaceDAO{
 
     @Override
     public void incluir(Object objeto) throws Exception {
-        MovimentacaoTCC movimentacaoTCCI = (MovimentacaoTCC) objeto;
+        MovimentacaoTCCI movimentacaoTCCI = (MovimentacaoTCCI) objeto;
         try{
             em.getTransaction().begin();
             em.persist(movimentacaoTCCI);
@@ -57,7 +57,7 @@ public class MovimentacaoTCCDAO implements InterfaceDAO{
 
     @Override
     public void alterar(Object objeto) throws Exception {
-        MovimentacaoTCC movimentacaoTCCI = (MovimentacaoTCC) objeto;
+        MovimentacaoTCCI movimentacaoTCCI = (MovimentacaoTCCI) objeto;
         try{
             em.getTransaction().begin();
             em.merge(movimentacaoTCCI);
@@ -70,10 +70,10 @@ public class MovimentacaoTCCDAO implements InterfaceDAO{
 
     @Override
     public void excluir(Object objeto) throws Exception {
-        MovimentacaoTCC movimentacaoTCCI = (MovimentacaoTCC) objeto;
+        MovimentacaoTCCI movimentacaoTCCI = (MovimentacaoTCCI) objeto;
         try{
             em.getTransaction().begin();
-            MovimentacaoTCC movimentacaoTCCIRemover = em.find(MovimentacaoTCC.class, movimentacaoTCCI.getId());
+            MovimentacaoTCCI movimentacaoTCCIRemover = em.find(MovimentacaoTCCI.class, movimentacaoTCCI.getId());
             em.remove(movimentacaoTCCIRemover);
             em.getTransaction().commit();
         }catch(Exception ex){
@@ -83,8 +83,8 @@ public class MovimentacaoTCCDAO implements InterfaceDAO{
     }
 
     @Override
-    public List<MovimentacaoTCC> listar() throws Exception {
-        Query q = em.createQuery("select m from MovimentacaoTCCI m order by m.id");
+    public List<MovimentacaoTCCI> listar() throws Exception {
+        Query q = em.createQuery("select m from MovimentacaoTCCII m order by m.id");
         return q.getResultList();
     }
 

@@ -9,7 +9,7 @@ import dao.TCCIDAO;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import model.ArquivoMovimentacao;
-import model.MovimentacaoTCC;
+import model.MovimentacaoTCCI;
 import model.TCCI;
 import model.TipoMovimentacaoENUM;
 import org.apache.commons.lang.ArrayUtils;
@@ -29,7 +29,7 @@ public class GuiControleTCCIAluno {
     private TCCIDAO dao = TCCIDAO.getInstance();
     
     public void uploadTCC() throws Exception{
-        MovimentacaoTCC mov = new MovimentacaoTCC();
+        MovimentacaoTCCI mov = new MovimentacaoTCCI();
         ArquivoMovimentacao arqMov = new ArquivoMovimentacao();
         
         //Cria novo arquivo binario, converte para Byte, e seta todos os atributos da
@@ -42,7 +42,7 @@ public class GuiControleTCCIAluno {
         mov.setTipoMovimentacaoENUM(TipoMovimentacaoENUM.ENTREGA);
         
         //Puxa a lista de movimentações do objeto TCC, adiciona a nova movimentacao a lista e retorna ao objeto
-        List<MovimentacaoTCC> movimentacoes = tcc.getMovimentacoes();
+        List<MovimentacaoTCCI> movimentacoes = tcc.getMovimentacoes();
         movimentacoes.add(mov);
         tcc.setMovimentacoes(movimentacoes);
         
