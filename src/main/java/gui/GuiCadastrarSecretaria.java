@@ -5,15 +5,14 @@
  */
 package gui;
 
+import dao.SecretariaDAO;
 import dao.UsuarioDAO;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import model.CursoENUM;
+import model.Secretaria;
 import model.TipoUsuarioENUM;
 import model.Usuario;
 
@@ -25,19 +24,26 @@ import model.Usuario;
 public class GuiCadastrarSecretaria {
     
     private final UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
+    private final SecretariaDAO secretariaDAO = SecretariaDAO.getInstance();
     
     private List<Usuario> usuarios;
+    private List<Secretaria> secretarias;
     
     private Usuario usuario;
+    private Secretaria secretaria;
     
     private String matricula;
     private String email;
     private String nome;
     private String senha;
+
+    public GuiCadastrarSecretaria() throws Exception {
+        this.secretarias = secretariaDAO.listar();
+    }
     
     public void iniciarListaSecretaria() throws IOException {
         try {
-            usuarios = usuarioDAO.listar();
+            secretarias = secretariaDAO.listar();
         } catch (Exception ex) {
             Logger.getLogger(GuiCadastrarSecretaria.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -57,9 +63,12 @@ public class GuiCadastrarSecretaria {
         usuario.setNome(nome);
         usuario.setSenha(senha);
         usuario.setTipoUsuarioENUM(TipoUsuarioENUM.SECRETARIA);
+        secretaria = new Secretaria();
+        secretaria.setUsuario(usuario);
         
         try {
             usuarioDAO.incluir(usuario);
+            secretariaDAO.incluir(secretaria);
         } catch (Exception ex) {
             Logger.getLogger(GuiCadastrarSecretaria.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -114,6 +123,23 @@ public class GuiCadastrarSecretaria {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public List<Secretaria> getSecretarias() {
+        return secretarias;
+    }
+
+    public void setSecretarias(List<Secretaria> secretarias) {
+        this.secretarias = secretarias;
+    }
+
+    public Secretaria getSecretaria() {
+        return secretaria;
+    }
+
+    public void setSecretaria(Secretaria secretaria) {
+        this.secretaria = secretaria;
+    }
+    
     
     
 
