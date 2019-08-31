@@ -6,7 +6,6 @@ import dao.UsuarioDAO;
 import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import model.TipoUsuarioENUM;
@@ -16,7 +15,6 @@ import model.Usuario;
  *
  * @author ygor.daudt
  */
-@SessionScoped
 @ManagedBean
 public class GuiLogin {
     

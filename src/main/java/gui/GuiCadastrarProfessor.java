@@ -22,14 +22,11 @@ import model.Usuario;
  *
  * @author Ygor
  */
-@SessionScoped
 @ManagedBean
 public class GuiCadastrarProfessor {
     
     private final UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
     private final ProfessorDAO professorDAO = ProfessorDAO.getInstance();
-    
-    private List<Usuario> usuarios;
     private List<Professor> professores;
     
     private Usuario usuario;
@@ -39,6 +36,10 @@ public class GuiCadastrarProfessor {
     private String email;
     private String nome;
     private String senha;
+
+    public GuiCadastrarProfessor() throws Exception {
+        this.professores = professorDAO.listar();
+    }
     
     public void iniciarListaProfessores() throws IOException {
         try {
@@ -48,7 +49,14 @@ public class GuiCadastrarProfessor {
         }
     }
     
-    public void Cadastrar() throws IOException {
+    public void limparCampos() {
+        matricula = null;
+        email = null;
+        nome = null;
+        senha = null;
+    }
+    
+    public void cadastrar() throws IOException {
         usuario = new Usuario();
         usuario.setMatricula(matricula);
         usuario.setEmail(email);
@@ -64,18 +72,8 @@ public class GuiCadastrarProfessor {
         } catch (Exception ex) {
             Logger.getLogger(GuiCadastrarProfessor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        limparCampos();
         iniciarListaProfessores();
-        
-        FacesContext.getCurrentInstance().getExternalContext().redirect("Secretaria/cadastro-professor.xhtml");
-    }
-
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
     }
 
     public Usuario getUsuario() {

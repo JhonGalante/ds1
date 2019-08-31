@@ -21,7 +21,6 @@ import model.Usuario;
  *
  * @author Ygor
  */
-@SessionScoped
 @ManagedBean
 public class GuiCadastrarSecretaria {
     
@@ -35,7 +34,6 @@ public class GuiCadastrarSecretaria {
     private String email;
     private String nome;
     private String senha;
-    private CursoENUM curso;
     
     public void iniciarListaSecretaria() throws IOException {
         try {
@@ -45,7 +43,14 @@ public class GuiCadastrarSecretaria {
         }
     }
     
-    public void Cadastrar() throws IOException {
+    public void limparCampos() {
+        matricula = null;
+        email = null;
+        nome = null;
+        senha = null;
+    }
+    
+    public void cadastrar() throws IOException {
         usuario = new Usuario();
         usuario.setMatricula(matricula);
         usuario.setEmail(email);
@@ -58,10 +63,8 @@ public class GuiCadastrarSecretaria {
         } catch (Exception ex) {
             Logger.getLogger(GuiCadastrarSecretaria.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        limparCampos();
         iniciarListaSecretaria();
-        
-        FacesContext.getCurrentInstance().getExternalContext().redirect("Secretaria/cadastro-secretaria.xhtml");
     }
     
     public List<Usuario> getUsuarios() {
@@ -110,14 +113,6 @@ public class GuiCadastrarSecretaria {
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public CursoENUM getCurso() {
-        return curso;
-    }
-
-    public void setCurso(CursoENUM curso) {
-        this.curso = curso;
     }
     
     

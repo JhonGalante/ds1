@@ -23,14 +23,12 @@ import model.Usuario;
  *
  * @author Ygor
  */
-@SessionScoped
 @ManagedBean
 public class GuiCadastrarAluno {
     
     private final UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
     private final AlunoDAO alunoDAO = AlunoDAO.getInstance();
     
-    private List<Usuario> usuarios;
     private List<Aluno> alunos;
     
     private Usuario usuario;
@@ -41,6 +39,10 @@ public class GuiCadastrarAluno {
     private String nome;
     private String senha;
     private CursoENUM curso;
+
+    public GuiCadastrarAluno() throws Exception {
+        this.alunos = alunoDAO.listar();
+    }
     
     public void iniciarListaAlunos() throws IOException {
         try {
@@ -49,8 +51,14 @@ public class GuiCadastrarAluno {
             Logger.getLogger(GuiCadastrarAluno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void Cadastrar() throws IOException {
+    public void limparCampos() {
+        matricula = null;
+        email = null;
+        nome = null;
+        senha = null;
+        curso = null;
+    }
+    public void cadastrar() throws IOException {
         usuario = new Usuario();
         usuario.setMatricula(matricula);
         usuario.setEmail(email);
@@ -68,21 +76,12 @@ public class GuiCadastrarAluno {
             Logger.getLogger(GuiCadastrarAluno.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        limparCampos();
         iniciarListaAlunos();
-        
-        FacesContext.getCurrentInstance().getExternalContext().redirect("Secretaria/cadastro-aluno.xhtml");
     }
     
     public CursoENUM[] getCursosENUM() {
         return CursoENUM.values();
-    }
-
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
     }
 
     public List<Aluno> getAlunos() {

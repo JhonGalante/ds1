@@ -27,9 +27,10 @@
                     
                 </h:panelGrid>          
                 
-            <p:commandButton value="Cadastrar" action="#{guiCadastrarProfessor.cadastrar()}"/>
+            <p:commandButton value="Cadastrar" ajax="false" action="#{guiCadastrarProfessor.cadastrar()}"/>
             
             </p:panel>
+        </h:form>
             
             <br></br>
             
@@ -52,7 +53,7 @@
                 
             </p:dataTable>
 
-        </h:form>
+        
     </h:body>
 </ui:decorate>
 

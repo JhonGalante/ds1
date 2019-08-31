@@ -26,19 +26,20 @@
                     <p:password id="senha" value="#{guiCadastrarAluno.senha}" required="true"/>
                     
                     <p:outputLabel for="cursosENUM" value="Curso"/>
-                    <p:selectOneMenu id="cursosENUM" value="#{guiCadastrarAluno.cursosENUM}">
+                    <p:selectOneMenu id="cursosENUM" value="#{guiCadastrarAluno.curso}">
                         <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
                         <f:selectItems value="#{guiCadastrarAluno.cursosENUM}"/>
                     </p:selectOneMenu>  
                     
                 </h:panelGrid>          
                 
-            <p:commandButton value="Cadastrar" action="#{guiCadastrarAluno.cadastrar()}"/>
+                <p:commandButton value="Cadastrar" ajax="false" action="#{guiCadastrarAluno.cadastrar()}"/>
             
             </p:panel>
+        </h:form>
             
             <br></br>
-            
+        <h:form>    
             <p:dataTable id="tabela" var="al" value="#{guiCadastrarAluno.alunos}">
                 <f:facet name="header">
                     Alunos
@@ -61,7 +62,6 @@
                 </p:column>
                 
             </p:dataTable>
-
         </h:form>
     </h:body>
 </ui:decorate>

@@ -17,13 +17,12 @@ import javax.servlet.http.HttpSession;
  * @author jhonata
  */
 public class SessionListenerHelper implements PhaseListener{
+    
     @Override
     public void afterPhase(PhaseEvent event) {
-        
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ext = fc.getExternalContext();
         HttpSession session = (HttpSession) ext.getSession(true);
-        
         //Verifica se a página aberta não é a index
         if(!fc.getViewRoot().getViewId().equals("/index.xhtml")){
             //Verifica se não existe nenhum atributo de nome usuarioLogado
@@ -36,8 +35,6 @@ public class SessionListenerHelper implements PhaseListener{
                 }
             }
         }
-        
-        
     }
 
     @Override
