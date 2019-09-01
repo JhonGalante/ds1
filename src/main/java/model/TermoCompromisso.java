@@ -39,7 +39,7 @@ public class TermoCompromisso implements Serializable {  //substitui o "Solicita
     @NotNull
     private LocalDateTime dataHoraSolicitacao;
     @NotNull
-    private Boolean aceito;  // aceito pelo professor == true, recursado pelo professor == false
+    private EstadoTermoCompromissoENUM estadoTermoCompromissoENUM;  // aceito pelo professor == true, recursado pelo professor == false
     
     
     //Métodos
@@ -87,12 +87,12 @@ public class TermoCompromisso implements Serializable {  //substitui o "Solicita
         this.dataHoraSolicitacao = dataHoraSolicitacao;
     }
 
-    public Boolean getAceito() {
-        return aceito;
+    public EstadoTermoCompromissoENUM getEstadoTermoCompromissoENUM() {
+        return estadoTermoCompromissoENUM;
     }
 
-    public void setAceito(Boolean aceito) {
-        this.aceito = aceito;
+    public void setEstadoTermoCompromissoENUM(EstadoTermoCompromissoENUM estadoTermoCompromissoENUM) {
+        this.estadoTermoCompromissoENUM = estadoTermoCompromissoENUM;
     }
 
     @Override
