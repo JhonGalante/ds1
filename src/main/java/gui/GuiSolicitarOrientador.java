@@ -39,10 +39,13 @@ public class GuiSolicitarOrientador {
     private String tema;
     private String titulo;
     private GuiSessao guiSessao;
-
     private final AlunoDAO alunoDAO = AlunoDAO.getInstance();
     private ProfessorDAO professorDAO = ProfessorDAO.getInstance();
     private TermoCompromissoDAO termoCompromissoDAO = TermoCompromissoDAO.getInstance();
+    
+    public GuiSolicitarOrientador() throws Exception {
+        this.professoresOrientadores = professorDAO.listar();
+    }
     
     public void iniciarListaProfessoresOrientadores() throws IOException {
         try {

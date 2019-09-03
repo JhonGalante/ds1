@@ -5,6 +5,7 @@
  */
 package gui;
 
+import dao.TCCIDAO;
 import dao.TermoCompromissoDAO;
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +15,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import model.EstadoTccENUM;
 import model.EstadoTermoCompromissoENUM;
+import model.TCCI;
 import model.TermoCompromisso;
 
 /**
@@ -27,9 +30,11 @@ public class GuiAceitarSolicitacaoOrientacao {
     
     private List<TermoCompromisso> termosCompromisso;
     private TermoCompromisso termoCompromisso;
+    private TCCI tccI;
     private GuiSessao guiSessao;
     
     private final TermoCompromissoDAO termoCompromissoDAO = TermoCompromissoDAO.getInstance();
+    private final TCCIDAO tccIDAO = TCCIDAO.getInstance();
     
     public void iniciarListaSolicitacoes() throws IOException {
         try {
@@ -42,22 +47,31 @@ public class GuiAceitarSolicitacaoOrientacao {
     
     public void aceitarSolicitacao() {
         termoCompromisso.setEstadoTermoCompromissoENUM(EstadoTermoCompromissoENUM.SOLICITACAO_ACEITA);
-        mensagemConfirma("Solicitação ACEITA com sucesso.");
+        tccI = new TCCI();
+        tccI.setTermoCompromisso(termoCompromisso);
+        tccI.setProfessorTcc(termoCompromisso.getProfessor());
+        tccI.setEstadoTccENUM(EstadoTccENUM.ENTREGA);
+        // Coloquei o mesmo professor apenas para realizar testes.
+        // Precisamos definir em que momento e como será definido quem será o professor de TCC
+        tccI.setProfessorTcc(termoCompromisso.getProfessor());
         try {
             termoCompromissoDAO.alterar(termoCompromisso);
+            mensagemConfirma("Solicitação ACEITA com sucesso.");
         } catch(Exception ex) {
             Logger.getLogger(GuiAceitarSolicitacaoOrientacao.class.getName()).log(Level.SEVERE, null, ex);
+            mensagemRecusa("Não foi possível realizar esta operação.");
         }
         limparSelecao();
     }
     
     public void recusarSolicitacao() {
         termoCompromisso.setEstadoTermoCompromissoENUM(EstadoTermoCompromissoENUM.SOLICITACAO_RECUSADA);
-        mensagemConfirma("Solicitação RECUSADA com sucesso.");
         try {
             termoCompromissoDAO.alterar(termoCompromisso);
+            mensagemConfirma("Solicitação RECUSADA com sucesso.");
         } catch(Exception ex) {
             Logger.getLogger(GuiAceitarSolicitacaoOrientacao.class.getName()).log(Level.SEVERE, null, ex);
+            mensagemRecusa("Não foi possível realizar esta operação.");
         }
         limparSelecao();
     }
@@ -91,5 +105,13 @@ public class GuiAceitarSolicitacaoOrientacao {
     public void setTermoCompromisso(TermoCompromisso termoCompromisso) {
         this.termoCompromisso = termoCompromisso;
     }   
+
+    public TCCI getTccI() {
+        return tccI;
+    }
+
+    public void setTccI(TCCI tccI) {
+        this.tccI = tccI;
+    }
     
 }
