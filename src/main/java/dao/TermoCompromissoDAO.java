@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import model.Professor;
 import model.TermoCompromisso;
 
 /**
@@ -87,5 +88,9 @@ public class TermoCompromissoDAO implements InterfaceDAO{
         Query q = em.createQuery("select t from TermoCompromisso t order by t.id");
         return q.getResultList();
     }
-
+    
+    public List<TermoCompromisso> buscarTermosPendentesAceitacao(String matriculaProfessor) throws Exception {
+        Query q = em.createQuery("SELECT t FROM TermoCompromisso t WHERE t.professor.usuario.matricula =:matriculaProfessor AND t.estadoTermoCompromissoENUM =1"); // 1 = Analise
+        return q.getResultList();
+    }
 }

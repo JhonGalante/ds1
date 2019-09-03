@@ -39,7 +39,7 @@ public class TermoCompromisso implements Serializable {  //substitui o "Solicita
     @NotNull
     private LocalDateTime dataHoraSolicitacao;
     @NotNull
-    private EstadoTermoCompromissoENUM estadoTermoCompromissoENUM;  // aceito pelo professor == true, recursado pelo professor == false
+    private EstadoTermoCompromissoENUM estadoTermoCompromissoENUM;
     
     
     //Métodos

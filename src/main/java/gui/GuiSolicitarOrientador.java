@@ -105,12 +105,12 @@ public class GuiSolicitarOrientador {
     
     public void mensagemConfirma(String mensagem) {
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Sucesso",  "Your message: " + mensagem) );
+        context.addMessage(null, new FacesMessage("Sucesso",  "Mensagem: " + mensagem) );
     }
     
     public void mensagemRecusa(String mensagem) {
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Solicitacao Inválida",  "Your message: " + mensagem) );
+        context.addMessage(null, new FacesMessage("Solicitacao Inválida",  "Mensagem: " + mensagem) );
     }
     
     
