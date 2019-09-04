@@ -89,7 +89,7 @@ public class AlunoDAO implements InterfaceDAO{
     }
     
     public Aluno buscarMatricula(String matricula) {
-        Query q = em.createQuery("SELECT a FROM Aluno a WHERE a.usuario.matricula =:matricula");
+        Query q = em.createQuery("SELECT a FROM Aluno a WHERE a.usuario.matricula ='" + matricula + "'");
         Aluno aluno = (Aluno) q.getSingleResult();
         return aluno;
     }

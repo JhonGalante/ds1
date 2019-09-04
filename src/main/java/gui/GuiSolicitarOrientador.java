@@ -46,6 +46,7 @@ public class GuiSolicitarOrientador {
     
     public GuiSolicitarOrientador() throws Exception {
         this.professoresOrientadores = professorDAO.listar();
+        this.guiSessao = new GuiSessao();
     }
     
     public void iniciarListaProfessoresOrientadores() throws IOException {
@@ -70,7 +71,6 @@ public class GuiSolicitarOrientador {
         } catch(Exception ex) {
             Logger.getLogger(GuiSolicitarOrientador.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         if (validarSolicitacao(aluno)) {
             termoCompromisso = new TermoCompromisso();
             termoCompromisso.setAluno(aluno);
@@ -85,8 +85,6 @@ public class GuiSolicitarOrientador {
                 Logger.getLogger(GuiSolicitarOrientador.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        ExternalContext ext = FacesContext.getCurrentInstance().getExternalContext();
-        ext.redirect("home.xhtml");
         limparCampos();
     }
     

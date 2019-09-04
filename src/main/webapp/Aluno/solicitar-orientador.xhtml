@@ -13,10 +13,10 @@
             <p:panel header="Solicitar Orientador">
                 <h:panelGrid columns="2" cellpadding="5" cellspacing="0">
                     <p:outputLabel for="tema" value="Tema" />
-                    <p:inputText id="tema" value="#{guiSolicitarOrientador.termoCompromisso.tema}" required="true" placeholder="Descreva o tema o seu TCC" style="width: 50%"/>
+                    <p:inputText id="tema" value="#{guiSolicitarOrientador.tema}" required="true" placeholder="Descreva o tema o seu TCC" style="width: 50%"/>
 
                     <p:outputLabel for="titulo" value="Titulo"/>
-                    <p:inputText id="titulo" value="#{guiSolicitarOrientador.termoCompromisso.titulo}" required="true" placeholder="Descreva o título do seu TCC" style="width: 50%"/>
+                    <p:inputText id="titulo" value="#{guiSolicitarOrientador.titulo}" required="true" placeholder="Descreva o título do seu TCC" style="width: 50%"/>
                     
                     <p:outputLabel for="professor" value="Professor Orientador"/>
                     <p:dataTable style="width: 50%" id="professor" var="professorOrientador" value="#{guiSolicitarOrientador.professoresOrientadores}" selection="#{guiSolicitarOrientador.professorOrientador}" rowKey="#{professorOrientador.id}" >
