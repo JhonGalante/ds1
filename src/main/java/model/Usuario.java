@@ -28,6 +28,7 @@ public class Usuario implements Serializable {
     private String email;
     @NotNull
     private String nome;
+    private TipoUsuarioENUM tipoUsuarioENUM;
     
     //Métodos
     public String getNome() {
@@ -62,6 +63,13 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
+    public TipoUsuarioENUM getTipo() {
+        return tipoUsuarioENUM;
+    }
+
+    public void setTipo(TipoUsuarioENUM tipoUsuarioENUM) {
+        this.tipoUsuarioENUM = tipoUsuarioENUM;
+    }
     @Override
     public int hashCode() {
         int hash = 3;
