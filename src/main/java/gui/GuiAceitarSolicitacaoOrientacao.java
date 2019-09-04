@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import model.EstadoTccENUM;
 import model.EstadoTermoCompromissoENUM;
@@ -25,7 +24,6 @@ import model.TermoCompromisso;
  * @author ygor.daudt
  */
 @ManagedBean
-@ViewScoped
 public class GuiAceitarSolicitacaoOrientacao {
     
     private List<TermoCompromisso> termosCompromisso;
@@ -35,6 +33,10 @@ public class GuiAceitarSolicitacaoOrientacao {
     
     private final TermoCompromissoDAO termoCompromissoDAO = TermoCompromissoDAO.getInstance();
     private final TCCIDAO tccIDAO = TCCIDAO.getInstance();
+    
+    public GuiAceitarSolicitacaoOrientacao() throws Exception {
+        termosCompromisso = termoCompromissoDAO.listar();
+    }
     
     public void iniciarListaSolicitacoes() throws IOException {
         try {
@@ -56,11 +58,13 @@ public class GuiAceitarSolicitacaoOrientacao {
         tccI.setProfessorTcc(termoCompromisso.getProfessor());
         try {
             termoCompromissoDAO.alterar(termoCompromisso);
+            tccIDAO.incluir(tccI);
             mensagemConfirma("Solicitação ACEITA com sucesso.");
         } catch(Exception ex) {
             Logger.getLogger(GuiAceitarSolicitacaoOrientacao.class.getName()).log(Level.SEVERE, null, ex);
             mensagemRecusa("Não foi possível realizar esta operação.");
         }
+
         limparSelecao();
     }
     

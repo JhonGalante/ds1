@@ -22,7 +22,7 @@
                     <p:dataTable style="width: 50%" id="professor" var="professorOrientador" value="#{guiSolicitarOrientador.professoresOrientadores}" selection="#{guiSolicitarOrientador.professorOrientador}" rowKey="#{professorOrientador.id}" >
                         <p:column selectionMode="single" style="width:16px;text-align:center"/>
                         <p:column headerText="Nome" style="text-align: left">
-                            <h:outputText value="#{professorOrientador.usuario.nome}"/>
+                            <p:outputLabel value="#{professorOrientador.usuario.nome}"/>
                         </p:column>
                     </p:dataTable>
                     

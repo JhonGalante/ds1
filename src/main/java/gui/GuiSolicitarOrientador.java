@@ -10,12 +10,12 @@ import dao.AlunoDAO;
 import dao.ProfessorDAO;
 import dao.TermoCompromissoDAO;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import model.Aluno;
@@ -28,17 +28,18 @@ import model.TermoCompromisso;
  * @author Ygor
  */
 @ManagedBean
-@ViewScoped
 public class GuiSolicitarOrientador {
     
     private List<Professor> professoresOrientadores;
     private List<TermoCompromisso> termosCompromisso;
+    
     private Aluno aluno;
     private Professor professorOrientador;
     private TermoCompromisso termoCompromisso;
     private String tema;
     private String titulo;
     private GuiSessao guiSessao;
+    
     private final AlunoDAO alunoDAO = AlunoDAO.getInstance();
     private ProfessorDAO professorDAO = ProfessorDAO.getInstance();
     private TermoCompromissoDAO termoCompromissoDAO = TermoCompromissoDAO.getInstance();
@@ -55,6 +56,14 @@ public class GuiSolicitarOrientador {
         }
     }
     
+    public void limparCampos() {
+        titulo = null;
+        tema = null;
+        aluno = null;
+        professorOrientador = null;
+        
+    }
+    
     public void realizarSolicitacao() throws Exception{
         try {
             aluno = alunoDAO.buscarMatricula(guiSessao.getUsuarioSessao().getMatricula());
@@ -68,6 +77,7 @@ public class GuiSolicitarOrientador {
             termoCompromisso.setProfessor(professorOrientador);
             termoCompromisso.setTema(tema);
             termoCompromisso.setTitulo(titulo);
+            termoCompromisso.setDataHoraSolicitacao(LocalDateTime.now());
             termoCompromisso.setEstadoTermoCompromissoENUM(EstadoTermoCompromissoENUM.SOLICITACAO_ANALISE);
             try {
                 termoCompromissoDAO.incluir(termoCompromisso);
@@ -116,14 +126,6 @@ public class GuiSolicitarOrientador {
         context.addMessage(null, new FacesMessage("Solicitacao Inválida",  "Mensagem: " + mensagem) );
     }
     
-    
-    public void limparCampos() {
-        titulo = null;
-        tema = null;
-        aluno = null;
-        professorOrientador = null;
-    }
-    
     public List<Professor> getProfessoresOrientadores() {
         try {
             iniciarListaProfessoresOrientadores();
@@ -134,16 +136,20 @@ public class GuiSolicitarOrientador {
         return professoresOrientadores;
     }
 
-    public void setProfessoresOrientadores(List<Professor> professoresOrientadores) {
-        this.professoresOrientadores = professoresOrientadores;
-    }
-
     public List<TermoCompromisso> getTermosCompromisso() {
         return termosCompromisso;
     }
 
     public void setTermosCompromisso(List<TermoCompromisso> termosCompromisso) {
         this.termosCompromisso = termosCompromisso;
+    }
+
+    public Aluno getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
     }
 
     public Professor getProfessorOrientador() {
@@ -158,24 +164,8 @@ public class GuiSolicitarOrientador {
         return termoCompromisso;
     }
 
-    public void setTermoCompromiso(TermoCompromisso termoCompromisso) {
+    public void setTermoCompromisso(TermoCompromisso termoCompromisso) {
         this.termoCompromisso = termoCompromisso;
-    }
-
-    public ProfessorDAO getProfessorDAO() {
-        return professorDAO;
-    }
-
-    public void setProfessorDAO(ProfessorDAO professorDAO) {
-        this.professorDAO = professorDAO;
-    }
-
-    public TermoCompromissoDAO getTermoCompromissoDAO() {
-        return termoCompromissoDAO;
-    }
-
-    public void setTermoCompromissoDAO(TermoCompromissoDAO termoCompromissoDAO) {
-        this.termoCompromissoDAO = termoCompromissoDAO;
     }
 
     public String getTema() {
@@ -194,13 +184,30 @@ public class GuiSolicitarOrientador {
         this.titulo = titulo;
     }
 
-    public Aluno getAluno() {
-        return aluno;
+    public GuiSessao getGuiSessao() {
+        return guiSessao;
     }
 
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
+    public void setGuiSessao(GuiSessao guiSessao) {
+        this.guiSessao = guiSessao;
     }
-    
+
+    public ProfessorDAO getProfessorDAO() {
+        return professorDAO;
+    }
+
+    public void setProfessorDAO(ProfessorDAO professorDAO) {
+        this.professorDAO = professorDAO;
+    }
+
+    public TermoCompromissoDAO getTermoCompromissoDAO() {
+        return termoCompromissoDAO;
+    }
+
+    public void setTermoCompromissoDAO(TermoCompromissoDAO termoCompromissoDAO) {
+        this.termoCompromissoDAO = termoCompromissoDAO;
+    }
+
+
     
 }

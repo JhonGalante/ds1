@@ -87,5 +87,10 @@ public class SecretariaDAO implements InterfaceDAO{
         Query q = em.createQuery("select s from Secretaria s order by s.usuario.nome");
         return q.getResultList();
     }
-
+    
+    public Secretaria buscarMatricula(String matricula) {
+        Query q = em.createQuery("SELECT s FROM Secretaria s WHERE s.usuario.matricula =:matricula");
+        Secretaria secretaria = (Secretaria) q.getSingleResult();
+        return secretaria;
+    }
 }

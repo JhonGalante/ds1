@@ -28,8 +28,6 @@ public class Usuario implements Serializable {
     private String email;
     @NotNull
     private String nome;
-    @NotNull
-    private TipoUsuarioENUM tipoUsuarioENUM;
     
     //Métodos
     public String getNome() {
@@ -62,14 +60,6 @@ public class Usuario implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public TipoUsuarioENUM getTipoUsuarioENUM() {
-        return tipoUsuarioENUM;
-    }
-
-    public void setTipoUsuarioENUM(TipoUsuarioENUM tipoUsuarioENUM) {
-        this.tipoUsuarioENUM = tipoUsuarioENUM;
     }
 
     @Override
