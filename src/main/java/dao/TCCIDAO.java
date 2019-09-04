@@ -11,6 +11,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.TCCI;
+import model.TCCII;
+import model.TermoCompromisso;
 
 /**
  *
@@ -86,6 +88,17 @@ public class TCCIDAO implements InterfaceDAO{
     public List<TCCI> listar() throws Exception {
         Query q = em.createQuery("select t from TCCI t order by t.id");
         return q.getResultList();
+    }
+    
+    public TCCI buscarPorTermo(TermoCompromisso termo) throws Exception {
+        Query q = em.createQuery("select t from TCCI t where t.termoCompromisso.id = " + termo.getId());
+        try{
+            return (TCCI) q.getSingleResult();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            return null;  
+        }
+        
     }
 
 }

@@ -8,12 +8,14 @@ package model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -30,9 +32,10 @@ public class ApresentacaoTCC implements Serializable {
     private Long id;
     @NotNull
     private LocalDate dataApresentacao;
+    
     @NotNull
-    @ElementCollection
-    private List<String> professoresBanca;
+    @OneToMany
+    private List<Professor> professoresBanca;
 
     
     //Métodos
@@ -48,11 +51,11 @@ public class ApresentacaoTCC implements Serializable {
         this.dataApresentacao = dataApresentacao;
     }
 
-    public List<String> getProfessoresBanca() {
+    public List<Professor> getProfessoresBanca() {
         return professoresBanca;
     }
 
-    public void setProfessoresBanca(List<String> professoresBanca) {
+    public void setProfessoresBanca(List<Professor> professoresBanca) {
         this.professoresBanca = professoresBanca;
     }
     
@@ -79,13 +82,5 @@ public class ApresentacaoTCC implements Serializable {
     @Override
     public String toString() {
         return dataApresentacao.toString();
-    }
-    
-    public void adicionarProfessorBanca(String nome){
-        this.professoresBanca.add(nome);
-    }
-    
-    public void removerProfessorBanca(String nome){
-        this.professoresBanca.remove(nome);
     }
 }

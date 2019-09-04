@@ -31,15 +31,15 @@ public class TCCI implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @NotNull
+
     @OneToOne
     private TermoCompromisso termoCompromisso;
     
-    @NotNull
+
     @OneToOne
     private Professor professorTcc;
     
-    @NotNull
+
     private EstadoTccENUM estadoTccENUM;
     
     @OneToOne
