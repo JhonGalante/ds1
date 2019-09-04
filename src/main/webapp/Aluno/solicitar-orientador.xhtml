@@ -6,39 +6,33 @@
              template="template-menu.xhtml"
              xmlns:p="http://primefaces.org/ui"
              xmlns:f="http://xmlns.jcp.org/jsf/core">
-
     <body>
-        <p:panel header="Solicitar Orientador"> 
+        <h:form>
+            <p:growl id="growl" showDetail="true" sticky="true" />
             <br></br>
-            <h:form id="form">  
-                <p:dataTable id="tabelaOrientadores" var="orientador" value="#{guiSolicitarOrientador.professoresOrientadores}" selectionMode="single" selection="#{tabelaSelecionarOrientadorBean.orientador}" rowKey="#{orientador.matricula}">
-                    <f:facet name="header">
-                        <h:panelGrid columns="2" cellpadding="5">
-                            <h:outputLabel value="Título" for="titulo" /> 
-                            <h:outputLabel value="Breve descrição do tema" for="descricao" />
-                            <p:inputTextarea id="titulo" rows="1" cols="60" counter="display-titulo" maxlength="60" counterTemplate="{0} caracteres restates." autoResize="false" value="#{tabelaSelecionarOrientadorBean.titulo}" />
-                            <p:inputTextarea id="descricao" rows="1" cols="60" counter="display-descricao" maxlength="120" counterTemplate="{0} caracteres restates." autoResize="false" value="#{tabelaSelecionarOrientadorBean.tema}" />
-                            <h:outputText id="display-titulo" />                   
-                            <h:outputText id="display-descricao" />
-                        </h:panelGrid>
-                        <br/>
-                        <p:commandButton process="tabelaOrientadores" value="Solicitar Orientação" action="#{guiSolicitarOrientador.novaSolicitacao()}" update="msg"/>
-                        <br/><br/>
-                    </f:facet>
+            <p:panel header="Solicitar Orientador">
+                <h:panelGrid columns="2" cellpadding="5" cellspacing="0">
+                    <p:outputLabel for="tema" value="Tema" />
+                    <p:inputText id="tema" value="#{guiSolicitarOrientador.termoCompromisso.tema}" required="true" placeholder="Descreva o tema o seu TCC" style="width: 50%"/>
 
-                    <p:column headerText="Nome do Orientador">
-                        <h:outputText value="" />
-                    </p:column>
-                    <p:column headerText="Curso">
-                        <h:outputText value="" />
-                    </p:column> 
-
-                </p:dataTable>
-
-            </h:form>
-        </p:panel> 
+                    <p:outputLabel for="titulo" value="Titulo"/>
+                    <p:inputText id="titulo" value="#{guiSolicitarOrientador.termoCompromisso.titulo}" required="true" placeholder="Descreva o título do seu TCC" style="width: 50%"/>
+                    
+                    <p:outputLabel for="professor" value="Professor Orientador"/>
+                    <p:dataTable style="width: 50%" id="professor" var="professorOrientador" value="#{guiSolicitarOrientador.professoresOrientadores}" selection="#{guiSolicitarOrientador.professorOrientador}" rowKey="#{professorOrientador.id}" >
+                        <p:column selectionMode="single" style="width:16px;text-align:center"/>
+                        <p:column headerText="Nome" style="text-align: left">
+                            <p:outputLabel value="#{professorOrientador.usuario.nome}"/>
+                        </p:column>
+                    </p:dataTable>
+                    
+                    <p:outputLabel/>
+                    <p:commandButton value="Enviar Solicitação" ajax="false" action="#{guiSolicitarOrientador.realizarSolicitacao()}"/>
+                </h:panelGrid>   
+                <br></br>
+                
+            </p:panel>
+        </h:form>
     </body>
-
-
 </ui:decorate>
 

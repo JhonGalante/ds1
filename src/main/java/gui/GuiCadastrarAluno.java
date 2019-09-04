@@ -12,11 +12,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import model.Aluno;
 import model.CursoENUM;
-import model.TipoUsuarioENUM;
 import model.Usuario;
 
 /**
@@ -51,6 +48,7 @@ public class GuiCadastrarAluno {
             Logger.getLogger(GuiCadastrarAluno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     public void limparCampos() {
         matricula = null;
         email = null;
@@ -58,13 +56,13 @@ public class GuiCadastrarAluno {
         senha = null;
         curso = null;
     }
+    
     public void cadastrar() throws IOException {
         usuario = new Usuario();
         usuario.setMatricula(matricula);
         usuario.setEmail(email);
         usuario.setNome(nome);
         usuario.setSenha(senha);
-        usuario.setTipoUsuarioENUM(TipoUsuarioENUM.ALUNO);
         aluno = new Aluno();
         aluno.setCurso(curso);
         aluno.setUsuario(usuario);

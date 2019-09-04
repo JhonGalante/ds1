@@ -9,9 +9,8 @@ package model;
  *
  * @author Ygor
  */
-public enum TipoUsuarioENUM {
-    ALUNO,
-    PROFESSOR,
-    SECRETARIA,
-    VISITANTE
+public enum EstadoTermoCompromissoENUM {
+    SOLICITACAO_ACEITA,
+    SOLICITACAO_ANALISE,
+    SOLICITACAO_RECUSADA
 }

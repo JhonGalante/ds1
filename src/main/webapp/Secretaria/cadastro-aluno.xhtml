@@ -26,11 +26,10 @@
                     <p:password id="senha" value="#{guiCadastrarAluno.senha}" required="true"/>
                     
                     <p:outputLabel for="cursosENUM" value="Curso"/>
-                    <p:selectOneMenu id="cursosENUM" value="#{guiCadastrarAluno.curso}">
+                    <p:selectOneMenu id="cursosENUM" value="#{guiCadastrarAluno.curso}" required="true">
                         <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
                         <f:selectItems value="#{guiCadastrarAluno.cursosENUM}"/>
                     </p:selectOneMenu>  
-                    
                 </h:panelGrid>          
                 
                 <p:commandButton value="Cadastrar" ajax="false" action="#{guiCadastrarAluno.cadastrar()}"/>

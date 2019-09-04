@@ -10,6 +10,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import model.Aluno;
+import model.Professor;
+import model.Secretaria;
 import model.Usuario;
 
 /**
@@ -87,5 +90,48 @@ public class UsuarioDAO implements InterfaceDAO{
     public Usuario buscarMatricula(String matricula) {
         return em.find(Usuario.class, matricula);
     }
+    
+    public Object buscarUsuarioPorMatricula(String matricula) {
+
+        Query alunoQuery = em.createQuery("SELECT a FROM Aluno a WHERE a.usuario.matricula =:matricula");
+        Query professorQuery = em.createQuery("SELECT p FROM Professor p WHERE p.usuario.matricula =:matricula");
+        Query secretariaQuery = em.createQuery("SELECT s FROM Secretaria s WHERE s.usuario.matricula =:matricula");
+
+        List<Aluno> alunos = alunoQuery.getResultList();
+        List<Professor> professores = professorQuery.getResultList();
+        List<Secretaria> secretarias = secretariaQuery.getResultList();
+        
+        if (!alunoQuery.getResultList().isEmpty()) {
+            Object objeto = alunoQuery.getSingleResult();
+            return objeto;
+        }
+        
+        if(!professorQuery.getResultList().isEmpty()) {
+            Object objeto = professorQuery.getSingleResult();
+            return objeto;
+        }
+        
+        if(!secretariaQuery.getResultList().isEmpty()) {
+            Object objeto = secretariaQuery.getSingleResult();
+            return objeto;
+        }
+        
+        return null;
+
+        /*
+        
+                Query mescla = em.createQuery(
+                        "SELECT usu.matricula FROM ("
+                            + "SELECT usu.matricula "
+                                + "FROM Usuario usu "
+                                + "INNER JOIN Aluno alu ON (usu.matricula = alu.usuario.matricula "
+                                + "INNER JOIN Professor pro ON (usu.matricula = pro.usuario.matricula "
+                                + "INNER JOIN Secretaria sec ON (usu.matricula = sec.usuario.matricula "
+                                + "ORDER BY usu.nome)"
+                            + "WHERE usu.matricula =:matricula");
+
+                Usuario usuario = (Usuario) mescla.getSingleResult();
+        */
+   }
 
 }

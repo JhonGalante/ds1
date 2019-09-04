@@ -11,7 +11,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.Aluno;
-import model.Usuario;
 
 /**
  *
@@ -89,8 +88,10 @@ public class AlunoDAO implements InterfaceDAO{
         return q.getResultList();
     }
     
-    public Aluno buscarMatricula(long id) {
-        return em.find(Aluno.class, id);
+    public Aluno buscarMatricula(String matricula) {
+        Query q = em.createQuery("SELECT a FROM Aluno a WHERE a.usuario.matricula =:matricula");
+        Aluno aluno = (Aluno) q.getSingleResult();
+        return aluno;
     }
 
 }
