@@ -31,24 +31,24 @@ public class TCCI implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
+    @NotNull
     private TermoCompromisso termoCompromisso;
-    
 
     @OneToOne
     private Professor professorTcc;
     
-
     private EstadoTccENUM estadoTccENUM;
     
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     private ApresentacaoTCC apresentacao;
     
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     private ArquivoTramitacao arquivoTramitacao;
     
     private Float nota;
+    
+    private boolean dispRepo;
     
     @OneToMany(mappedBy = "tccI", targetEntity = MovimentacaoTCCI.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<MovimentacaoTCCI> movimentacoesTCC;
@@ -106,6 +106,14 @@ public class TCCI implements Serializable{
         this.nota = nota;
     }
 
+    public boolean isDispRepo() {
+        return dispRepo;
+    }
+
+    public void setDispRepo(boolean dispRepo) {
+        this.dispRepo = dispRepo;
+    }
+    
     public List<MovimentacaoTCCI> getMovimentacoes() {
         return movimentacoesTCC;
     }

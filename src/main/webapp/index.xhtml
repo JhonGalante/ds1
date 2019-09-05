@@ -3,84 +3,84 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-<style type="text/css">
-    .p-grid {
-        text-align: center;
-    }
- 
-    .p-grid i {
-        vertical-align: middle;
-        padding-right: 5px;
-        font-size: 2em;
-    }
-     
-    .p-grid .icon-container:hover {
-        background-color: #EFF3F6;
-        cursor: pointer;
-    }
-     
-    .dark-content .p-grid .icon-container:hover {
-        background-color: #5e6061;
-    }
-     
-    .iconInfo {
-        background-color: #30383c;
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        height: 130px;
-        width: 260px;
-        color: #ffffff;
-        padding: 0 10px;
-        display: none;
-        webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
-        -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        z-index: 999999;
-    }
-     
-    .iconInfo .iconInfo-header {
-        position: relative;
-        border-bottom: 1px solid #e3e9ea;
-        padding: 5px;
-    }
-     
-    .iconInfo .iconInfo-close {
-        position: absolute;
-        right: 5px;
-        color: #ffffff;
-    }
-     
-    .iconInfo .icon-text {
-        padding-top: 5px;
-        padding-bottom: 2px;
-        font-size: 13px;
-    }
-     
-    .iconInfo .icon-sample-input {
-        width: 100%;
-        box-sizing: border-box;
-        margin-bottom: 5px;
-    }
-     
-    .iconInfo .icon-sample-input + i {
-        text-align: center;
-        display: block;
-        font-size: 30px;
-    }
-     
-    .iconInfo .copied-text {
-        display: none;
-        position: absolute;
-        right: 30px;
-        top: 7px;
-        color: #1b82d7;
-        font-weight: bold;
-    }
-    
-</style>
+    <style type="text/css">
+        .p-grid {
+            text-align: center;
+        }
+
+        .p-grid i {
+            vertical-align: middle;
+            padding-right: 5px;
+            font-size: 2em;
+        }
+
+        .p-grid .icon-container:hover {
+            background-color: #EFF3F6;
+            cursor: pointer;
+        }
+
+        .dark-content .p-grid .icon-container:hover {
+            background-color: #5e6061;
+        }
+
+        .iconInfo {
+            background-color: #30383c;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            height: 130px;
+            width: 260px;
+            color: #ffffff;
+            padding: 0 10px;
+            display: none;
+            webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+            -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            z-index: 999999;
+        }
+
+        .iconInfo .iconInfo-header {
+            position: relative;
+            border-bottom: 1px solid #e3e9ea;
+            padding: 5px;
+        }
+
+        .iconInfo .iconInfo-close {
+            position: absolute;
+            right: 5px;
+            color: #ffffff;
+        }
+
+        .iconInfo .icon-text {
+            padding-top: 5px;
+            padding-bottom: 2px;
+            font-size: 13px;
+        }
+
+        .iconInfo .icon-sample-input {
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 5px;
+        }
+
+        .iconInfo .icon-sample-input + i {
+            text-align: center;
+            display: block;
+            font-size: 30px;
+        }
+
+        .iconInfo .copied-text {
+            display: none;
+            position: absolute;
+            right: 30px;
+            top: 7px;
+            color: #1b82d7;
+            font-weight: bold;
+        }
+
+    </style>
     <h:head>
         <title>Login</title>
     </h:head>
@@ -92,7 +92,9 @@
                 <p:inputText id="login" value="#{guiLogin.matricula}" required="true" placeholder="Login"/>
                 <p:password id="senha" value="#{guiLogin.senha}" required="true" placeholder="Senha" />  
                 <p:commandButton value="Entrar no sistema" id="logar" action="#{guiLogin.logar()}" style="width: 100%" update="@form" />
+                <a href="./Visitante/home.xhtml">Área de visitante</a>
             </h:panelGrid>
         </h:form>
+        
     </h:body>
 </html>

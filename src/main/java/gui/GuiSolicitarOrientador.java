@@ -6,6 +6,7 @@
 package gui;
 
 
+import helper.Sessao;
 import dao.AlunoDAO;
 import dao.ProfessorDAO;
 import dao.TermoCompromissoDAO;
@@ -38,7 +39,7 @@ public class GuiSolicitarOrientador {
     private TermoCompromisso termoCompromisso;
     private String tema;
     private String titulo;
-    private GuiSessao guiSessao;
+    private Sessao guiSessao;
     
     private final AlunoDAO alunoDAO = AlunoDAO.getInstance();
     private ProfessorDAO professorDAO = ProfessorDAO.getInstance();
@@ -46,7 +47,7 @@ public class GuiSolicitarOrientador {
     
     public GuiSolicitarOrientador() throws Exception {
         this.professoresOrientadores = professorDAO.listar();
-        this.guiSessao = new GuiSessao();
+        this.guiSessao = new Sessao();
     }
     
     public void iniciarListaProfessoresOrientadores() throws IOException {
@@ -182,11 +183,11 @@ public class GuiSolicitarOrientador {
         this.titulo = titulo;
     }
 
-    public GuiSessao getGuiSessao() {
+    public Sessao getGuiSessao() {
         return guiSessao;
     }
 
-    public void setGuiSessao(GuiSessao guiSessao) {
+    public void setGuiSessao(Sessao guiSessao) {
         this.guiSessao = guiSessao;
     }
 

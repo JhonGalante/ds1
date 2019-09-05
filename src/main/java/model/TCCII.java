@@ -32,7 +32,7 @@ public class TCCII implements Serializable {
     private Long id;
     
     @NotNull
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     private TermoCompromisso termoCompromisso;
     
     @NotNull
@@ -46,16 +46,18 @@ public class TCCII implements Serializable {
     @NotNull
     private EstadoTccENUM estadoTccENUM;
     
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     private ApresentacaoTCC apresentacao;
     
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     private ArquivoTramitacao arquivoTramitacao;
     
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     private ArquivoAprovacao arquivoAprovacao;
     
     private Float nota;
+    
+    private boolean dispRepo;
     
     @OneToMany(mappedBy = "tccII", targetEntity = MovimentacaoTCCII.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<MovimentacaoTCCII> movimentacoesTCC;
@@ -128,6 +130,14 @@ public class TCCII implements Serializable {
 
     public void setNota(Float nota) {
         this.nota = nota;
+    }
+
+    public boolean isDispRepo() {
+        return dispRepo;
+    }
+
+    public void setDispRepo(boolean dispRepo) {
+        this.dispRepo = dispRepo;
     }
 
     public List<MovimentacaoTCCII> getMovimentacoes() {

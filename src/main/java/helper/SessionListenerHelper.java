@@ -26,7 +26,9 @@ public class SessionListenerHelper implements PhaseListener{
         //Verifica se a página aberta não é a index
         if(!fc.getViewRoot().getViewId().equals("/index.xhtml")){
             //Verifica se não existe nenhum atributo de nome usuarioLogado
-            if(session.getAttribute("usuarioLogado") == null){
+            if(session.getAttribute("usuarioLogado") == null &&
+                    !fc.getViewRoot().getViewId().equals("/Visitante/home.xhtml") &&
+                    !fc.getViewRoot().getViewId().equals("/Visitante/pesquisar-tcc.xhtml")){
                 try{
                   session.invalidate();
                   ext.redirect(ext.getRequestContextPath() + "/index.xhtml");

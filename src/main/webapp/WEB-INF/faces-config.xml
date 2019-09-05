@@ -11,6 +11,6 @@
     </application>
     
     <lifecycle>
-     <!--<phase-listener>helper.SessionListenerHelper</phase-listener>-->
+     <phase-listener>helper.SessionListenerHelper</phase-listener>
     </lifecycle>
 </faces-config>

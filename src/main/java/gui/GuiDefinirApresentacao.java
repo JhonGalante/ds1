@@ -82,7 +82,6 @@ public class GuiDefinirApresentacao {
         apresentacao.setProfessoresBanca(banca);
         
         try{
-            apresentacaoDAO.incluir(apresentacao);
             incluirApresentacao(apresentacao);
         }catch(Exception ex){
             ex.printStackTrace();

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package helper;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -18,7 +18,7 @@ import model.Usuario;
 
 @ManagedBean
 @SessionScoped
-public class GuiSessao {
+public class Sessao {
     
     private Usuario usuarioSessao;
     

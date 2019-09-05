@@ -5,6 +5,7 @@
  */
 package gui;
 
+import helper.Sessao;
 import dao.TCCIDAO;
 import dao.TermoCompromissoDAO;
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class GuiAceitarSolicitacaoOrientacao {
     private List<TermoCompromisso> termosCompromisso;
     private TermoCompromisso termoCompromisso;
     private TCCI tccI;
-    private GuiSessao guiSessao;
+    private Sessao guiSessao;
     
     private final TermoCompromissoDAO termoCompromissoDAO = TermoCompromissoDAO.getInstance();
     private final TCCIDAO tccIDAO = TCCIDAO.getInstance();
