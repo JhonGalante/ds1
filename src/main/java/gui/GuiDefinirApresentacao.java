@@ -16,7 +16,9 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import model.Aluno;
 import model.ApresentacaoTCC;
 import model.Professor;
@@ -81,24 +83,39 @@ public class GuiDefinirApresentacao {
         
         try{
             apresentacaoDAO.incluir(apresentacao);
+            incluirApresentacao(apresentacao);
         }catch(Exception ex){
             ex.printStackTrace();
+            mensagemErro("Erro ao agendar a apresentação");
             return;
         }
+
+        limparCampos();
         
-        
+    }
+    
+    public void mensagemConfirma(String mensagem) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Sucesso",  "Mensagem: " + mensagem) );
+    }
+    
+    public void mensagemErro(String mensagem) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Solicitação Inválida",  "Mensagem: " + mensagem) );
+    }
+    
+    public void incluirApresentacao(ApresentacaoTCC apresentacao) throws Exception{
         if(tcci != null){
             tcci.setApresentacao(apresentacao);
             tccIDao.alterar(tcci);
+            mensagemConfirma("Apresentação agendada com sucesso!");
         }else if(tccii != null) {
             tccii.setApresentacao(apresentacao);
             tccIIDao.alterar(tccii);
+            mensagemConfirma("Apresentação agendada com sucesso!");
         }else{
-            System.out.println("Nenhum TCC cadastrado");
+            mensagemErro("Nenhum TCC cadastrado para esse aluno");
         }
-  
-        limparCampos();
-        
     }
 
     public List<Professor> getBanca() {

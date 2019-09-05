@@ -15,6 +15,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -34,7 +37,12 @@ public class ApresentacaoTCC implements Serializable {
     private LocalDate dataApresentacao;
     
     @NotNull
-    @OneToMany
+    @ManyToMany
+    @JoinTable(
+            name="apresentacaotcc_professor",
+            joinColumns=@JoinColumn(name="apresentacaotcc_id"),
+            inverseJoinColumns=@JoinColumn(name="professoresbanca_id")
+            )
     private List<Professor> professoresBanca;
 
     
