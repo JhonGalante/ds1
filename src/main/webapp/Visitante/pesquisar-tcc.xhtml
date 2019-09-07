@@ -33,56 +33,36 @@
 
 
     <h:form>
-        <p:panel header="Buscar / Pesquisar TCC">
-        <br></br>
-            <p:dataTable var="car" value="#{dtFilterView.pesquisaTcc(palavra)}" widgetVar="carsTable"
-                         emptyMessage="Sem resultados de busca" filteredValue="#{dtFilterView.pesquisaTcc(palavra)}">
-
+        <p:panel header="Buscar TCC">
+            <p:growl id="msgs" showDetail="true" />
+            <p:dataTable var="tcc" value="#{guiPesquisarTCC.tccs}" widgetVar="tccsTable"
+                         emptyMessage="Nenhum TCC encontrado" filteredValue="#{guiPesquisarTCC.tccsFiltred}"
+                         rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                           rowsPerPageTemplate="5,10,15" paginatorPosition="bottom">
+                
                 <f:facet name="header">
                     <p:outputPanel>
-                        <h:outputText value="Procurar:" />
-                        <p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" style="width:250px" placeholder="Digite os Termos de Pesquisa"/>
+                        <h:outputText value="Pesquisar:" />
+                        <p:inputText id="globalFilter" onkeyup="PF('tccsTable').filter()" style="width:150px" placeholder="Palavra-chave"/>
                     </p:outputPanel>
-
-                    <p:commandButton value="Pesquisar" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="pi pi-arrow-down" action="#{controleTccAluno.download(movimentacao)}">
-                        <p:fileDownload value="#{controleTccAluno.file}" />
-                    </p:commandButton> 
                 </f:facet>
-
-                <p:column filterBy="#{classe.atributo}" headerText="Tema" footerText="contains" filterMatchMode="contains">
-                    <h:outputText value="#{classe.atributo}" />
+                
+                <p:column headerText="Tema" filterBy="#{tcc.termoCompromisso.tema}">
+                    <h:outputText value="#{tcc.termoCompromisso.tema}" />
                 </p:column>
 
-                <p:column filterBy="#{classe.atributo}" headerText="Ano" footerText="lte" filterMatchMode="lte">
-                    <f:facet name="filter">
-                        <p:spinner onchange="PF('carsTable').filter()" styleClass="year-spinner custom-filter">
-                            <f:converter converterId="javax.faces.Integer" />
-                        </p:spinner>
-                    </f:facet>
-                    <h:outputText value="#{classe.atributo}" />
+                <p:column headerText="Aluno" filterBy="#{tcc.termoCompromisso.aluno.usuario.nome}">
+                    <h:outputText value="#{tcc.termoCompromisso.aluno.usuario.nome}" />
                 </p:column>
 
-                <p:column filterBy="#{classe.atributo}" headerText="Curso" footerText="in" filterMatchMode="in">
-                    <f:facet name="filter">
-                        <p:selectCheckboxMenu label="Curso" onchange="PF('carsTable').filter()" scrollHeight="150" styleClass="custom-filter">
-                            <f:selectItems value="#{dtFilterView.pesquisaTcc(palavra)}" />
-                        </p:selectCheckboxMenu>
-                    </f:facet>
-                    <h:outputText value="#{classe.atributo}" />
+                <p:column headerText="Orientador" filterBy="#{tcc.termoCompromisso.professor}">
+                    <h:outputText value="#{tcc.termoCompromisso.professor}" />
                 </p:column>
 
-                <p:column filterBy="#{classe.atributo}" headerText="Aluno" footerText="contains" filterMatchMode="contains">
-                    <h:outputText value="#{classe.atributo}" />
+                <p:column headerText="Professor TCC" filterBy="#{tcc.professorTcc}">
+                    <h:outputText value="#{tcc.professorTcc}" />
                 </p:column>
-
-                <p:column filterBy="#{classe.atributo}" headerText="Orientador" footerText="contains" filterMatchMode="contains">
-                    <h:outputText value="#{classe.atributo}" />
-                </p:column>
-
-                <p:column filterBy="#{classe.atributo}" headerText="Nota" footerText="contains" filterMatchMode="contains">
-                    <h:outputText value="#{classe.atributo}" />
-                </p:column>
-
+                
             </p:dataTable>
         </p:panel>
     </h:form>
