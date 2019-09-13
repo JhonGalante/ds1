@@ -86,7 +86,6 @@ public class GuiControleTCCAluno {
 
     }
     
-    
     public void realizarUpload(){
         if(tcci != null){
             uploadTCCI();
@@ -97,7 +96,6 @@ public class GuiControleTCCAluno {
         }
     }
 
-    
     public void uploadTCCI() {
         MovimentacaoTCCI mov = new MovimentacaoTCCI();
         ArquivoMovimentacao arqMov = new ArquivoMovimentacao();
@@ -132,7 +130,6 @@ public class GuiControleTCCAluno {
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
-    
     
     public void uploadTCCII() {
         MovimentacaoTCCII mov = new MovimentacaoTCCII();

@@ -47,7 +47,9 @@
             <p:growl id="growl" showDetail="true" sticky="true" />
             <p:panel header="Definir Apresentação">
                 <p:panelGrid columns="2" layout="grid" styleClass="semBorda">
-                    <p:dataTable id="radioDT" var="aluno" value="#{guiDefinirApresentacao.alunosDisp}" selection="#{guiDefinirApresentacao.alunoSeleciado}" rowKey="#{aluno.usuario.matricula}" style="margin-bottom:0">
+                    <p:dataTable id="radioDT" var="aluno" value="#{guiDefinirApresentacao.alunosDisp}" 
+                                 selection="#{guiDefinirApresentacao.alunoSeleciado}" rowKey="#{aluno.usuario.matricula}" 
+                                 style="margin-bottom:0" emptyMessage="Nenhuma apresentação para ser agendada">
                         <f:facet name="header">
                             Alunos
                         </f:facet>
@@ -63,7 +65,9 @@
                         </p:column>
                     </p:dataTable>
                     
-                    <p:dataTable id="checkboxDT" var="banca" value="#{guiDefinirApresentacao.professores}" selection="#{guiDefinirApresentacao.banca}" rowKey="#{banca.usuario.matricula}" style="margin-bottom:0">
+                    <p:dataTable id="checkboxDT" var="banca" value="#{guiDefinirApresentacao.professores}" 
+                                 selection="#{guiDefinirApresentacao.banca}" rowKey="#{banca.usuario.matricula}" 
+                                 style="margin-bottom:0" emptyMessage="Nenhum professor disponivel para banca">
                         <f:facet name="header">
                             Banca
                         </f:facet>

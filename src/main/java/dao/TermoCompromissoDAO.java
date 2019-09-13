@@ -12,9 +12,6 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.Aluno;
 import model.TermoCompromisso;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 /**
  *
@@ -102,8 +99,9 @@ public class TermoCompromissoDAO implements InterfaceDAO {
         }
     }
 
-    public TermoCompromisso pesquisarPorAluno(Aluno aluno){
-        Query q = em.createQuery("from TermoCompromisso as t where t.aluno.usuario.matricula=" + aluno.getUsuario().getMatricula());
+    public TermoCompromisso pesquisarPorMatricula(String matricula){
+        Query q = em.createQuery("from TermoCompromisso as t where t.aluno.usuario.matricula=:matricula")
+                .setParameter("matricula", matricula);
         try {
             return (TermoCompromisso) q.getSingleResult();
         } catch (Exception ex) {

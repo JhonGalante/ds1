@@ -40,7 +40,7 @@ public class GuiDefinirApresentacao {
     private TCCI tcci;
     private TCCII tccii;
     private ApresentacaoTCC apresentacao;
-    private List<Aluno> alunos;
+    private final List<Aluno> alunos;
     private List<Aluno> alunosDisp;
     private Aluno alunoSelecionado;
     private TermoCompromisso termoAluno;
@@ -48,7 +48,6 @@ public class GuiDefinirApresentacao {
     private final ProfessorDAO professorDao = ProfessorDAO.getInstance();
     private final TCCIDAO tccIDao = TCCIDAO.getInstance();
     private final TCCIIDAO tccIIDao = TCCIIDAO.getInstance();
-    private final ApresentacaoTCCDAO apresentacaoDAO = ApresentacaoTCCDAO.getInstance();
     private final AlunoDAO alunoDao = AlunoDAO.getInstance();
     private final TermoCompromissoDAO compromissoDAO = TermoCompromissoDAO.getInstance();
     
@@ -56,18 +55,20 @@ public class GuiDefinirApresentacao {
     public GuiDefinirApresentacao() throws Exception{
         professores = professorDao.listar();
         alunos = alunoDao.listar();
-        alunosDisp = new ArrayList<Aluno>();
+        preencherTabela(alunos);
         
-        for(Aluno aluno: alunos){
-            if(compromissoDAO.pesquisarPorAluno(aluno) != null){
-                alunosDisp.add(aluno);
-            }
-        }
     }
     
     public void agendar() throws Exception{
         
-        termoAluno = compromissoDAO.pesquisarPorAluno(alunoSelecionado);
+        if(alunoSelecionado.getEtapaTcc() == 1){
+            termoAluno = compromissoDAO.pesquisarPorAlunoEtapa(alunoSelecionado, 1);
+        }else if(alunoSelecionado.getEtapaTcc() == 2){
+            termoAluno = compromissoDAO.pesquisarPorAlunoEtapa(alunoSelecionado, 2);
+        }else{
+            mensagemErro("Erro ao agendar a apresentação");
+        }
+        
         
         if(tccIIDao.buscarPorTermo(termoAluno) != null){
             tccii = tccIIDao.buscarPorTermo(termoAluno);
@@ -90,6 +91,38 @@ public class GuiDefinirApresentacao {
         }
 
         limparCampos();
+        preencherTabela(alunoDao.listar());
+        
+    }
+    
+    private void preencherTabela(List<Aluno> alunos) throws Exception{
+        alunosDisp = new ArrayList<>();
+        for(Aluno aluno: alunos){
+            TermoCompromisso termo = new TermoCompromisso();
+            TCCI tcciTemp = new TCCI();
+            TCCII tcciiTemp = new TCCII();
+            
+            if(aluno.getEtapaTcc() == 1){
+                termo = compromissoDAO.pesquisarPorAlunoEtapa(aluno, 1);
+                tcciTemp = tccIDao.buscarPorTermo(termo);
+            }else if(aluno.getEtapaTcc() == 2){
+                termo = compromissoDAO.pesquisarPorAlunoEtapa(aluno, 2);
+                tcciiTemp = tccIIDao.buscarPorTermo(termo);
+            }
+            
+            if(termo != null){
+                if(aluno.getEtapaTcc() == 1){
+                    if(tcciTemp.getApresentacao() == null){
+                        alunosDisp.add(aluno);
+                    }
+                }else if(aluno.getEtapaTcc() == 2){
+                    if(tcciiTemp.getApresentacao() == null){
+                        alunosDisp.add(aluno);
+                    }
+                }
+                
+            }
+        }
         
     }
     
