@@ -8,6 +8,27 @@
              xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <style type="text/css">
+        .value {
+            font-weight: bold;
+        }
+
+        .ui-datatable {
+            margin-bottom: 25px
+        }
+
+        .ui-datatable .ui-datatable-footer {
+            text-align:left;
+        }
+
+        .ui-datalist ul {
+            padding: 0 0 0 10px;
+            margin: 5px 0;
+        }
+
+        .ui-datatable .ui-button-icon-only .ui-button-text {
+            padding: 0;
+            line-height: 1.2;
+        }
         .ui-datatable .ui-datatable-header {
             text-align: right !important;
         }
@@ -30,41 +51,48 @@
             box-sizing: border-box;
         }
     </style>
-
-
     <h:form>
         <p:panel header="Buscar TCC">
-            <p:growl id="msgs" showDetail="true" />
-            <p:dataTable var="tcc" value="#{guiPesquisarTCC.tccs}" widgetVar="tccsTable"
-                         emptyMessage="Nenhum TCC encontrado" filteredValue="#{guiPesquisarTCC.tccsFiltred}"
-                         rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                           rowsPerPageTemplate="5,10,15" paginatorPosition="bottom">
-                
-                <f:facet name="header">
-                    <p:outputPanel>
-                        <h:outputText value="Pesquisar:" />
-                        <p:inputText id="globalFilter" onkeyup="PF('tccsTable').filter()" style="width:150px" placeholder="Palavra-chave"/>
-                    </p:outputPanel>
-                </f:facet>
-                
-                <p:column headerText="Tema" filterBy="#{tcc.termoCompromisso.tema}">
-                    <h:outputText value="#{tcc.termoCompromisso.tema}" />
-                </p:column>
+            <p:fieldset legend="TCCII" toggleable="true" collapsed="true">
+                <p:panelGrid columns="1" styleClass="ui-fluid">
+                    <p:dataTable var="tccii" value="#{guiPesquisarTCC.tccsII}" widgetVar="tccsTable"
+                                 emptyMessage="Nenhum TCC encontrado" filteredValue="#{guiPesquisarTCC.tccsIIFiltred}"
+                                 rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15" paginatorPosition="bottom">
 
-                <p:column headerText="Aluno" filterBy="#{tcc.termoCompromisso.aluno.usuario.nome}">
-                    <h:outputText value="#{tcc.termoCompromisso.aluno.usuario.nome}" />
-                </p:column>
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Pesquisar:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('tccsTable').filter()" style="width:150px" placeholder="Palavra-chave"/>
+                            </p:outputPanel>
+                        </f:facet>
 
-                <p:column headerText="Orientador" filterBy="#{tcc.termoCompromisso.professor}">
-                    <h:outputText value="#{tcc.termoCompromisso.professor}" />
-                </p:column>
+                        <p:column headerText="Tema" filterBy="#{tccii.termoCompromisso.tema}">
+                            <h:outputText value="#{tccii.termoCompromisso.tema}" />
+                        </p:column>
 
-                <p:column headerText="Professor TCC" filterBy="#{tcc.professorTcc}">
-                    <h:outputText value="#{tcc.professorTcc}" />
-                </p:column>
-                
-            </p:dataTable>
+                        <p:column headerText="Aluno" filterBy="#{tccii.termoCompromisso.aluno.usuario.nome}">
+                            <h:outputText value="#{tccii.termoCompromisso.aluno.usuario.nome}" />
+                        </p:column>
+
+                        <p:column headerText="Orientador" filterBy="#{tccii.termoCompromisso.professor}">
+                            <h:outputText value="#{tccii.termoCompromisso.professor}" />
+                        </p:column>
+
+                        <p:column headerText="Professor TCC" filterBy="#{tccii.professorTcc}">
+                            <h:outputText value="#{tccii.professorTcc}" />
+                        </p:column>
+
+                        <p:column headerText="Download" style="width:100px;text-align: center">
+                                <p:commandButton value="Down" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);">
+                                    <f:setPropertyActionListener value="#{tccii}" target="#{guiPesquisarTCC.selectedTccII}" />
+                                    <p:fileDownload value="#{guiPesquisarTCC.downloadTCCII()}" />
+                                </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </p:panelGrid>
+            </p:fieldset>
         </p:panel>
     </h:form>
-
 </ui:decorate>

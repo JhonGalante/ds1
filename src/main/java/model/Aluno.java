@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,6 +31,8 @@ public class Aluno implements Serializable {
     private Usuario usuario;
     @NotNull
     private CursoENUM curso;
+    @Column(columnDefinition="integer default 0")
+    private int etapaTcc;
     
     //Métodos
     public Long getId() {
@@ -51,6 +54,16 @@ public class Aluno implements Serializable {
     public void setCurso(CursoENUM curso) {
         this.curso = curso;
     }
+
+    public int getEtapaTcc() {
+        return etapaTcc;
+    }
+
+    public void setEtapaTcc(int etapaTcc) {
+        this.etapaTcc = etapaTcc;
+    }
+    
+    
 
     @Override
     public int hashCode() {

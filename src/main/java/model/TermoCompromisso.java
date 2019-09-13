@@ -6,12 +6,17 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -28,18 +33,22 @@ public class TermoCompromisso implements Serializable {  //substitui o "Solicita
     private Long id;
     @NotNull
     @OneToOne
+    @JoinColumn(name="aluno_id")
     private Aluno aluno;
     @NotNull
     @OneToOne
+    @JoinColumn(name="professor_id")
     private Professor professor;
     @NotNull
     private String tema;
     @NotNull
     private String titulo;
     @NotNull
-    private LocalDateTime dataHoraSolicitacao;
+    private LocalDate dataHoraSolicitacao;
     @NotNull
     private EstadoTermoCompromissoENUM estadoTermoCompromissoENUM;
+    @NotNull
+    private int etapaTcc;
     
     
     //Métodos
@@ -79,11 +88,11 @@ public class TermoCompromisso implements Serializable {  //substitui o "Solicita
         this.titulo = titulo;
     }
 
-    public LocalDateTime getDataHoraSolicitacao() {
+    public LocalDate getDataHoraSolicitacao() {
         return dataHoraSolicitacao;
     }
 
-    public void setDataHoraSolicitacao(LocalDateTime dataHoraSolicitacao) {
+    public void setDataHoraSolicitacao(LocalDate dataHoraSolicitacao) {
         this.dataHoraSolicitacao = dataHoraSolicitacao;
     }
 
@@ -93,6 +102,14 @@ public class TermoCompromisso implements Serializable {  //substitui o "Solicita
 
     public void setEstadoTermoCompromissoENUM(EstadoTermoCompromissoENUM estadoTermoCompromissoENUM) {
         this.estadoTermoCompromissoENUM = estadoTermoCompromissoENUM;
+    }
+
+    public int getEtapaTcc() {
+        return etapaTcc;
+    }
+
+    public void setEtapaTcc(int etapaTcc) {
+        this.etapaTcc = etapaTcc;
     }
 
     @Override

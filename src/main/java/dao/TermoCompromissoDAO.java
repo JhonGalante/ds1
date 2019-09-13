@@ -12,14 +12,16 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.Aluno;
 import model.TermoCompromisso;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 /**
  *
  * @author jhonata.galante
  */
+public class TermoCompromissoDAO implements InterfaceDAO {
 
-public class TermoCompromissoDAO implements InterfaceDAO{
-    
     private static TermoCompromissoDAO instance;
     protected EntityManager em;
     
@@ -45,64 +47,73 @@ public class TermoCompromissoDAO implements InterfaceDAO{
 
     @Override
     public void incluir(Object objeto) throws Exception {
-        TermoCompromisso termoCompromisso = (TermoCompromisso) objeto;
-        try{
-            em.getTransaction().begin();
-            em.persist(termoCompromisso);
-            em.getTransaction().commit();
-        }catch(Exception ex){
-            ex.printStackTrace();
-            em.getTransaction().rollback();
-        }
+        TermoCompromisso termo = (TermoCompromisso) objeto;
+       try{
+           em.getTransaction().begin();
+           em.persist(termo);
+           em.getTransaction().commit();
+       }catch(Exception ex){
+           ex.printStackTrace();
+           em.getTransaction().rollback();
+       }
     }
 
     @Override
     public void alterar(Object objeto) throws Exception {
-        TermoCompromisso termoCompromisso = (TermoCompromisso) objeto;
+        TermoCompromisso termo = (TermoCompromisso) objeto;
         try{
-            em.getTransaction().begin();
-            em.merge(termoCompromisso);
-            em.getTransaction().commit();
-        }catch(Exception ex){
-            ex.printStackTrace();
-            em.getTransaction().rollback();
-        }
+           em.getTransaction().begin();
+           em.merge(termo);
+           em.getTransaction().commit();
+       }catch(Exception ex){
+           ex.printStackTrace();
+           em.getTransaction().rollback();
+       }
     }
 
     @Override
     public void excluir(Object objeto) throws Exception {
-        TermoCompromisso termoCompromisso = (TermoCompromisso) objeto;
+        TermoCompromisso termo = (TermoCompromisso) objeto;
         try{
-            em.getTransaction().begin();
-            TermoCompromisso termoCompromissoRemover = em.find(TermoCompromisso.class, termoCompromisso.getId());
-            em.remove(termoCompromissoRemover);
-            em.getTransaction().commit();
-        }catch(Exception ex){
-            ex.printStackTrace();
-            em.getTransaction().rollback();
-        }
+           em.getTransaction().begin();
+           TermoCompromisso termoRemover = em.find(TermoCompromisso.class, termo.getId());
+           em.remove(termoRemover);
+           em.getTransaction().commit();
+       }catch(Exception ex){
+           ex.printStackTrace();
+           em.getTransaction().rollback();
+       }
     }
 
     @Override
     public List<TermoCompromisso> listar() throws Exception {
-        Query q = em.createQuery("select t from TermoCompromisso t order by t.id");
+        Query q = em.createQuery("from TermoCompromisso as t order by t.id");
         return q.getResultList();
     }
-    
-    
-    public TermoCompromisso pesquisarPorAluno(Aluno aluno) throws Exception {
-        Query q = em.createQuery("select t from TermoCompromisso t where t.aluno.usuario.matricula = '" + aluno.getUsuario().getMatricula() + "'");
-        
-        try{
-            return (TermoCompromisso) q.getSingleResult();
-        }catch(Exception ex){
+
+    public TermoCompromisso pesquisarPorAlunoEtapa(Aluno aluno, int etapa) {
+        Query q = em.createQuery("from TermoCompromisso as t where t.aluno.usuario.matricula='" + aluno.getUsuario().getMatricula()
+                + "' AND t.etapaTcc=" + etapa);
+        try {
+            return (TermoCompromisso) q.getResultList().get(0);
+        } catch (Exception ex) {
             ex.printStackTrace();
-            return null;  
+            return null;
         }
     }
-    
+
+    public TermoCompromisso pesquisarPorAluno(Aluno aluno){
+        Query q = em.createQuery("from TermoCompromisso as t where t.aluno.usuario.matricula=" + aluno.getUsuario().getMatricula());
+        try {
+            return (TermoCompromisso) q.getSingleResult();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
     public List<TermoCompromisso> buscarTermosPendentesAceitacao(String matriculaProfessor) throws Exception {
-        Query q = em.createQuery("SELECT t FROM TermoCompromisso t WHERE t.professor.usuario.matricula =:matriculaProfessor AND t.estadoTermoCompromissoENUM =1"); // 1 = Analise
+        Query q = em.createQuery("FROM TermoCompromisso as t WHERE t.professor.usuario.matricula =:matriculaProfessor AND t.estadoTermoCompromissoENUM =1"); // 1 = Analise
         return q.getResultList();
     }
 

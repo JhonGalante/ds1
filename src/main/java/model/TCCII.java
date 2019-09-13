@@ -172,10 +172,12 @@ public class TCCII implements Serializable {
     public String toString() {
         return termoCompromisso.getTema();
     }
-    
-    public void finalizarTcc(Float nota){
+
+    public void finalizarTCC(Float nota) {
         this.estadoTccENUM = EstadoTccENUM.FINALIZADO;
         this.nota = nota;
     }
+    
+    
 }
 

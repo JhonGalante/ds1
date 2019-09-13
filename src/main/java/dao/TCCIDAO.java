@@ -8,6 +8,7 @@ package dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.TCCI;
@@ -86,19 +87,19 @@ public class TCCIDAO implements InterfaceDAO{
 
     @Override
     public List<TCCI> listar() throws Exception {
-        Query q = em.createQuery("select t from TCCI t order by t.id");
+        Query q = em.createQuery("select t from TCCI as t order by t.id");
         return q.getResultList();
     }
     
-    public TCCI buscarPorTermo(TermoCompromisso termo) throws Exception {
-        Query q = em.createQuery("select t from TCCI t where t.termoCompromisso.id = " + termo.getId());
+    public TCCI buscarPorTermo(TermoCompromisso termo){
+        Query q = em.createQuery("select t from TCCI as t where t.termoCompromisso.id = :id")
+                .setParameter("id", termo.getId());
         try{
-            return (TCCI) q.getSingleResult();
-        }catch(Exception ex){
-            ex.printStackTrace();
-            return null;  
+            return (TCCI) q.getResultList().get(0);
+        }catch(NoResultException e){
+            e.printStackTrace();
+            return null;
         }
-        
     }
 
 }

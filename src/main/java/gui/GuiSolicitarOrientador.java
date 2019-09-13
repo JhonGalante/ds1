@@ -11,13 +11,13 @@ import dao.AlunoDAO;
 import dao.ProfessorDAO;
 import dao.TermoCompromissoDAO;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import model.Aluno;
 import model.EstadoTermoCompromissoENUM;
@@ -39,6 +39,7 @@ public class GuiSolicitarOrientador {
     private TermoCompromisso termoCompromisso;
     private String tema;
     private String titulo;
+    private int etapa;
     private Sessao guiSessao;
     
     private final AlunoDAO alunoDAO = AlunoDAO.getInstance();
@@ -71,22 +72,25 @@ public class GuiSolicitarOrientador {
             aluno = alunoDAO.buscarMatricula(guiSessao.getUsuarioSessao().getMatricula());
         } catch(Exception ex) {
             Logger.getLogger(GuiSolicitarOrientador.class.getName()).log(Level.SEVERE, null, ex);
+            return;
         }
         if (validarSolicitacao(aluno)) {
             termoCompromisso = new TermoCompromisso();
             termoCompromisso.setAluno(aluno);
             termoCompromisso.setProfessor(professorOrientador);
+            termoCompromisso.setEtapaTcc(aluno.getEtapaTcc());
             termoCompromisso.setTema(tema);
             termoCompromisso.setTitulo(titulo);
-            termoCompromisso.setDataHoraSolicitacao(LocalDateTime.now());
+            termoCompromisso.setDataHoraSolicitacao(LocalDate.now());
             termoCompromisso.setEstadoTermoCompromissoENUM(EstadoTermoCompromissoENUM.SOLICITACAO_ANALISE);
             try {
                 termoCompromissoDAO.incluir(termoCompromisso);
+                mensagemConfirma("Solicitação realizada com sucesso!");
+                limparCampos();
             } catch(Exception ex) {
                 Logger.getLogger(GuiSolicitarOrientador.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        limparCampos();
     }
     
     /*
@@ -99,20 +103,24 @@ public class GuiSolicitarOrientador {
             return false;
         }
         try {
+            
             termosCompromisso = termoCompromissoDAO.listar();
+            
+            for (TermoCompromisso termo : termosCompromisso) {
+                if (termo.getAluno().equals(aluno)
+                    && !(termo.getEstadoTermoCompromissoENUM().equals(EstadoTermoCompromissoENUM.SOLICITACAO_RECUSADA))) {
+                        mensagemRecusa("O aluno " + aluno.getUsuario().getNome()
+                                + " já possui uma solicitação em análise ou TCC em andamento.");
+                        return false;
+                }
+            }
+            
+            return true;
+            
         } catch(Exception ex) {
             Logger.getLogger(GuiSolicitarOrientador.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for (TermoCompromisso termo : termosCompromisso) {
-            if (termo.getAluno().equals(aluno)
-                && !(termo.getEstadoTermoCompromissoENUM().equals(EstadoTermoCompromissoENUM.SOLICITACAO_RECUSADA))) {
-                    mensagemRecusa("O aluno " + aluno.getUsuario().getNome()
-                            + " já possui uma solicitação em análise ou TCC em andamento.");
-                    return false;
-            }
-        }
-        mensagemConfirma("Solicitação realizada com sucesso!");
-        return true;
+        return null;
     }
     
     public void mensagemConfirma(String mensagem) {
@@ -206,6 +214,16 @@ public class GuiSolicitarOrientador {
     public void setTermoCompromissoDAO(TermoCompromissoDAO termoCompromissoDAO) {
         this.termoCompromissoDAO = termoCompromissoDAO;
     }
+
+    public int getEtapa() {
+        return etapa;
+    }
+
+    public void setEtapa(int etapa) {
+        this.etapa = etapa;
+    }
+    
+    
 
 
     

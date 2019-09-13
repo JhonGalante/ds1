@@ -7,7 +7,7 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-  
+
 
     <script type="text/javascript">
         //<![CDATA[
@@ -20,53 +20,58 @@
         }
         //]]>
     </script>
-    
+
     <div class="container">
         <p:panel style="text-align:left" header="Controle de TCC">
-        <br></br>
+            <br></br>
             <p:growl showDetail="true"/>
             <h:form enctype="multipart/form-data">
                 <br/><br/>
-                <p:fileUpload value="#{guiControleTCCIAluno.file}" mode="simple"/>
+                <p:fileUpload value="#{guiControleTCCAluno.file}" mode="simple"/>
                 <h4>Comentários</h4>
-                <p:inputTextarea value="#{guiControleTCCIAluno.comentario}" rows="4" cols="30" counter="display" maxlength="5000" counterTemplate="{0} caracteres restantes." autoResize="false" />
+                <p:inputTextarea value="#{guiControleTCCAluno.comentario}" rows="4" cols="30" counter="display" maxlength="5000" counterTemplate="{0} caracteres restantes." autoResize="false" />
                 <br/>
                 <h:outputText id="display" />           
 
                 <br/><br/>
-                <p:commandButton value="Enviar" ajax="false" actionListener="#{guiControleTCCIAluno.uploadTCC()}"/>
+                <p:commandButton value="Enviar" ajax="false" action="#{guiControleTCCAluno.realizarUpload()}"/>
             </h:form>
 
 
         </p:panel>
     </div>  
-    
+
     <div class="container">
-        <p:commandButton value="Histórico" ajax="true" action="#{controleTccAluno.retornaMovimentacoesAluno()}" update="movimentacoes"/>
-        <p:panel id="movimentacoes">
-            <h:form>
-                <h3>DataModel</h3>
-                <p:tabView value="#{controleTccAluno.movimentacoesAluno}" var="movimentacao">
-                    <p:tab title="Data - #{movimentacao.data}">
-                        <h:panelGrid columns="2" cellpadding="5">
-                            <f:facet name="header">
-                                <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="pi pi-arrow-down" action="#{controleTccAluno.download(movimentacao)}">
-                                    <p:fileDownload value="#{controleTccAluno.file}" />
-                                </p:commandButton> 
-                            </f:facet>                    
-                            <h:outputText value="Comentário do aluno" style="font-weight: bold"/>
-                            <h:outputText value="#{movimentacao.comentarioAluno}" />
+        <p:fieldset legend="Historico" toggleable="true" collapsed="true">
+            <p:panelGrid columns="1" styleClass="ui-fluid">
+                <p:dataTable var="historico" value="#{guiControleTCCAluno.movs}" emptyMessage="Nenhuma movimentação encontrada"
+                             rows="10" paginator="true" paginatorTemplate="{PageLinks}"
+                             paginatorPosition="bottom">
 
-                            <h:outputText value="Comentario do professor TCC" style="font-weight: bold"/>
-                            <h:outputText value="#{movimentacao.comentarioProfessor}" />
+                    <p:column headerText="Data/Hora" sortBy="#{historico.dataHora}">
+                        <h:outputText value="#{historico.dataHora}" />
+                    </p:column>
 
-                            <h:outputText value="Comentario do Orientador" style="font-weight: bold"/>
-                            <h:outputText value="#{movimentacao.comentarioOrientador}" />
-                        </h:panelGrid>
-                    </p:tab>
-                </p:tabView>
-            </h:form>
-        </p:panel>
+                    <p:column headerText="Comentario" sortBy="#{historico.comentario}">
+                        <h:outputText value="#{historico.comentario}" />
+                    </p:column>
+
+                    <p:column headerText="Tipo de Movimentacao" sortBy="#{historico.tipoMovimentacaoENUM}">
+                        <h:outputText value="#{historico.tipoMovimentacaoENUM}" />
+                    </p:column>
+
+                    <p:column headerText="Download" style="width:100px;text-align: center">
+                        <h:form>
+                            <p:commandButton value="Down" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);">
+                                <f:setPropertyActionListener value="#{historico}" target="#{guiControleTCCAluno.selectedMov}" />
+                                <p:fileDownload value="#{guiControleTCCAluno.realizarDownload()}" />
+                            </p:commandButton>
+                        </h:form>
+                    </p:column>
+
+                </p:dataTable>
+            </p:panelGrid>
+        </p:fieldset>
     </div>
-    
+
 </ui:decorate>

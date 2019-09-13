@@ -8,6 +8,7 @@ package model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,7 +33,7 @@ public class MovimentacaoTCCI implements Serializable {
     private LocalDateTime dataHora;
     @NotNull
     private TipoMovimentacaoENUM tipoMovimentacaoENUM;
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     private ArquivoMovimentacao arquivoMovimentacao;
     private String comentario;
     @ManyToOne
@@ -79,8 +80,11 @@ public class MovimentacaoTCCI implements Serializable {
     public void setTcci(TCCI tccI) {
         this.tccI = tccI;
     }
-    
-    
+
+    public void setDataHora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
+    }
+
 
     @Override
     public int hashCode() {
