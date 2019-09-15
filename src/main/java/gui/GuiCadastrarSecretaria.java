@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import model.Secretaria;
+import model.TipoUsuarioENUM;
 import model.Usuario;
 
 /**
@@ -61,6 +62,7 @@ public class GuiCadastrarSecretaria {
         usuario.setEmail(email);
         usuario.setNome(nome);
         usuario.setSenha(senha);
+        usuario.setTipo(TipoUsuarioENUM.SECRETARIA);
         secretaria = new Secretaria();
         secretaria.setUsuario(usuario);
         

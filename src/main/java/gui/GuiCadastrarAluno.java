@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import model.Aluno;
 import model.CursoENUM;
+import model.TipoUsuarioENUM;
 import model.Usuario;
 
 /**
@@ -63,6 +64,7 @@ public class GuiCadastrarAluno {
         usuario.setEmail(email);
         usuario.setNome(nome);
         usuario.setSenha(senha);
+        usuario.setTipo(TipoUsuarioENUM.ALUNO);
         aluno = new Aluno();
         aluno.setCurso(curso);
         aluno.setUsuario(usuario);

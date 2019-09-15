@@ -12,7 +12,7 @@
             <br></br>
             <p:panel header="Solicitações de Orientação">
                 <p:dataTable id="solicitacoesPendentes" var="termoCompromisso" value="#{guiAceitarSolicitacaoOrientacao.termosCompromisso}" >
-                    <p:column id="lblNome" headerText="Nome" style="text-align: left">
+                    <p:column id="lblNome" headerText="Aluno" style="text-align: left">
                         <h:outputText value="#{termoCompromisso.aluno.usuario.nome}"/>
                     </p:column>
                     
@@ -32,13 +32,13 @@
                         <h:outputText value="#{termoCompromisso.dataHoraSolicitacao}"/>
                     </p:column>
                     
-                    <p:column id="btnAcoes" style="width:16px;text-align:center">
-                        <p:commandButton update=":form:solicitacoesPendentes" icon="pi pi-accept" title="Aceitar" action="#{guiAceitarSolicitacaoOrientacao.aceitarSolicitacao()}">
-                            <f:setPropertyActionListener value="termoCompromisso" target="#{guiAceitarSolicitacaoOrientacao.termoCompromisso}"
+                    <p:column id="btnAcoes" headerText="Ação">
+                        <p:commandButton update="solicitacoesPendentes" title="Aceitar" value="Aceitar" action="#{guiAceitarSolicitacaoOrientacao.aceitarSolicitacao()}" style="width:140px">
+                            <f:setPropertyActionListener value="termoCompromisso" target="#{guiAceitarSolicitacaoOrientacao.termoCompromisso}"></f:setPropertyActionListener>
                         </p:commandButton>
-                        
-                        <p:commandButton update=":form:solicitacoesPendentes" icon="pi pi-decline" title="Recusar" action="#{guiAceitarSolicitacaoOrientacao.recusarSolicitacao()}">
-                            <f:setPropertyActionListener value="termoCompromisso" target="#{guiAceitarSolicitacaoOrientacao.termoCompromisso}"
+                        <br></br>
+                        <p:commandButton update="solicitacoesPendentes" title="Recusar" value="Recusar" action="#{guiAceitarSolicitacaoOrientacao.recusarSolicitacao()}" style="width:140px">
+                            <f:setPropertyActionListener value="termoCompromisso" target="#{guiAceitarSolicitacaoOrientacao.termoCompromisso}"></f:setPropertyActionListener>
                         </p:commandButton>
                     </p:column>
                 </p:dataTable>     

@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import model.Professor;
+import model.TipoUsuarioENUM;
 import model.Usuario;
 
 /**
@@ -59,6 +60,7 @@ public class GuiCadastrarProfessor {
         usuario.setEmail(email);
         usuario.setNome(nome);
         usuario.setSenha(senha);
+        usuario.setTipo(TipoUsuarioENUM.VISITANTE);
         professor = new Professor();
         professor.setUsuario(usuario);
         
