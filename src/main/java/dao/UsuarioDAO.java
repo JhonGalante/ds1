@@ -88,6 +88,9 @@ public class UsuarioDAO implements InterfaceDAO{
     }
     
     public Usuario buscarMatricula(String matricula) {
+        if (em.find(Usuario.class, matricula) == null) {
+            return null;
+        }
         return em.find(Usuario.class, matricula);
     }
     

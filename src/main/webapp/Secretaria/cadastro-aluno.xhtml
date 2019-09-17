@@ -12,7 +12,7 @@
             <p:growl id="growl" showDetail="true" sticky="true" />  
             <p:panel header="Cadastro de Aluno">
                 <br></br>
-                <h:panelGrid columns="2" cellpadding="5" cellspacing="0">
+                <h:panelGrid columns="2" cellpadding="5" cellspacing="0" id="cadastroForm">
                     <p:outputLabel for="nome" value="Nome"/>
                     <p:inputText id="nome" value="#{guiCadastrarAluno.nome}" required="true"/>
                     
@@ -29,7 +29,13 @@
                     <p:selectOneMenu id="cursosENUM" value="#{guiCadastrarAluno.curso}" required="true">
                         <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
                         <f:selectItems value="#{guiCadastrarAluno.cursosENUM}"/>
-                    </p:selectOneMenu>  
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel for="etapa" value="Etapa: " />
+                    <p:selectOneRadio id="etapa" value="#{guiCadastrarAluno.etapa}" unselectable="false" required="true">
+                        <f:selectItem itemLabel="TCC I" itemValue="1" />
+                        <f:selectItem itemLabel="TCC II" itemValue="2" />
+                    </p:selectOneRadio>
                 </h:panelGrid>          
                 
                 <p:commandButton value="Cadastrar" ajax="false" action="#{guiCadastrarAluno.cadastrar()}"/>
@@ -39,16 +45,17 @@
             
             <br></br>
         <h:form>    
-            <p:dataTable id="tabela" var="al" value="#{guiCadastrarAluno.alunos}">
+            <p:dataTable id="tabela" var="al" value="#{guiCadastrarAluno.alunos}" selection="#{guiCadastrarAluno.aluno}" rowKey="#{al.id}">
                 <f:facet name="header">
                     Alunos
                 </f:facet>
+                <p:column selectionMode="single" style="width:16px;text-align:center"/>
                 
                 <p:column headerText="Nome">
                     <h:outputText value="#{al.usuario.nome}" />
                 </p:column>
                 
-                <p:column headerText="Matricula">
+                <p:column headerText="Matricula" style="width: 100px">
                     <h:outputText value="#{al.usuario.matricula}" />
                 </p:column>
                 
@@ -60,6 +67,13 @@
                     <h:outputText value="#{al.curso}" />
                 </p:column>
                 
+                <p:column headerText="Etapa TCC" style="width: 100px">
+                    <h:outputText value="#{al.etapaTcc}" />
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton process=":form:cadastroForm" ajax="false" value="Editar" action="#{guiCadastrarAluno.editarAluno()}" style="width:140px"/>
+                    <p:commandButton process="termo" ajax="false" value="Excluir" action="#{guiCadastrarAluno.excluirAluno()}" style="width:140px"/>
+                </f:facet>
             </p:dataTable>
         </h:form>
     </h:body>

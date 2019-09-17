@@ -5,13 +5,17 @@
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
              template="template-menu.xhtml"
              xmlns:p="http://primefaces.org/ui"
-             xmlns:f="http://xmlns.jcp.org/jsf/core">
+             xmlns:f="http://xmlns.jcp.org/jsf/core">    
     <body>
-        <h:form id="form">
+        <h:form>
             <p:growl id="growl" showDetail="true" sticky="true" />
-            <br></br>
-            <p:panel header="Solicitações de Orientação">
-                <p:dataTable id="solicitacoesPendentes" var="termoCompromisso" value="#{guiAceitarSolicitacaoOrientacao.termosCompromisso}" >
+            <p:panel header="Solicitações de Orientação">                
+                <p:dataTable id="termo" var="termoCompromisso" value="#{guiAceitarSolicitacaoOrientacao.termosCompromisso}" selection="#{guiAceitarSolicitacaoOrientacao.termoCompromisso}" rowKey="#{termoCompromisso.id}">
+                    <p:column selectionMode="single" style="width:16px;text-align:center"/>
+                    <p:column id="lblId" headerText="Id" style="text-align: left; width:50px">
+                        <h:outputText value="#{termoCompromisso.id}"/>
+                    </p:column>
+                    
                     <p:column id="lblNome" headerText="Aluno" style="text-align: left">
                         <h:outputText value="#{termoCompromisso.aluno.usuario.nome}"/>
                     </p:column>
@@ -31,17 +35,12 @@
                     <p:column id="lblDataSolicitacao" headerText="Data da Solicitação" style="text-align: center">
                         <h:outputText value="#{termoCompromisso.dataHoraSolicitacao}"/>
                     </p:column>
-                    
-                    <p:column id="btnAcoes" headerText="Ação">
-                        <p:commandButton update="solicitacoesPendentes" title="Aceitar" value="Aceitar" action="#{guiAceitarSolicitacaoOrientacao.aceitarSolicitacao()}" style="width:140px">
-                            <f:setPropertyActionListener value="termoCompromisso" target="#{guiAceitarSolicitacaoOrientacao.termoCompromisso}"></f:setPropertyActionListener>
-                        </p:commandButton>
-                        <br></br>
-                        <p:commandButton update="solicitacoesPendentes" title="Recusar" value="Recusar" action="#{guiAceitarSolicitacaoOrientacao.recusarSolicitacao()}" style="width:140px">
-                            <f:setPropertyActionListener value="termoCompromisso" target="#{guiAceitarSolicitacaoOrientacao.termoCompromisso}"></f:setPropertyActionListener>
-                        </p:commandButton>
-                    </p:column>
-                </p:dataTable>     
+                        
+                    <f:facet name="footer">
+                        <p:commandButton process="termo" ajax="false" value="Aceitar" action="#{guiAceitarSolicitacaoOrientacao.aceitarSolicitacao()}" style="width:140px"/>
+                        <p:commandButton process="termo" ajax="false" value="Recusar" action="#{guiAceitarSolicitacaoOrientacao.recusarSolicitacao()}" style="width:140px"/>
+                    </f:facet>
+                </p:dataTable>
             </p:panel>
         </h:form>
     </body>

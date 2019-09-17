@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import dao.UsuarioDAO;
 import java.io.IOException;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -30,8 +31,7 @@ public class GuiLogin {
         } catch (Exception ex) {
             Logger.getLogger(GuiLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        if (usuario.getSenha().equals(senha)){
+        if (usuario.getSenha().equals(senha) && usuario != null){
             ExternalContext ext = FacesContext.getCurrentInstance().getExternalContext();
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             session.setAttribute("usuarioLogado", usuario);
@@ -52,8 +52,10 @@ public class GuiLogin {
             }catch(Exception ex){
                 ex.printStackTrace();
             }
+        } else if ((usuario.getSenha() != senha) || usuario.equals(null)){
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Falha ao logar",  "Mensagem: Usuário ou senha inválidos."));
         }
-        
         return null;
     }
     

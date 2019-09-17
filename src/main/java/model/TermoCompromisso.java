@@ -45,6 +45,8 @@ public class TermoCompromisso implements Serializable {  //substitui o "Solicita
     private String titulo;
     @NotNull
     private LocalDate dataHoraSolicitacao;
+    private LocalDate dataHoraAceiteSolicitacao;
+    private LocalDate dataHoraRecusaSolicitacao;
     @NotNull
     private EstadoTermoCompromissoENUM estadoTermoCompromissoENUM;
     @NotNull
@@ -110,6 +112,22 @@ public class TermoCompromisso implements Serializable {  //substitui o "Solicita
 
     public void setEtapaTcc(int etapaTcc) {
         this.etapaTcc = etapaTcc;
+    }
+
+    public LocalDate getDataHoraAceiteSolicitacao() {
+        return dataHoraAceiteSolicitacao;
+    }
+
+    public void setDataHoraAceiteSolicitacao(LocalDate dataHoraAceiteSolicitacao) {
+        this.dataHoraAceiteSolicitacao = dataHoraAceiteSolicitacao;
+    }
+
+    public LocalDate getDataHoraRecusaSolicitacao() {
+        return dataHoraRecusaSolicitacao;
+    }
+
+    public void setDataHoraRecusaSolicitacao(LocalDate dataHoraRecusaSolicitacao) {
+        this.dataHoraRecusaSolicitacao = dataHoraRecusaSolicitacao;
     }
 
     @Override

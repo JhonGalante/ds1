@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import model.Aluno;
 import model.CursoENUM;
 import model.TipoUsuarioENUM;
@@ -37,6 +39,7 @@ public class GuiCadastrarAluno {
     private String nome;
     private String senha;
     private CursoENUM curso;
+    private int etapa;
 
     public GuiCadastrarAluno() throws Exception {
         this.alunos = alunoDAO.listar();
@@ -46,6 +49,20 @@ public class GuiCadastrarAluno {
         try {
             alunos = alunoDAO.listar();
         } catch (Exception ex) {
+            Logger.getLogger(GuiCadastrarAluno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void editarAluno() {
+        
+    }
+    
+    public void excluirAluno() {
+        try {
+            alunoDAO.excluir(aluno);
+            mensagemConfirma("Aluno " + aluno.getUsuario().getNome() + " excluído com sucesso!");
+        } catch (Exception ex) {
+            mensagemRecusa("Aluno " + aluno.getUsuario().getNome() + " não pôde ser excluído. Favor verificar possíveis vínculos.");
             Logger.getLogger(GuiCadastrarAluno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -68,6 +85,7 @@ public class GuiCadastrarAluno {
         aluno = new Aluno();
         aluno.setCurso(curso);
         aluno.setUsuario(usuario);
+        aluno.setEtapaTcc(etapa);
         
         try {
             usuarioDAO.incluir(usuario);
@@ -79,7 +97,15 @@ public class GuiCadastrarAluno {
         limparCampos();
         iniciarListaAlunos();
     }
+    public void mensagemConfirma(String mensagem) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Sucesso",  "Mensagem: " + mensagem) );
+    }
     
+    public void mensagemRecusa(String mensagem) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Solicitacao Inválida",  "Mensagem: " + mensagem) );
+    }
     public CursoENUM[] getCursosENUM() {
         return CursoENUM.values();
     }
@@ -146,6 +172,14 @@ public class GuiCadastrarAluno {
 
     public void setCurso(CursoENUM curso) {
         this.curso = curso;
+    }
+
+    public int getEtapa() {
+        return etapa;
+    }
+
+    public void setEtapa(int etapa) {
+        this.etapa = etapa;
     }
     
     

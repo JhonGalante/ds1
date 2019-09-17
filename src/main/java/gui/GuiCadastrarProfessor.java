@@ -25,6 +25,7 @@ public class GuiCadastrarProfessor {
     
     private final UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
     private final ProfessorDAO professorDAO = ProfessorDAO.getInstance();
+    
     private List<Professor> professores;
     
     private Usuario usuario;
@@ -60,7 +61,7 @@ public class GuiCadastrarProfessor {
         usuario.setEmail(email);
         usuario.setNome(nome);
         usuario.setSenha(senha);
-        usuario.setTipo(TipoUsuarioENUM.VISITANTE);
+        usuario.setTipo(TipoUsuarioENUM.PROFESSOR);
         professor = new Professor();
         professor.setUsuario(usuario);
         
