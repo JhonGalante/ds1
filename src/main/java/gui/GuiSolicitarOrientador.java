@@ -41,6 +41,7 @@ public class GuiSolicitarOrientador {
     private String titulo;
     private int etapa;
     private Sessao guiSessao;
+    private String mensagem;
     
     private final AlunoDAO alunoDAO = AlunoDAO.getInstance();
     private ProfessorDAO professorDAO = ProfessorDAO.getInstance();
@@ -54,6 +55,8 @@ public class GuiSolicitarOrientador {
     public void iniciarListaProfessoresOrientadores() throws IOException {
         try {
             professoresOrientadores = professorDAO.listar();
+            termosCompromisso = termoCompromissoDAO.listar();
+            aluno = alunoDAO.buscarMatricula(guiSessao.getUsuarioSessao().getMatricula());
         } catch(Exception ex) {
             Logger.getLogger(GuiSolicitarOrientador.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -103,14 +106,13 @@ public class GuiSolicitarOrientador {
             return false;
         }
         try {
-            
             termosCompromisso = termoCompromissoDAO.listar();
-            
             for (TermoCompromisso termo : termosCompromisso) {
                 if (termo.getAluno().equals(aluno)
                     && !(termo.getEstadoTermoCompromissoENUM().equals(EstadoTermoCompromissoENUM.SOLICITACAO_RECUSADA))) {
                         mensagemRecusa("O aluno " + aluno.getUsuario().getNome()
-                                + " já possui uma solicitação em análise ou TCC em andamento.");
+                                + " já possui uma solicitação em análise ou TCC em andamento com o professor."
+                                + termo.getProfessor().getUsuario().getNome());
                         return false;
                 }
             }
@@ -221,6 +223,14 @@ public class GuiSolicitarOrientador {
 
     public void setEtapa(int etapa) {
         this.etapa = etapa;
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
     
     

@@ -260,4 +260,6 @@ public class GuiControleTCCAluno {
     public void setSelectedMov(Object selectedMov) {
         this.selectedMov = selectedMov;
     }
+    
+    
 }

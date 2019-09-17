@@ -45,6 +45,14 @@ public class MovimentacaoTCCI implements Serializable {
         return id;
     }
 
+    public TCCI getTccI() {
+        return tccI;
+    }
+
+    public void setTccI(TCCI tccI) {
+        this.tccI = tccI;
+    }
+
     public LocalDateTime getDataHora() {
         return dataHora;
     }

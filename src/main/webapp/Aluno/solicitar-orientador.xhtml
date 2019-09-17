@@ -25,7 +25,7 @@
                     </p:selectOneRadio>
 
                     <p:outputLabel for="professor" value="Professor Orientador"/>
-                    <p:dataTable style="width: 50%" id="professor" var="professorOrientador" value="#{guiSolicitarOrientador.professoresOrientadores}" selection="#{guiSolicitarOrientador.professorOrientador}" rowKey="#{professorOrientador.id}" >
+                    <p:dataTable style="width: 50%" id="professor" var="professorOrientador" value="#{guiSolicitarOrientador.professoresOrientadores}" selection="#{guiSolicitarOrientador.professorOrientador}" rowKey="#{professorOrientador.id}" emptyMessage="#{guiSolicitarOrientador.mensagem}" >
                         <p:column selectionMode="single" style="width:16px;text-align:center"/>
                         <p:column headerText="Nome" style="text-align: left">
                             <p:outputLabel value="#{professorOrientador.usuario.nome}"/>

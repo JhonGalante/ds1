@@ -19,7 +19,7 @@
                     <p:menuitem value="Secretaria" url="cadastro-secretaria.xhtml" action="#{guiCadastrarSecretaria.iniciarListaSecretaria()}"></p:menuitem>
                 </p:submenu>
                 <p:menuitem value="Tramitação Legal" url="tramitacao-legal.xhtml"></p:menuitem>
-                <p:menuitem value="Sair" action="#{guiLogin.logout()}"></p:menuitem>
+                <p:menuitem value="Sair" action="#{guiLogin.logout()}" ajax="false"></p:menuitem>
             </p:menubar>
             <ui:insert></ui:insert>
         </h:body>

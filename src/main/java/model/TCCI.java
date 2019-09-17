@@ -31,8 +31,9 @@ public class TCCI implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @OneToOne(cascade=CascadeType.ALL)
+    //@OneToOne(cascade=CascadeType.ALL)
     @NotNull
+    @OneToOne
     private TermoCompromisso termoCompromisso;
 
     @OneToOne
@@ -40,10 +41,12 @@ public class TCCI implements Serializable{
     
     private EstadoTccENUM estadoTccENUM;
     
-    @OneToOne(cascade=CascadeType.ALL)
+    //@OneToOne(cascade=CascadeType.ALL)
+    @OneToOne
     private ApresentacaoTCC apresentacao;
     
-    @OneToOne(cascade=CascadeType.ALL)
+    //@OneToOne(cascade=CascadeType.ALL)
+    @OneToOne
     private ArquivoTramitacao arquivoTramitacao;
     
     private Float nota;
