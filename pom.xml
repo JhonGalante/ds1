@@ -99,6 +99,14 @@
             <artifactId>hibernate-java8</artifactId>
             <version>5.4.4.Final</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>2.29.1</version>
+            <scope>provided</scope>
+        </dependency>
+        
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -119,6 +127,9 @@
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
         </dependency>
+        
+        
+           
     </dependencies>
 
     <build>
@@ -169,6 +180,7 @@
                 </executions>
             </plugin>
         </plugins>
+        <finalName>server</finalName>
     </build>
     <repositories>
         <repository>
