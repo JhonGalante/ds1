@@ -32,10 +32,9 @@ public class TCCII implements Serializable {
     private Long id;
     
     @NotNull
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne
     private TermoCompromisso termoCompromisso;
     
-    @NotNull
     @OneToOne
     private TCCI tccI;
     

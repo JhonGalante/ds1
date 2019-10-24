@@ -12,6 +12,7 @@ import dao.TCCIIDAO;
 import dao.TermoCompromissoDAO;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,49 +38,44 @@ public class GuiAceitarSolicitacaoOrientacao {
     private TermoCompromisso termoCompromisso;
     private TCCI tccI;
     private TCCII tccII;
-    private Sessao guiSessao;
     private Professor professor;
+    
     private Aluno aluno;
     
     private final TermoCompromissoDAO termoCompromissoDAO = TermoCompromissoDAO.getInstance();
     private final TCCIDAO tccIDAO = TCCIDAO.getInstance();
     private final TCCIIDAO tccIIDAO = TCCIIDAO.getInstance();
     private ProfessorDAO professorDAO = ProfessorDAO.getInstance();
+    private final Sessao sessao = Sessao.getInstance();
     
     public GuiAceitarSolicitacaoOrientacao() throws Exception {
-        termosCompromisso = termoCompromissoDAO.listar();
-        // Filtrei por for pois a cláusula WHERE não estava funcionando corretamente no BuscarTermosPendentesAceitacao
-        for (TermoCompromisso termo : termosCompromisso) {
-            if ((EstadoTermoCompromissoENUM.SOLICITACAO_ANALISE) != termo.getEstadoTermoCompromissoENUM()
-                    && termo.getProfessor() != professor) {
-                termosCompromisso.remove(termo);
-            }
-        }
-        this.guiSessao = new Sessao();
+        termosCompromisso = iniciarListaSolicitacoes();
     }
     
-    public List<TermoCompromisso> iniciarListaSolicitacoes() throws IOException {
+    public List<TermoCompromisso> iniciarListaSolicitacoes() throws IOException, Exception {
         limparSelecao();
+        List<TermoCompromisso> termosTemp = new ArrayList<>();
+        Professor professorTemp;
         try {
-            professor = professorDAO.buscarMatricula(guiSessao.getUsuarioSessao().getMatricula());
-            termosCompromisso = termoCompromissoDAO.listar();
+            professorTemp = professorDAO.buscarMatricula(sessao.getUsuarioSessao().getMatricula());
         } catch(Exception ex) {
             Logger.getLogger(GuiAceitarSolicitacaoOrientacao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
         // Filtrei por for pois a cláusula WHERE não estava funcionando corretamente no BuscarTermosPendentesAceitacao
-        for (TermoCompromisso termo : termosCompromisso) {
-            if ((EstadoTermoCompromissoENUM.SOLICITACAO_ANALISE) != termo.getEstadoTermoCompromissoENUM()
-                    && termo.getProfessor() != professor) {
-                termosCompromisso.remove(termo);
+        for (TermoCompromisso termo : termoCompromissoDAO.listar()) {
+            if ((EstadoTermoCompromissoENUM.SOLICITACAO_ANALISE) == termo.getEstadoTermoCompromissoENUM()
+                    && termo.getProfessor().equals(professorTemp)) {
+                termosTemp.add(termo);
             }
         }
-        return termosCompromisso;
+        return termosTemp;
     }
     
-    public void aceitarSolicitacao() throws IOException {
+    public void aceitarSolicitacao() throws IOException, Exception {
         //String matriculaAluno = termoCompromisso.getAluno().getUsuario().getMatricula();
         try {
-            professor = professorDAO.buscarMatricula(guiSessao.getUsuarioSessao().getMatricula());
+            professor = professorDAO.buscarMatricula(sessao.getUsuarioSessao().getMatricula());
             //termoCompromisso = termoCompromissoDAO.pesquisarPorMatricula(matriculaAluno);
         } catch(Exception ex) {
             Logger.getLogger(GuiAceitarSolicitacaoOrientacao.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,7 +87,6 @@ public class GuiAceitarSolicitacaoOrientacao {
         if (termoCompromisso.getEtapaTcc() == 1) {
             tccI = new TCCI();
             tccI.setTermoCompromisso(termoCompromisso);
-            tccI.setProfessorTcc(termoCompromisso.getProfessor());
             tccI.setEstadoTccENUM(EstadoTccENUM.ENTREGA);
             // Coloquei o mesmo professor apenas para realizar testes.
             // Precisamos definir em que momento e como será definido quem será o professor de TCC
@@ -99,7 +94,7 @@ public class GuiAceitarSolicitacaoOrientacao {
             try {
                 termoCompromissoDAO.alterar(termoCompromisso);
                 tccIDAO.incluir(tccI);
-                mensagemConfirma("Solicitação ACEITA com sucesso. ETAPA 1");
+                mensagemConfirma("Solicitação ACEITA com sucesso.");
             } catch(Exception ex) {
                 Logger.getLogger(GuiAceitarSolicitacaoOrientacao.class.getName()).log(Level.SEVERE, null, ex);
                 mensagemRecusa("Não foi possível realizar esta operação.");
@@ -108,8 +103,8 @@ public class GuiAceitarSolicitacaoOrientacao {
         if (termoCompromisso.getEtapaTcc() == 2) {
             tccII = new TCCII();
             tccII.setTermoCompromisso(termoCompromisso);
-            tccII.setProfessorTcc(termoCompromisso.getProfessor());
             tccII.setEstadoTccENUM(EstadoTccENUM.ENTREGA);
+            tccII.setDispRepo(false);
             // Coloquei o mesmo professor apenas para realizar testes.
             // Precisamos definir em que momento e como será definido quem será o professor de TCC
             tccII.setProfessorTcc(termoCompromisso.getProfessor());
@@ -123,11 +118,10 @@ public class GuiAceitarSolicitacaoOrientacao {
             }
         }
 
-        limparSelecao();
-        iniciarListaSolicitacoes();
+        termosCompromisso = iniciarListaSolicitacoes();
     }
     
-    public void recusarSolicitacao() throws IOException {
+    public void recusarSolicitacao() throws IOException, Exception {
         termoCompromisso.setEstadoTermoCompromissoENUM(EstadoTermoCompromissoENUM.SOLICITACAO_RECUSADA);
         termoCompromisso.setDataHoraRecusaSolicitacao(LocalDate.now());
         try {
@@ -137,12 +131,10 @@ public class GuiAceitarSolicitacaoOrientacao {
             Logger.getLogger(GuiAceitarSolicitacaoOrientacao.class.getName()).log(Level.SEVERE, null, ex);
             mensagemRecusa("Não foi possível realizar esta operação.");
         }
-        limparSelecao();
-        iniciarListaSolicitacoes();
+        termosCompromisso = iniciarListaSolicitacoes();
     }
     
     public void limparSelecao() {
-        termosCompromisso.clear();
         termoCompromisso = null;
         aluno = null;
         tccI = null;
@@ -181,14 +173,6 @@ public class GuiAceitarSolicitacaoOrientacao {
 
     public void setTccI(TCCI tccI) {
         this.tccI = tccI;
-    }
-
-    public Sessao getGuiSessao() {
-        return guiSessao;
-    }
-
-    public void setGuiSessao(Sessao guiSessao) {
-        this.guiSessao = guiSessao;
     }
 
     public Professor getProfessor() {

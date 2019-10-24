@@ -89,7 +89,8 @@ public class ProfessorDAO implements InterfaceDAO{
     }
     
     public Professor buscarMatricula(String matricula) {
-        Query q = em.createQuery("SELECT p FROM Professor p WHERE p.usuario.matricula =:matricula");
+        Query q = em.createQuery("SELECT p FROM Professor p WHERE p.usuario.matricula =:matricula")
+                .setParameter("matricula", matricula);
         Professor professor = (Professor) q.getSingleResult();
         return professor;
     }

@@ -3,6 +3,7 @@ package gui;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import dao.UsuarioDAO;
+import helper.Sessao;
 import java.io.IOException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -23,6 +24,7 @@ public class GuiLogin {
     private Usuario usuario;
     private String matricula;
     private String senha;
+    private final Sessao sessao = Sessao.getInstance();
     
     
     public String logar() throws IOException{

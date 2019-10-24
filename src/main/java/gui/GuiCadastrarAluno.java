@@ -52,19 +52,19 @@ public class GuiCadastrarAluno {
             Logger.getLogger(GuiCadastrarAluno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+ 
     
-    public void editarAluno() {
-        
-    }
-    
-    public void excluirAluno() {
+    public void excluirAluno() throws IOException {
         try {
+            usuarioDAO.excluir(aluno.getUsuario());
             alunoDAO.excluir(aluno);
             mensagemConfirma("Aluno " + aluno.getUsuario().getNome() + " excluído com sucesso!");
         } catch (Exception ex) {
             mensagemRecusa("Aluno " + aluno.getUsuario().getNome() + " não pôde ser excluído. Favor verificar possíveis vínculos.");
             Logger.getLogger(GuiCadastrarAluno.class.getName()).log(Level.SEVERE, null, ex);
         }
+        limparCampos();
+        iniciarListaAlunos();
     }
     
     public void limparCampos() {
