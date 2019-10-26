@@ -1,77 +1,80 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 <ui:decorate xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      template="template-menu.xhtml"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             template="template-menu.xhtml"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <style>
+        .column {
+            text-align: center;
+        }
+    </style>
+    <h:body>
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true" />
+            <p:panel id="avaliarProjetoPanel" header="Avaliar Projeto">
+                <p:dataTable id="tabelaAvaliarProjeto" var="projeto" value="#{guiAvaliarProjeto.projetos}" selection="#{guiAvaliarProjeto.projetoSelecionado}" rowKey="#{projeto.id}">
+                    <f:facet name="header">
+                        Projetos Pendentes de Avaliação
+                    </f:facet>
+                    <p:column selectionMode="single" style="width:16px;text-align:center"/>
+                    <p:column headerText="Nome" class="column">
+                        <h:outputText value="#{projeto.termoCompromisso.aluno.usuario.nome}" />
+                    </p:column>
+                    <p:column headerText="Curso" class="column">
+                        <h:outputText value="#{projeto.termoCompromisso.aluno.curso}" />
+                    </p:column>
+                    <p:column headerText="Titulo" class="column">
+                        <h:outputText value="#{projeto.termoCompromisso.titulo}" />
+                    </p:column>  
+                    <p:column headerText="Data de Entrega" class="column">
+                        <h:outputText value="#{projeto.dataPublicacao}" />
+                    </p:column>  
+                    <p:column headerText="Arquivo" class="column">
+                        <p:commandButton value="Download" icon="fa fa-fw fa-download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);">
+                            <f:setPropertyActionListener value="#{projeto}" target="#{guiAvaliarProjeto.projetoSelecionado}" />
+                            <p:fileDownload value="#{guiAvaliarProjeto.download()}" />
+                        </p:commandButton>
+                    </p:column>  
+                    <f:facet name="footer">
+                        <h:outputText value="Selecione um Projeto" />
+                        <p:commandButton icon="fa fa-fw fa-hand-o-up" value="Selecionar" style="margin-left: 10px;">
+                            <f:ajax execute="j_idt4:form:tabelaAvaliarProjeto" render="j_idt4:form:campoDataAnterior" />
+                            <f:ajax execute="j_idt4:form:tabelaAvaliarProjeto" render="j_idt4:form:campoNota" />
+                        </p:commandButton>
+                    </f:facet>
+                </p:dataTable>
 
-<h:body>
-    <h:form id="form">
-        <p:panel header="Avaliar Projeto">
-            <p:dataTable id="tabelaAvaliarProjeto" var="projeto" value="#{tabelaAvaliarProjetoBean.projetos}" selectionMode="single" selection="#{tabelaAvaliarProjetoBean.projeto}" rowKey="#{projeto.id}">
-                <f:facet name="header">
-                    Projetos Pendentes de Avaliação
-                </f:facet>
-                <p:column headerText="Nome">
-                    <h:outputText value="#{projeto.autor.nome}" />
-                </p:column>
-                <p:column headerText="Curso">
-                    <h:outputText value="#{projeto.autor.curso}" />
-                </p:column>
-                <p:column headerText="Titulo">
-                    <h:outputText value="#{projeto.titulo}" />
-                </p:column>  
-                <p:column headerText="Data de Entrega">
-                    <h:outputText value="#{projeto.dataEntrega}" />
-                </p:column>  
-                <p:column headerText="Arquivo">
-                    <p:commandButton process="tabelaAvaliarProjeto" icon="pi pi-arrow-down" value="Download" action="#{controleTccAluno.download(tcc)}"/> 
-                </p:column>  
-                <f:facet name="footer">
-                    <h:outputText value="Selecione um Projeto" />
-                </f:facet>
-            </p:dataTable>
+                <br></br><hr></hr><br></br>
 
-            <br></br><hr></hr><br></br>
+                <p:fieldset id="avaliarProjeto" legend="Avaliar Projeto Selecionado" toggleable="false" collapsed="false">
+                    <p:panelGrid columns="2" styleClass="ui-fluid">
+                        <p:outputLabel value="Nota: "/>
+                        <p:inputText id="campoNota" value="#{guiAvaliarProjeto.nota}" />  
 
-            <p:fieldset id="avaliarProjeto" legend="Avaliar Projeto Selecionado" toggleable="true" collapsed="false">
-                <p:panelGrid columns="2" styleClass="ui-fluid">
-                    <p:outputLabel value="Nota: "/>
-                    <p:inputText value="#{projeto.nota}" />  
+                        <p:outputLabel value="Enviar para Repositório: " />
+                        <p:selectBooleanCheckbox value="#{guiAvaliarProjeto.repo}" />  
 
-                    <p:outputLabel value="Enviar para Repositório: " />
-                    <p:selectBooleanCheckbox value="#{projeto.disponivel}" />       
-                    <p:commandButton value="Salvar" process="tabelaAvaliarProjeto" action="#{tabelaAvaliarProjetoBean.avaliarProjeto()}" update="tabelaAvaliarProjeto">
-                        <p:confirm header="Avaliar Projeto" message="Confirmar?" icon="pi pi-exclamation-triangle" />
-                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
-                                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
-                            </p:confirmDialog> 
-                    </p:commandButton>
-                </p:panelGrid>
-            </p:fieldset>
+                        <p:commandButton value="Salvar" process="tabelaAvaliarProjeto" action="#{guiAvaliarProjeto.avaliarProjeto()}" ajax="false"/>
 
-            <br></br><br></br>
+                    </p:panelGrid>
+                </p:fieldset>
 
-            <p:fieldset id="definirNovaEntrega" legend="Definir Nova Data de Entrega" toggleable="true" collapsed="true">
-                <p:panelGrid columns="2" styleClass="ui-fluid">
-                    <p:outputLabel value="Data Anterior: "/>
-                    <p:outputLabel value="#{projeto.dataEntrega}" />
+                <br></br><br></br>
 
-                    <p:outputLabel value="Nova Data: "/>
-                    <p:calendar id="button" mask="99/99/9999" value="#{calendarView.date3}" showOn="button" style=""/>  
-                    <p:commandButton value="Salvar" process="tabelaAvaliarProjeto" action="#{tabelaAvaliarProjetoBean.definirNovaEntrega()}" update="tabelaAvaliarProjeto">
-                        <p:confirm header="Definir Nova Data" message="Confirmar?" icon="pi pi-exclamation-triangle" />
-                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-                                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
-                            </p:confirmDialog> 
-                    </p:commandButton>
-                </p:panelGrid>
-            </p:fieldset>
-        </p:panel>
-    </h:form>
-</h:body>
+                <p:fieldset id="definirNovaEntrega" legend="Definir Nova Data de Entrega" toggleable="false" collapsed="false">
+                    <p:panelGrid columns="2" styleClass="ui-fluid">
+                        <p:outputLabel value="Data Anterior: "/>
+                        <p:outputLabel id="campoDataAnterior" value="#{guiAvaliarProjeto.projetoSelecionado.dataPublicacao}" />
+
+                        <p:outputLabel value="Nova Data: "/>
+                        <p:calendar id="button" mask="99/99/9999" mindate="today" value="#{guiAvaliarProjeto.dataEntrega}"/>  
+                        <p:commandButton value="Salvar" process="tabelaAvaliarProjeto" action="#{guiAvaliarProjeto.definirNovaEntrega()}" ajax="false"/>
+                    </p:panelGrid>
+                </p:fieldset>
+            </p:panel>
+        </h:form>
+    </h:body>
 </ui:decorate>

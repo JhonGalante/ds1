@@ -91,6 +91,17 @@ public class TCCIDAO implements InterfaceDAO{
         return q.getResultList();
     }
     
+    public TCCI buscarPorId(Long id){
+        Query q = em.createQuery("select t from TCCI as t where t.id = :id")
+                .setParameter("id", id);
+        try{
+            return (TCCI) q.getSingleResult();
+        }catch(NoResultException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     public TCCI buscarPorTermo(TermoCompromisso termo){
         Query q = em.createQuery("select t from TCCI as t where t.termoCompromisso.id = :id")
                 .setParameter("id", termo.getId());

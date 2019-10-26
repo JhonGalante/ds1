@@ -99,7 +99,7 @@ public class GuiPesquisarTCC implements Serializable {
         
         InputStream stream = new ByteArrayInputStream(arquivoByte);
         selectedTccIFile = new DefaultStreamedContent(stream, "application/pdf", selectedTccI.getTermoCompromisso().getTema() + " - " + 
-                                                                        selectedTccI.getTermoCompromisso().getAluno().getUsuario().getNome());
+                                                                        selectedTccI.getTermoCompromisso().getAluno().getUsuario().getNome()+".pdf");
         return selectedTccIFile;
     }
     
@@ -109,7 +109,7 @@ public class GuiPesquisarTCC implements Serializable {
         byte[] arquivoByte = ArrayUtils.toPrimitive(ultimaMovimentacao.getArquivoMovimentacao().getBinario());
         InputStream stream = new ByteArrayInputStream(arquivoByte);
         selectedTccIIFile = new DefaultStreamedContent(stream, "application/pdf", selectedTccII.getTermoCompromisso().getTema() + " - " + 
-                                                                        selectedTccII.getTermoCompromisso().getAluno().getUsuario().getNome());
+                                                                        selectedTccII.getTermoCompromisso().getAluno().getUsuario().getNome()+".pdf");
         
         return selectedTccIIFile;
     }

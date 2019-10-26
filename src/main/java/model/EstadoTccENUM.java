@@ -13,5 +13,6 @@ public enum EstadoTccENUM {
     ENTREGA,
     NOVA_ENTREGA,
     ANALISE,
+    AGUARDANDO_NOTA,
     FINALIZADO
 }

@@ -6,6 +6,8 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -52,6 +54,8 @@ public class TCCI implements Serializable{
     private Float nota;
     
     private boolean dispRepo;
+    
+    private LocalDate dataEntregaFinal;
     
     @OneToMany(mappedBy = "tccI", targetEntity = MovimentacaoTCCI.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<MovimentacaoTCCI> movimentacoesTCC;
@@ -150,11 +154,19 @@ public class TCCI implements Serializable{
         return termoCompromisso.getTema();
     }
 
-    public void finalizarTCC(Float nota) {
-        this.estadoTccENUM = EstadoTccENUM.FINALIZADO;
-        this.nota = nota;
+    public LocalDate getDataEntregaFinal() {
+        return dataEntregaFinal;
     }
-    
-    
-    
+
+    public void setDataEntregaFinal(LocalDate dataEntregaFinal) {
+        this.dataEntregaFinal = dataEntregaFinal;
+    }
+
+    public List<MovimentacaoTCCI> getMovimentacoesTCC() {
+        return movimentacoesTCC;
+    }
+
+    public void setMovimentacoesTCC(List<MovimentacaoTCCI> movimentacoesTCC) {
+        this.movimentacoesTCC = movimentacoesTCC;
+    }
 }

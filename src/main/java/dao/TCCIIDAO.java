@@ -8,8 +8,10 @@ package dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import model.TCCI;
 import model.TCCII;
 import model.TermoCompromisso;
 
@@ -98,5 +100,17 @@ public class TCCIIDAO implements InterfaceDAO{
             return null;  
         }
     }
+    
+    public TCCII buscarPorId(Long id){
+        Query q = em.createQuery("select t from TCCI as t where t.id = :id")
+                .setParameter("id", id);
+        try{
+            return (TCCII) q.getSingleResult();
+        }catch(NoResultException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
 
 }
