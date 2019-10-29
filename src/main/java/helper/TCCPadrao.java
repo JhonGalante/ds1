@@ -38,6 +38,12 @@ public class TCCPadrao implements Serializable {
         this.etapaTCC = etapaTCC;
     }
     
+    public TCCPadrao(Long id, TermoCompromisso termoCompromisso, int etapaTCC) {
+        this.termoCompromisso = termoCompromisso;
+        this.id = id;
+        this.etapaTCC = etapaTCC;
+    }
+    
     public TCCPadrao(float nota){
         this.nota = nota;
     }

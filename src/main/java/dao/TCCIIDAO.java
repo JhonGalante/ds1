@@ -102,7 +102,7 @@ public class TCCIIDAO implements InterfaceDAO{
     }
     
     public TCCII buscarPorId(Long id){
-        Query q = em.createQuery("select t from TCCI as t where t.id = :id")
+        Query q = em.createQuery("select t from TCCII as t where t.id = :id")
                 .setParameter("id", id);
         try{
             return (TCCII) q.getSingleResult();

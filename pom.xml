@@ -31,7 +31,6 @@
             <artifactId>all-themes</artifactId>  
             <version>1.0.10</version>  
         </dependency>  
-        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
             <groupId>antlr</groupId>
             <artifactId>antlr</artifactId>
@@ -99,7 +98,6 @@
             <artifactId>hibernate-java8</artifactId>
             <version>5.4.4.Final</version>
         </dependency>
-        
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet</artifactId>
@@ -117,23 +115,16 @@
             <version>7.0</version>
             <type>jar</type>
         </dependency>
-        
-        <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
             <version>1.4</version>
         </dependency>
-        
-        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
         </dependency>
-        
-        
-           
     </dependencies>
 
     <build>
