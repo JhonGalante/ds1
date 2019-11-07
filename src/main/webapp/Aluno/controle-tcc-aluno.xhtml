@@ -27,7 +27,7 @@
             <p:growl showDetail="true"/>
             <h:form enctype="multipart/form-data">
                 <br/><br/>
-                <p:fileUpload value="#{guiControleTCCAluno.file}" mode="simple"/>
+                <p:fileUpload fileUploadListener="#{guiControleTCCAluno.setFile}" label="Escolher" auto="true" multiple="false" skinSimple="true"/>
                 <h4>Comentários</h4>
                 <p:inputTextarea value="#{guiControleTCCAluno.comentario}" rows="4" cols="30" counter="display" maxlength="5000" counterTemplate="{0} caracteres restantes." autoResize="false" />
                 <br/>

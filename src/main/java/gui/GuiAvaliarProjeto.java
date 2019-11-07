@@ -56,9 +56,9 @@ public class GuiAvaliarProjeto {
         for(TCCI tcci: tcciDAO.listar()){
             if(/*tcci.getEstadoTccENUM() == EstadoTccENUM.FINALIZADO &&*/
                     tcci.getProfessorTcc().equals(professorTemp) && 
-                    tcci.getNota() == null && !tcci.getMovimentacoes().isEmpty()){
+                    tcci.getNota() == null && !tcci.getMovimentacoesTCC().isEmpty()){
                 projetos.add(new TCCPadrao(tcci.getId(), 0,tcci.getTermoCompromisso(), 
-                        tcci.getMovimentacoes().get(tcci.getMovimentacoes().size()-1).getDataHora(), 1));
+                        tcci.getMovimentacoesTCC().get(tcci.getMovimentacoesTCC().size()-1).getDataHora(), 1));
             }
         }
         
@@ -110,7 +110,7 @@ public class GuiAvaliarProjeto {
     }
     
     public StreamedContent downloadTCCI(TCCI selectedTccI) throws FileNotFoundException{
-        List <MovimentacaoTCCI> movimentacoes = selectedTccI.getMovimentacoes();
+        List <MovimentacaoTCCI> movimentacoes = selectedTccI.getMovimentacoesTCC();
         MovimentacaoTCCI ultimaMovimentacao = movimentacoes.get(movimentacoes.size()-1);
         byte[] arquivoByte = ArrayUtils.toPrimitive(ultimaMovimentacao.getArquivoMovimentacao().getBinario());
         

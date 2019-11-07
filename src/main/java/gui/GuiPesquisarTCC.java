@@ -93,7 +93,7 @@ public class GuiPesquisarTCC implements Serializable {
     }
     
     public StreamedContent downloadTCCI() throws FileNotFoundException{
-        List <MovimentacaoTCCI> movimentacoes = selectedTccI.getMovimentacoes();
+        List <MovimentacaoTCCI> movimentacoes = selectedTccI.getMovimentacoesTCC();
         MovimentacaoTCCI ultimaMovimentacao = movimentacoes.get(movimentacoes.size()-1);
         byte[] arquivoByte = ArrayUtils.toPrimitive(ultimaMovimentacao.getArquivoMovimentacao().getBinario());
         

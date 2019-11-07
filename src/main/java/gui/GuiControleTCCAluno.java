@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import model.Aluno;
 import model.ArquivoMovimentacao;
@@ -29,6 +30,7 @@ import model.TCCII;
 import model.TermoCompromisso;
 import model.TipoMovimentacaoENUM;
 import org.apache.commons.lang.ArrayUtils;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -38,6 +40,7 @@ import org.primefaces.model.UploadedFile;
  * @author jhonata
  */
 @ManagedBean
+@ViewScoped
 public class GuiControleTCCAluno {
 
     private UploadedFile file;
@@ -90,10 +93,14 @@ public class GuiControleTCCAluno {
         if(tcci != null){
             uploadTCCI();
             preencherListaMovTCCI(tcci);
+            addMessage("Upload realizado com sucesso!");
         }else if(tccii != null){
             uploadTCCII();
             preencherListaMovTCCII(tccii);
+            addMessage("Upload realizado com sucesso!");
         }
+        comentario = null;
+        file = null;
     }
 
     public void uploadTCCI() {
@@ -117,9 +124,9 @@ public class GuiControleTCCAluno {
             mov.setTcci(tcci);
 
             //Puxa a lista de movimentações do objeto TCC, adiciona a nova movimentacao a lista e retorna ao objeto
-            List<MovimentacaoTCCI> movimentacoes = tcci.getMovimentacoes();
+            List<MovimentacaoTCCI> movimentacoes = tcci.getMovimentacoesTCC();
             movimentacoes.add(mov);
-            tcci.setMovimentacoes(movimentacoes);
+            tcci.setMovimentacoesTCC(movimentacoes);
 
             //Atualiza o objeto no banco
             tccIDao.alterar(tcci);
@@ -199,7 +206,7 @@ public class GuiControleTCCAluno {
     
     private void preencherListaMovTCCI(TCCI tcci){
         movs.clear();
-        for(MovimentacaoTCCI movI : tcci.getMovimentacoes()){
+        for(MovimentacaoTCCI movI : tcci.getMovimentacoesTCC()){
                 movs.add((Object)movI);
             }
         
@@ -217,8 +224,8 @@ public class GuiControleTCCAluno {
         return file;
     }
 
-    public void setFile(UploadedFile file) {
-        this.file = file;
+    public void setFile(FileUploadEvent event){
+        file = event.getFile();
     }
 
     public String getComentario() {
@@ -259,6 +266,11 @@ public class GuiControleTCCAluno {
 
     public void setSelectedMov(Object selectedMov) {
         this.selectedMov = selectedMov;
+    }
+    
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage("Notificação", summary);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
     

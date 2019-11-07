@@ -118,14 +118,6 @@ public class TCCI implements Serializable{
     public void setDispRepo(boolean dispRepo) {
         this.dispRepo = dispRepo;
     }
-    
-    public List<MovimentacaoTCCI> getMovimentacoes() {
-        return movimentacoesTCC;
-    }
-
-    public void setMovimentacoes(List<MovimentacaoTCCI> movimentacoes) {
-        this.movimentacoesTCC = movimentacoes;
-    }
 
     @Override
     public int hashCode() {

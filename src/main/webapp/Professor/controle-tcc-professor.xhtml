@@ -8,12 +8,12 @@
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <h:body>
-        <h:form id="form" enctype="multipart/form-data">
-            <p:growl id="msgs" showDetail="true" />
-            <p:panel id="controleTcc">
-                <p:dataTable id="tabelaControleTcc" var="projeto" value="#{guiAvaliarProjeto.projetos}" selection="#{guiAvaliarProjeto.projetoSelecionado}" rowKey="#{projeto.id}">
+        <p:growl id="msgs" showDetail="true" />
+        <p:panel id="controleTcc">
+            <h:form>
+                <p:dataTable id="tabelaControleTcc" var="projeto" value="#{guiControleTCCProfessor.projetos}" selection="#{guiControleTCCProfessor.projetoSelecionado}" rowKey="#{projeto.id}">
                     <f:facet name="header">
-                        Projetos Pendentes de Avaliação
+                        Projetos
                     </f:facet>
                     <p:column selectionMode="single" style="width:16px;text-align:center"/>
                     <p:column headerText="Nome" class="column">
@@ -27,34 +27,30 @@
                     </p:column>  
                     <p:column headerText="Data de Entrega" class="column">
                         <h:outputText value="#{projeto.dataPublicacao}" />
-                    </p:column>  
-                    <p:column headerText="Arquivo" class="column">
-                        <p:commandButton value="Download" icon="fa fa-fw fa-download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);">
-                            <f:setPropertyActionListener value="#{projeto}" target="#{guiAvaliarProjeto.projetoSelecionado}" />
-                            <p:fileDownload value="#{guiAvaliarProjeto.download()}" />
-                        </p:commandButton>
-                    </p:column>  
+                    </p:column>
                     <f:facet name="footer">
                         <h:outputText value="Selecione um Projeto" />
-                        <p:commandButton icon="fa fa-fw fa-hand-o-up" value="Selecionar" style="margin-left: 10px;">
-                            <f:ajax execute="j_idt4:form:tabelaAvaliarProjeto" render="j_idt4:form:campoDataAnterior" />
-                            <f:ajax execute="j_idt4:form:tabelaAvaliarProjeto" render="j_idt4:form:campoNota" />
-                        </p:commandButton>
+                        <p:commandButton icon="fa fa-fw fa-hand-o-up" value="Selecionar" style="margin-left: 10px;" ajax='false' action="#{guiControleTCCProfessor.selecionarProjeto()}"/>
                     </f:facet>
                 </p:dataTable>
+
                 <br/><br/>
+
                 <p:fieldset legend="Movimentar" toggleable="false" collapsed="false">
-                    <p:fileUpload value="#{guiControleTCCAluno.file}" mode="simple"/>
-                    <h4>Comentários</h4>
-                    <p:inputTextarea value="#{guiControleTCCAluno.comentario}" rows="4" cols="30" counter="display" maxlength="5000" counterTemplate="{0} caracteres restantes." autoResize="false" />
-                    <br/>
-                    <h:outputText id="display" /> 
-                    <p:commandButton value="Enviar" ajax="false" action="#{guiControleTCCAluno.realizarUpload()}"/>
+                    <p:fileUpload fileUploadListener="#{guiControleTCCProfessor.setFile}" label="Escolher" auto="true" multiple="false" skinSimple="true"/>
+                        <h4>Comentários</h4>
+                        <p:inputTextarea value="#{guiControleTCCProfessor.comentario}" rows="4" cols="30" counter="display" maxlength="5000" counterTemplate="{0} caracteres restantes." autoResize="false" />
+                        <br/>
+                        <h:outputText id="display" /> 
+                        <br/>
+                        <p:commandButton value="Enviar" ajax="false" action="#{guiControleTCCProfessor.realizarUpload()}"/>
                 </p:fieldset>
+
                 <br/><br/>
+
                 <p:fieldset legend="Historico" toggleable="true" collapsed="true">
                     <p:panelGrid columns="1" styleClass="ui-fluid">
-                        <p:dataTable var="historico" value="#{guiControleTCCAluno.movs}" emptyMessage="Nenhuma movimentação encontrada"
+                        <p:dataTable var="historico" value="#{guiControleTCCProfessor.movs}" emptyMessage="Nenhuma movimentação encontrada"
                                      rows="10" paginator="true" paginatorTemplate="{PageLinks}"
                                      paginatorPosition="bottom">
 
@@ -73,17 +69,16 @@
                             </p:column>
 
                             <p:column headerText="Download" style="width:100px;text-align: center">
-                                <h:form>
                                     <p:commandButton value="Down" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);">
-                                        <f:setPropertyActionListener value="#{historico}" target="#{guiControleTCCAluno.selectedMov}" />
-                                        <p:fileDownload value="#{guiControleTCCAluno.realizarDownload()}" />
+                                        <f:setPropertyActionListener value="#{historico}" target="#{guiControleTCCProfessor.movSelecionado}" />
+                                        <p:fileDownload value="#{guiControleTCCProfessor.realizarDownload()}" />
                                     </p:commandButton>
-                                </h:form>
                             </p:column>
+
                         </p:dataTable>
                     </p:panelGrid>
                 </p:fieldset>
-            </p:panel>
-        </h:form>
+            </h:form>
+        </p:panel>
     </h:body>
 </ui:decorate>
