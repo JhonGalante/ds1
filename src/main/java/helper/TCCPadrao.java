@@ -6,6 +6,7 @@
 package helper;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import model.ApresentacaoTCC;
 import model.ArquivoTramitacao;
@@ -27,12 +28,21 @@ public class TCCPadrao implements Serializable {
     private ArquivoTramitacao arquivoTramitacao;
     private Float nota;
     private boolean dispRepo;
-    private LocalDateTime dataPublicacao;
+    private LocalDate dataEntregaFinal;
+    private LocalDateTime ultimaEntrega;
     private int etapaTCC;
 
-    public TCCPadrao(Long id, float nota, TermoCompromisso termoCompromisso, LocalDateTime dataPublicacao, int etapaTCC) {
+    public TCCPadrao(Long id, float nota, TermoCompromisso termoCompromisso, LocalDate dataEntregaFinal, int etapaTCC) {
         this.termoCompromisso = termoCompromisso;
-        this.dataPublicacao = dataPublicacao;
+        this.dataEntregaFinal = dataEntregaFinal;
+        this.id = id;
+        this.nota = nota;
+        this.etapaTCC = etapaTCC;
+    }
+    
+    public TCCPadrao(Long id, float nota, TermoCompromisso termoCompromisso, LocalDateTime ultimaEntrega, int etapaTCC) {
+        this.termoCompromisso = termoCompromisso;
+        this.ultimaEntrega = ultimaEntrega;
         this.id = id;
         this.nota = nota;
         this.etapaTCC = etapaTCC;
@@ -112,12 +122,12 @@ public class TCCPadrao implements Serializable {
         this.dispRepo = dispRepo;
     }
 
-    public LocalDateTime getDataPublicacao() {
-        return dataPublicacao;
+    public LocalDate getDataEntregaFinal() {
+        return dataEntregaFinal;
     }
 
-    public void setDataPublicacao(LocalDateTime dataPublicacao) {
-        this.dataPublicacao = dataPublicacao;
+    public void setDataEntregaFinal(LocalDate dataEntregaFinal) {
+        this.dataEntregaFinal = dataEntregaFinal;
     }
 
     public int getEtapaTCC() {
@@ -126,5 +136,13 @@ public class TCCPadrao implements Serializable {
 
     public void setEtapaTCC(int etapaTCC) {
         this.etapaTCC = etapaTCC;
+    }
+
+    public LocalDateTime getUltimaEntrega() {
+        return ultimaEntrega;
+    }
+
+    public void setUltimaEntrega(LocalDateTime ultimaEntrega) {
+        this.ultimaEntrega = ultimaEntrega;
     }
 }

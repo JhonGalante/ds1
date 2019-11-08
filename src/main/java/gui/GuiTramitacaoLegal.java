@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -26,6 +27,7 @@ import org.primefaces.model.UploadedFile;
  * @author Jhonata Galante
  */
 @ManagedBean
+@ViewScoped
 public class GuiTramitacaoLegal implements Serializable {
 
     private List<TCCPadrao> projetos;
@@ -56,11 +58,11 @@ public class GuiTramitacaoLegal implements Serializable {
     }
 
     public void selecionarProjeto() {
-        session.setAttribute("projetoSelecionado", projetoSelecionado);
+        
     }
 
     public void realizarUpload(FileUploadEvent event) {
-        projetoSelecionado = (TCCPadrao) session.getAttribute("projetoSelecionado");
+        
         file = event.getFile();
         if (projetoSelecionado != null && projetoSelecionado.getEtapaTCC() == 1) {
             uploadTCCI();

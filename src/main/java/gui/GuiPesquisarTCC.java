@@ -9,7 +9,6 @@ import dao.TCCIDAO;
 import dao.TCCIIDAO;
 import helper.Sessao;
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -32,85 +31,92 @@ import org.primefaces.model.StreamedContent;
  *
  * @author jhonata
  */
-
 @ManagedBean
 public class GuiPesquisarTCC implements Serializable {
-    
+
     private List<TCCI> tccsI;
     private List<TCCII> tccsII;
-    
+
     private TCCI selectedTccI;
     private TCCII selectedTccII;
     private StreamedContent selectedTccIFile;
     private StreamedContent selectedTccIIFile;
-    
+
     private List<TCCI> tccsIFiltred;
     private List<TCCII> tccsIIFiltred;
-    
+
     private String campoPesquisar;
     private Sessao sessao;
-    
+
     private final TCCIDAO tcciDao = TCCIDAO.getInstance();
     private final TCCIIDAO tcciiDao = TCCIIDAO.getInstance();
-    
-    public GuiPesquisarTCC() throws Exception{
+
+    public GuiPesquisarTCC() throws Exception {
         sessao = new Sessao();
         tccsI = new ArrayList<>();
         tccsII = new ArrayList<>();
-        
-        try{
+
+        try {
             Usuario usuario = sessao.getUsuarioSessao();
-            if(usuario.getTipo() == TipoUsuarioENUM.ALUNO){
-                for(TCCI tcci: tcciDao.listar()){
-                    if(tcci.isDispRepo()){
+            if (usuario.getTipo() == TipoUsuarioENUM.ALUNO) {
+                for (TCCI tcci : tcciDao.listar()) {
+                    if (tcci.isDispRepo()) {
                         tccsI.add(tcci);
                     }
                 }
-                for(TCCII tccii: tcciiDao.listar()){
-                    if(tccii.isDispRepo()){
+                for (TCCII tccii : tcciiDao.listar()) {
+                    if (tccii.isDispRepo()) {
                         tccsII.add(tccii);
                     }
                 }
             }
-            
-            if(usuario.getTipo() == TipoUsuarioENUM.PROFESSOR){
-                for(TCCI tcci: tcciDao.listar()){
+
+            if (usuario.getTipo() == TipoUsuarioENUM.PROFESSOR) {
+                for (TCCI tcci : tcciDao.listar()) {
                     tccsI.add(tcci);
-                    
+
                 }
-                for(TCCII tccii: tcciiDao.listar()){
+                for (TCCII tccii : tcciiDao.listar()) {
                     tccsII.add(tccii);
                 }
             }
-            
-        }catch(NullPointerException ex){
+
+        } catch (NullPointerException ex) {
             ex.printStackTrace();
-            
-            for(TCCII tccii: tcciiDao.listar()){
-                    tccsII.add(tccii);
+
+            for (TCCII tccii : tcciiDao.listar()) {
+                tccsII.add(tccii);
             }
         }
     }
-    
-    public StreamedContent downloadTCCI() throws FileNotFoundException{
-        List <MovimentacaoTCCI> movimentacoes = selectedTccI.getMovimentacoesTCC();
-        MovimentacaoTCCI ultimaMovimentacao = movimentacoes.get(movimentacoes.size()-1);
+
+    public StreamedContent downloadTCCI() throws FileNotFoundException {
+        List<MovimentacaoTCCI> movimentacoes = selectedTccI.getMovimentacoesTCC();
+        if (movimentacoes.isEmpty()) {
+            addMessage("Nenhuma movimentação encontrada");
+            return null;
+        }
+        MovimentacaoTCCI ultimaMovimentacao = movimentacoes.get(movimentacoes.size() - 1);
         byte[] arquivoByte = ArrayUtils.toPrimitive(ultimaMovimentacao.getArquivoMovimentacao().getBinario());
-        
+
         InputStream stream = new ByteArrayInputStream(arquivoByte);
-        selectedTccIFile = new DefaultStreamedContent(stream, "application/pdf", selectedTccI.getTermoCompromisso().getTema() + " - " + 
-                                                                        selectedTccI.getTermoCompromisso().getAluno().getUsuario().getNome()+".pdf");
+        selectedTccIFile = new DefaultStreamedContent(stream, "application/pdf", selectedTccI.getTermoCompromisso().getTema() + " - "
+                + selectedTccI.getTermoCompromisso().getAluno().getUsuario().getNome() + ".pdf");
         return selectedTccIFile;
     }
-    
-    public StreamedContent downloadTCCII(){
-        List <MovimentacaoTCCII> movimentacoes = selectedTccII.getMovimentacoes();
-        MovimentacaoTCCII ultimaMovimentacao = movimentacoes.get(movimentacoes.size()-1);
+
+    public StreamedContent downloadTCCII() throws FileNotFoundException {
+        List<MovimentacaoTCCII> movimentacoes = selectedTccII.getMovimentacoes();
+        if (movimentacoes.isEmpty()) {
+            addMessage("Nenhuma movimentação encontrada");
+            return null;
+        }
+        MovimentacaoTCCII ultimaMovimentacao = movimentacoes.get(movimentacoes.size() - 1);
         byte[] arquivoByte = ArrayUtils.toPrimitive(ultimaMovimentacao.getArquivoMovimentacao().getBinario());
         InputStream stream = new ByteArrayInputStream(arquivoByte);
-        selectedTccIIFile = new DefaultStreamedContent(stream, "application/pdf", selectedTccII.getTermoCompromisso().getTema() + " - " + 
-                                                                        selectedTccII.getTermoCompromisso().getAluno().getUsuario().getNome()+".pdf");
-        
+        selectedTccIIFile = new DefaultStreamedContent(stream, "application/pdf", selectedTccII.getTermoCompromisso().getTema() + " - "
+                + selectedTccII.getTermoCompromisso().getAluno().getUsuario().getNome() + ".pdf");
+
         return selectedTccIIFile;
     }
 

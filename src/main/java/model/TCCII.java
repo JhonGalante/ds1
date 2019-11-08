@@ -7,6 +7,7 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -63,6 +64,10 @@ public class TCCII implements Serializable {
     
     @OneToMany(mappedBy = "tccII", targetEntity = MovimentacaoTCCII.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<MovimentacaoTCCII> movimentacoesTCC;
+    
+    public TCCII(){
+        movimentacoesTCC = new ArrayList<>();
+    }
     
     
     //Métodos

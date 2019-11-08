@@ -106,7 +106,7 @@ public class TCCIDAO implements InterfaceDAO{
         Query q = em.createQuery("select t from TCCI as t where t.termoCompromisso.id = :id")
                 .setParameter("id", termo.getId());
         try{
-            return (TCCI) q.getResultList().get(0);
+            return (TCCI) q.getSingleResult();
         }catch(NoResultException e){
             e.printStackTrace();
             return null;

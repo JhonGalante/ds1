@@ -30,7 +30,7 @@
                         <h:outputText value="#{projeto.termoCompromisso.titulo}" />
                     </p:column>  
                     <p:column headerText="Data de Entrega" class="column">
-                        <h:outputText value="#{projeto.dataPublicacao}" />
+                        <h:outputText value="#{projeto.dataEntregaFinal}" />
                     </p:column>  
                     <p:column headerText="Arquivo" class="column">
                         <p:commandButton value="Download" icon="fa fa-fw fa-download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);">
@@ -67,7 +67,7 @@
                 <p:fieldset id="definirNovaEntrega" legend="Definir Nova Data de Entrega" toggleable="false" collapsed="false">
                     <p:panelGrid columns="2" styleClass="ui-fluid">
                         <p:outputLabel value="Data Anterior: "/>
-                        <p:outputLabel id="campoDataAnterior" value="#{guiAvaliarProjeto.projetoSelecionado.dataPublicacao}" />
+                        <p:outputLabel id="campoDataAnterior" value="#{guiAvaliarProjeto.projetoSelecionado.dataEntregaFinal}" />
 
                         <p:outputLabel value="Nova Data: "/>
                         <p:calendar id="button" mask="99/99/9999" mindate="today" value="#{guiAvaliarProjeto.dataEntrega}"/>  

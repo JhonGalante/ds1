@@ -92,7 +92,8 @@ public class TCCIIDAO implements InterfaceDAO{
     }
     
     public TCCII buscarPorTermo(TermoCompromisso termo) throws Exception {
-        Query q = em.createQuery("select t from TCCII t where t.termoCompromisso.id = " + termo.getId());
+        Query q = em.createQuery("select t from TCCII t where t.termoCompromisso.id = :id")
+                .setParameter("id", termo.getId());
         try{
             return (TCCII) q.getSingleResult();
         }catch(Exception ex){

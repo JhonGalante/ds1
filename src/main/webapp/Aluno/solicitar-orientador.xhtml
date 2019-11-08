@@ -18,12 +18,6 @@
                     <p:outputLabel for="titulo" value="Titulo"/>
                     <p:inputText id="titulo" value="#{guiSolicitarOrientador.titulo}" required="true" placeholder="Descreva o título do seu TCC" style="width: 40%"/>
 
-                    <p:outputLabel for="etapa" value="Etapa: " />
-                    <p:selectOneRadio id="etapa" value="#{guiSolicitarOrientador.etapa}" unselectable="true">
-                        <f:selectItem itemLabel="TCC I" itemValue="1" />
-                        <f:selectItem itemLabel="TCC II" itemValue="2" />
-                    </p:selectOneRadio>
-
                     <p:outputLabel for="professor" value="Professor Orientador"/>
                     <p:dataTable style="width: 50%" id="professor" var="professorOrientador" value="#{guiSolicitarOrientador.professoresOrientadores}" selection="#{guiSolicitarOrientador.professorOrientador}" rowKey="#{professorOrientador.id}" emptyMessage="#{guiSolicitarOrientador.mensagem}" >
                         <p:column selectionMode="single" style="width:16px;text-align:center"/>

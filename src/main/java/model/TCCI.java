@@ -8,6 +8,7 @@ package model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -34,7 +35,7 @@ public class TCCI implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne
     @NotNull
     private TermoCompromisso termoCompromisso;
 
@@ -57,6 +58,10 @@ public class TCCI implements Serializable{
     
     @OneToMany(mappedBy = "tccI", targetEntity = MovimentacaoTCCI.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<MovimentacaoTCCI> movimentacoesTCC;
+    
+    public TCCI(){
+        movimentacoesTCC = new ArrayList<>();
+    }
 
     //Métodos
     public Long getId() {

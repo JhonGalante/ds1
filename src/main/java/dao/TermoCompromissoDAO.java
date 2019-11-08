@@ -11,6 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.Aluno;
+import model.EstadoTermoCompromissoENUM;
 import model.TermoCompromisso;
 
 /**
@@ -89,8 +90,10 @@ public class TermoCompromissoDAO implements InterfaceDAO {
     }
 
     public TermoCompromisso pesquisarPorAlunoEtapa(Aluno aluno, int etapa) {
-        Query q = em.createQuery("from TermoCompromisso as t where t.aluno.usuario.matricula='" + aluno.getUsuario().getMatricula()
-                + "' AND t.etapaTcc=" + etapa);
+        Query q = em.createQuery("from TermoCompromisso as t where t.aluno.usuario.matricula=:matricula AND t.etapaTcc = :etapa AND t.estadoTermoCompromissoENUM = :estado")
+                .setParameter("matricula", aluno.getUsuario().getMatricula())
+                .setParameter("etapa", etapa)
+                .setParameter("estado", EstadoTermoCompromissoENUM.SOLICITACAO_ACEITA);
         try {
             return (TermoCompromisso) q.getResultList().get(0);
         } catch (Exception ex) {

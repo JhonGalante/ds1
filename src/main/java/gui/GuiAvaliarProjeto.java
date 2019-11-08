@@ -42,6 +42,7 @@ public class GuiAvaliarProjeto {
     private boolean repo;
     private Date dataEntrega;
     private Date minDate;
+    private Professor professorLogado;
     
     private final TCCIDAO tcciDAO = TCCIDAO.getInstance();
     private final TCCIIDAO tcciiDAO = TCCIIDAO.getInstance();
@@ -49,27 +50,10 @@ public class GuiAvaliarProjeto {
     private final Sessao sessao = Sessao.getInstance();
     
     public GuiAvaliarProjeto() throws Exception{
-        Professor professorTemp = professorDAO.buscarMatricula(sessao.getUsuarioSessao().getMatricula());
         projetos = new ArrayList<>();
         minDate = new Date();
-        
-        for(TCCI tcci: tcciDAO.listar()){
-            if(/*tcci.getEstadoTccENUM() == EstadoTccENUM.FINALIZADO &&*/
-                    tcci.getProfessorTcc().equals(professorTemp) && 
-                    tcci.getNota() == null && !tcci.getMovimentacoesTCC().isEmpty()){
-                projetos.add(new TCCPadrao(tcci.getId(), 0,tcci.getTermoCompromisso(), 
-                        tcci.getMovimentacoesTCC().get(tcci.getMovimentacoesTCC().size()-1).getDataHora(), 1));
-            }
-        }
-        
-        for(TCCII tccii: tcciiDAO.listar()){
-            if(/*tccii.getEstadoTccENUM() == EstadoTccENUM.FINALIZADO &&*/
-                    tccii.getProfessorTcc().equals(professorTemp) && 
-                    tccii.getNota() == null && !tccii.getMovimentacoes().isEmpty()){
-                projetos.add(new TCCPadrao(tccii.getId(), 0,tccii.getTermoCompromisso(), 
-                        tccii.getMovimentacoes().get(tccii.getMovimentacoes().size()-1).getDataHora(), 2));
-            }
-        }
+        professorLogado = professorDAO.buscarMatricula(sessao.getUsuarioSessao().getMatricula());
+        preencherTabela(); 
     }
     
     public void avaliarProjeto() throws Exception{
@@ -105,6 +89,7 @@ public class GuiAvaliarProjeto {
             tccii.setEstadoTccENUM(EstadoTccENUM.NOVA_ENTREGA);
             tcciiDAO.alterar(tccii);
         }
+        preencherTabela();
         addMessage("Nova data definida com sucesso!");
         projetoSelecionado = null;
     }
@@ -136,6 +121,28 @@ public class GuiAvaliarProjeto {
         }else{
             TCCII tccii = tcciiDAO.buscarPorId(projetoSelecionado.getId());
             return downloadTCCII(tccii);
+        }
+    }
+    
+    
+    public void preencherTabela() throws Exception{
+        projetos.clear();
+        for(TCCI tcci: tcciDAO.listar()){
+            if(tcci.getEstadoTccENUM() == EstadoTccENUM.FINALIZADO &&
+                    tcci.getProfessorTcc().equals(professorLogado) && 
+                    tcci.getNota() == null && !tcci.getMovimentacoesTCC().isEmpty()){
+                projetos.add(new TCCPadrao(tcci.getId(), 0,tcci.getTermoCompromisso(), 
+                        tcci.getDataEntregaFinal(), 1));
+            }
+        }
+        
+        for(TCCII tccii: tcciiDAO.listar()){
+            if(tccii.getEstadoTccENUM() == EstadoTccENUM.FINALIZADO &&
+                    tccii.getProfessorTcc().equals(professorLogado) && 
+                    tccii.getNota() == null && !tccii.getMovimentacoes().isEmpty()){
+                projetos.add(new TCCPadrao(tccii.getId(), 0,tccii.getTermoCompromisso(), 
+                        tccii.getDataEntregaFinal(), 2));
+            }
         }
     }
 

@@ -61,7 +61,7 @@ public class GuiControleTCCProfessor {
         movs = new ArrayList<>();
         
         for (TCCI tcci : tcciDAO.listar()) {
-            if (/*tcci.getEstadoTccENUM() == EstadoTccENUM.FINALIZADO &&*/tcci.getProfessorTcc().equals(professorTemp)
+            if (tcci.getProfessorTcc().equals(professorTemp)
                     && !tcci.getMovimentacoesTCC().isEmpty()) {
                 projetos.add(new TCCPadrao(tcci.getId(), 0, tcci.getTermoCompromisso(),
                         tcci.getMovimentacoesTCC().get(tcci.getMovimentacoesTCC().size() - 1).getDataHora(), 1));
@@ -69,7 +69,7 @@ public class GuiControleTCCProfessor {
         }
 
         for (TCCII tccii : tcciiDAO.listar()) {
-            if (/*tccii.getEstadoTccENUM() == EstadoTccENUM.FINALIZADO &&*/tccii.getProfessorTcc().equals(professorTemp)
+            if (tccii.getProfessorTcc().equals(professorTemp)
                     && !tccii.getMovimentacoes().isEmpty()) {
                 projetos.add(new TCCPadrao(tccii.getId(), 0, tccii.getTermoCompromisso(),
                         tccii.getMovimentacoes().get(tccii.getMovimentacoes().size() - 1).getDataHora(), 2));
@@ -192,7 +192,7 @@ public class GuiControleTCCProfessor {
             arqMov.setBinario(ArrayUtils.toObject(output.toByteArray()));
             mov.setArquivoMovimentacao(arqMov);
             mov.setComentario(comentario);
-            mov.setTipoMovimentacaoENUM(TipoMovimentacaoENUM.ENTREGA);
+            mov.setTipoMovimentacaoENUM(TipoMovimentacaoENUM.CONSULTA);
             mov.setDataHora(LocalDateTime.now());
             mov.setTccii(tccii);
 

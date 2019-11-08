@@ -11,7 +11,6 @@ import dao.AlunoDAO;
 import dao.ProfessorDAO;
 import dao.TermoCompromissoDAO;
 import java.io.IOException;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
