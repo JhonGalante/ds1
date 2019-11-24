@@ -52,8 +52,6 @@
                         <h:outputText value="#{historico.dataHora}" />
                     </p:column>
                     
-
-
                     <p:column headerText="Comentario" sortBy="#{historico.comentario}">
                         <h:outputText value="#{historico.comentario}" />
                     </p:column>
@@ -72,6 +70,21 @@
                     </p:column>
 
                 </p:dataTable>
+            </p:panelGrid>
+        </p:fieldset>
+    </div>
+    
+    <div class="container">
+        <p:fieldset legend="Apresentacao" toggleable="true" collapsed="true">
+            <p:panelGrid columns="1" styleClass="ui-fluid">
+                <p:outputLabel for="data-apresentacao" style="font-weight: bold;" value="Data de Apresentação:"></p:outputLabel>
+                <p:outputLabel id="data-apresentacao" value="#{guiControleTCCAluno.dataApresentacao}"/>
+                
+                <p:outputLabel for="local-apresentacao" style="font-weight: bold;" value="Local da Apresentação:"></p:outputLabel>
+                <p:outputLabel id="local-apresentacao" value="#{guiControleTCCAluno.localApresentacao}"/>
+                
+                <p:outputLabel for="banca" style="font-weight: bold;" value="Banca:"></p:outputLabel>
+                <p:outputLabel id="banca" value="#{guiControleTCCAluno.banca}"/>
             </p:panelGrid>
         </p:fieldset>
     </div>

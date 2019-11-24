@@ -14,6 +14,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +23,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import model.Aluno;
+import model.ApresentacaoTCC;
 import model.ArquivoMovimentacao;
 import model.MovimentacaoTCCI;
 import model.MovimentacaoTCCII;
+import model.Professor;
 import model.TCCI;
 import model.TCCII;
 import model.TermoCompromisso;
@@ -47,6 +50,9 @@ public class GuiControleTCCAluno {
     private String comentario;
     private TCCI tcci;
     private TCCII tccii;
+    private LocalDate dataApresentacao;
+    private String localApresentacao;
+    private String banca;
     
     private List<Object> movs;
     private Object selectedMov;
@@ -62,6 +68,8 @@ public class GuiControleTCCAluno {
     public GuiControleTCCAluno() throws Exception {
         sessao = new Sessao();
         movs = new ArrayList<>();
+        banca = "";
+        ApresentacaoTCC apresentacao;
         Aluno aluno = alunoDao.buscarMatricula(sessao.getUsuarioSessao().getMatricula());
         List<TermoCompromisso> termos = termoDao.listar();
         TermoCompromisso termo = null;
@@ -76,17 +84,31 @@ public class GuiControleTCCAluno {
         if (aluno.getEtapaTcc() == 1) {
             tcci = tccIDao.buscarPorTermo(termo);
             preencherListaMovTCCI(tcci);
+            apresentacao = tcci.getApresentacao();
+            if(apresentacao != null){
+                dataApresentacao = apresentacao.getDataApresentacao();
+                localApresentacao = apresentacao.getLocalApresentacao();
+                for(Professor professor : apresentacao.getProfessoresBanca()){
+                    banca += professor.getUsuario().getNome() + ", ";
+                }
+            }
             
         } else if (aluno.getEtapaTcc() == 2) {
             tccii = tccIIDao.buscarPorTermo(termo);
             preencherListaMovTCCII(tccii);
+            apresentacao = tccii.getApresentacao();
+            if(apresentacao != null){
+                dataApresentacao = apresentacao.getDataApresentacao();
+                localApresentacao = apresentacao.getLocalApresentacao();
+                for(Professor professor : apresentacao.getProfessoresBanca()){
+                    banca += professor.getUsuario().getNome() + ";";
+                }
+            }
             
         } else {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage("Erro", "Nenhum TCC encontrado designado ao aluno"));
         }
-        
-
     }
     
     public void realizarUpload(){
@@ -266,6 +288,18 @@ public class GuiControleTCCAluno {
 
     public void setSelectedMov(Object selectedMov) {
         this.selectedMov = selectedMov;
+    }
+
+    public LocalDate getDataApresentacao() {
+        return dataApresentacao;
+    }
+
+    public String getLocalApresentacao() {
+        return localApresentacao;
+    }
+
+    public String getBanca() {
+        return banca;
     }
     
     public void addMessage(String summary) {
