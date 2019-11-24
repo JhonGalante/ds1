@@ -47,6 +47,10 @@ public class GuiLogin {
                     ext.redirect("Professor/home.xhtml");
                     return null;
                 }
+                if(usuario.getTipo().equals(TipoUsuarioENUM.PROFESSORTCC)){
+                    ext.redirect("ProfessorTCC/home.xhtml");
+                    return null;
+                }
                 if (usuario.getTipo().equals(TipoUsuarioENUM.SECRETARIA)){
                     ext.redirect("Secretaria/home.xhtml");
                     return null;

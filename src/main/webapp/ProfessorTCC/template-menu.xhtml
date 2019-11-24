@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Sistema TCC - Professor</title>
+        <style>
+            *{
+                margin: 0px;
+                padding: 0px;
+            }
+        </style>
+    </h:head>
+    <h:form>
+        <h:body style="background-color: #abb8c9">
+            <p:menubar>
+                <p:menuitem value="Home" url="home.xhtml"></p:menuitem>  
+                <p:menuitem value="Pesquisar TCC" url="pesquisar-tcc.xhtml"></p:menuitem>
+                <p:menuitem value="Controle TCC" url="controle-tcc-professor.xhtml"></p:menuitem>
+                <p:menuitem value="Definir Apresentações" url="definir-apresentacao.xhtml"></p:menuitem>
+                <p:menuitem value="Sair" action="#{guiLogin.logout()}" ajax="false"></p:menuitem>
+            </p:menubar>
+            <ui:insert></ui:insert>
+        </h:body>
+    </h:form>
+
+</html>
+
