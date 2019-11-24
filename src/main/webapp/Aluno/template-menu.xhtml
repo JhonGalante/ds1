@@ -16,10 +16,11 @@
     
     <h:body style="background-color: #abb8c9">
         <h:form>
+            <p:growl showDetail="true"/>
             <p:menubar>
                 <p:menuitem value="Home" url="home.xhtml"></p:menuitem> 
                 <p:menuitem value="Pesquisar TCC" url="pesquisar-tcc.xhtml"></p:menuitem>
-                <p:menuitem value="Controle TCC" url="controle-tcc-aluno.xhtml"></p:menuitem>
+                <p:menuitem value="Controle TCC" action="#{guiControleTCCAluno.verificarTCC()}" ajax="false"></p:menuitem>
                 <p:menuitem value="Solicitar Orientador" url="solicitar-orientador.xhtml"></p:menuitem>
                 <p:menuitem value="Sair" action="#{guiLogin.logout()}" ajax="false"></p:menuitem>
             </p:menubar>
