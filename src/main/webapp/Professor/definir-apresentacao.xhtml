@@ -86,6 +86,8 @@
                     <p:panelGrid columns="2" styleClass="semBorda">
                         <p:outputLabel for="data" value="Data de Apresentação:" />
                         <p:datePicker id="data" value="#{guiDefinirApresentacao.data}" locale="pt" pattern="dd-MMM-yyyy"/>
+                        <p:outputLabel for="local" value="Local de Apresentação:" />
+                        <p:inputText id="local" value="#{guiDefinirApresentacao.local}"></p:inputText>
                         <p:commandButton value="Agendar" action="#{guiDefinirApresentacao.agendar()}" update="@form" ajax="false"/>
                     </p:panelGrid>
                 </p:panelGrid>

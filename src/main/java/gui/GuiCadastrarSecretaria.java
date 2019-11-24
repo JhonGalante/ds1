@@ -38,7 +38,7 @@ public class GuiCadastrarSecretaria {
     private String senha;
 
     public GuiCadastrarSecretaria() throws Exception {
-        this.secretarias = secretariaDAO.listar();
+        iniciarListaSecretaria();
     }
     
     public void iniciarListaSecretaria() throws IOException {

@@ -6,7 +6,6 @@
 package gui;
 
 import dao.AlunoDAO;
-import dao.ApresentacaoTCCDAO;
 import dao.ProfessorDAO;
 import dao.TCCIDAO;
 import dao.TCCIIDAO;
@@ -38,6 +37,7 @@ public class GuiDefinirApresentacao {
     private List<Professor> professores;
     private Date data;
     private LocalDate dataApresentacao;
+    private String local;
     private TCCI tcci;
     private TCCII tccii;
     private ApresentacaoTCC apresentacao;
@@ -84,6 +84,7 @@ public class GuiDefinirApresentacao {
 
         apresentacao.setDataApresentacao(dataApresentacao);
         apresentacao.setProfessoresBanca(banca);
+        apresentacao.setLocalApresentacao(local);
 
         try {
             incluirApresentacao(apresentacao);
@@ -196,6 +197,14 @@ public class GuiDefinirApresentacao {
         this.alunoSelecionado = alunoSeleciado;
     }
 
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+    
     private void limparCampos() {
         dataApresentacao = null;
         banca.removeAll(banca);
