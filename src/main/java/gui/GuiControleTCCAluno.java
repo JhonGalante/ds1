@@ -26,6 +26,7 @@ import javax.faces.context.FacesContext;
 import model.Aluno;
 import model.ApresentacaoTCC;
 import model.ArquivoMovimentacao;
+import model.EstadoTccENUM;
 import model.MovimentacaoTCCI;
 import model.MovimentacaoTCCII;
 import model.Professor;
@@ -54,6 +55,12 @@ public class GuiControleTCCAluno {
     private LocalDate dataApresentacao;
     private String localApresentacao;
     private String banca;
+    private String tema;
+    private String titulo;
+    private String professorOrientador;
+    private String status;
+    private int etapaTcc;
+    private boolean versaoFinal;
     
     private List<Object> movs;
     private Object selectedMov;
@@ -100,6 +107,12 @@ public class GuiControleTCCAluno {
                         banca += professor.getUsuario().getNome() + ", ";
                     }
                 }
+                
+                tema = tcci.getTermoCompromisso().getTema();
+                titulo = tcci.getTermoCompromisso().getTitulo();
+                professorOrientador = tcci.getTermoCompromisso().getProfessor().getUsuario().getNome();
+                status = tcci.getEstadoTccENUM().toString();
+                etapaTcc = tcci.getTermoCompromisso().getEtapaTcc();
 
             } else if (aluno.getEtapaTcc() == 2) {
                 tccii = tccIIDao.buscarPorTermo(termo);
@@ -111,7 +124,14 @@ public class GuiControleTCCAluno {
                     for(Professor professor : apresentacao.getProfessoresBanca()){
                         banca += professor.getUsuario().getNome() + ";";
                     }
-                }  
+                } 
+                
+                tema = tccii.getTermoCompromisso().getTema();
+                titulo = tccii.getTermoCompromisso().getTitulo();
+                professorOrientador = tccii.getTermoCompromisso().getProfessor().getUsuario().getNome();
+                status = tccii.getEstadoTccENUM().toString();
+                etapaTcc = tccii.getTermoCompromisso().getEtapaTcc();
+                
             } else {
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage(null, new FacesMessage("Erro", "Nenhum TCC encontrado designado ao aluno"));
@@ -168,6 +188,8 @@ public class GuiControleTCCAluno {
             List<MovimentacaoTCCI> movimentacoes = tcci.getMovimentacoesTCC();
             movimentacoes.add(mov);
             tcci.setMovimentacoesTCC(movimentacoes);
+            
+            if (versaoFinal) tcci.setEstadoTccENUM(EstadoTccENUM.AGUARDANDO_NOTA);
 
             //Atualiza o objeto no banco
             tccIDao.alterar(tcci);
@@ -204,6 +226,8 @@ public class GuiControleTCCAluno {
             movimentacoes.add(mov);
             tccii.setMovimentacoes(movimentacoes);
 
+            if (versaoFinal) tccii.setEstadoTccENUM(EstadoTccENUM.AGUARDANDO_NOTA);            
+            
             //Atualiza o objeto no banco
             tccIIDao.alterar(tccii);
 
@@ -319,6 +343,54 @@ public class GuiControleTCCAluno {
 
     public String getBanca() {
         return banca;
+    }
+
+    public String getTema() {
+        return tema;
+    }
+
+    public void setTema(String tema) {
+        this.tema = tema;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getProfessorOrientador() {
+        return professorOrientador;
+    }
+
+    public void setProfessorOrientador(String professorOrientador) {
+        this.professorOrientador = professorOrientador;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getEtapaTcc() {
+        return etapaTcc;
+    }
+
+    public void setEtapaTcc(int etapaTcc) {
+        this.etapaTcc = etapaTcc;
+    }
+
+    public boolean isVersaoFinal() {
+        return versaoFinal;
+    }
+
+    public void setVersaoFinal(boolean versaoFinal) {
+        this.versaoFinal = versaoFinal;
     }
     
     public static void addMessage(String summary) {

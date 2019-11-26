@@ -128,7 +128,7 @@ public class GuiAvaliarProjeto {
     public void preencherTabela() throws Exception{
         projetos.clear();
         for(TCCI tcci: tcciDAO.listar()){
-            if(tcci.getEstadoTccENUM() == EstadoTccENUM.FINALIZADO &&
+            if(tcci.getEstadoTccENUM() == EstadoTccENUM.AGUARDANDO_NOTA &&
                     tcci.getProfessorTcc().equals(professorLogado) && 
                     tcci.getNota() == null && !tcci.getMovimentacoesTCC().isEmpty()){
                 projetos.add(new TCCPadrao(tcci.getId(), 0,tcci.getTermoCompromisso(), 
@@ -137,7 +137,7 @@ public class GuiAvaliarProjeto {
         }
         
         for(TCCII tccii: tcciiDAO.listar()){
-            if(tccii.getEstadoTccENUM() == EstadoTccENUM.FINALIZADO &&
+            if(tccii.getEstadoTccENUM() == EstadoTccENUM.AGUARDANDO_NOTA &&
                     tccii.getProfessorTcc().equals(professorLogado) && 
                     tccii.getNota() == null && !tccii.getMovimentacoes().isEmpty()){
                 projetos.add(new TCCPadrao(tccii.getId(), 0,tccii.getTermoCompromisso(), 
@@ -147,7 +147,7 @@ public class GuiAvaliarProjeto {
     }
 
     public List<TCCPadrao> getProjetos() {
-        return projetos;
+        return projetos;    
     }
 
     public void setProjetos(List<TCCPadrao> projetos) {

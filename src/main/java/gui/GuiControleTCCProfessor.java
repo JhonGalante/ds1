@@ -146,16 +146,20 @@ public class GuiControleTCCProfessor {
         ArquivoMovimentacao arqMov = new ArquivoMovimentacao();
 
         try {
-            InputStream input = file.getInputstream();
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
-            byte[] buffer = new byte[1024];
+            // Corrige obrigatoriedade de upload de arquivo por parte do professor ao tecer comentário
+            if (file != null) {
+                InputStream input = file.getInputstream();
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+                byte[] buffer = new byte[1024];
 
-            for (int tamanho = 0; (tamanho = input.read(buffer)) > 0;) {
-                output.write(buffer, 0, tamanho);
+                for (int tamanho = 0; (tamanho = input.read(buffer)) > 0;) {
+                    output.write(buffer, 0, tamanho);
+                }
+
+                arqMov.setBinario(ArrayUtils.toObject(output.toByteArray()));
+                mov.setArquivoMovimentacao(arqMov); 
             }
 
-            arqMov.setBinario(ArrayUtils.toObject(output.toByteArray()));
-            mov.setArquivoMovimentacao(arqMov);
             mov.setComentario(comentario);
             mov.setTipoMovimentacaoENUM(TipoMovimentacaoENUM.CONSULTA);
             mov.setDataHora(LocalDateTime.now());
@@ -181,16 +185,21 @@ public class GuiControleTCCProfessor {
         ArquivoMovimentacao arqMov = new ArquivoMovimentacao();
 
         try {
-            InputStream input = file.getInputstream();
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
-            byte[] buffer = new byte[1024];
+            // Corrige obrigatoriedade de upload de arquivo por parte do professor ao tecer comentário
+            if (file != null) {
+                InputStream input = file.getInputstream();
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+                byte[] buffer = new byte[1024];
 
-            for (int tamanho = 0; (tamanho = input.read(buffer)) > 0;) {
-                output.write(buffer, 0, tamanho);
+                for (int tamanho = 0; (tamanho = input.read(buffer)) > 0;) {
+                    output.write(buffer, 0, tamanho);
+                }
+
+                arqMov.setBinario(ArrayUtils.toObject(output.toByteArray()));
+                mov.setArquivoMovimentacao(arqMov); 
             }
-
-            arqMov.setBinario(ArrayUtils.toObject(output.toByteArray()));
-            mov.setArquivoMovimentacao(arqMov);
+            
+            
             mov.setComentario(comentario);
             mov.setTipoMovimentacaoENUM(TipoMovimentacaoENUM.CONSULTA);
             mov.setDataHora(LocalDateTime.now());
