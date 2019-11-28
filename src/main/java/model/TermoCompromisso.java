@@ -51,7 +51,8 @@ public class TermoCompromisso implements Serializable {  //substitui o "Solicita
     private EstadoTermoCompromissoENUM estadoTermoCompromissoENUM;
     @NotNull
     private int etapaTcc;
-    
+    @NotNull
+    private String palavrasChave;
     
     //Métodos
     public Long getId() {
@@ -130,6 +131,14 @@ public class TermoCompromisso implements Serializable {  //substitui o "Solicita
         this.dataHoraRecusaSolicitacao = dataHoraRecusaSolicitacao;
     }
 
+    public String getPalavrasChave() {
+        return palavrasChave;
+    }
+
+    public void setPalavrasChave(String palavrasChave) {
+        this.palavrasChave = palavrasChave;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

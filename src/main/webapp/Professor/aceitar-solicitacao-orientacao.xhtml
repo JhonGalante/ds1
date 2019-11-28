@@ -35,6 +35,10 @@
                     <p:column id="lblDataSolicitacao" headerText="Data da Solicitação" style="text-align: center">
                         <h:outputText value="#{termoCompromisso.dataHoraSolicitacao}"/>
                     </p:column>
+                    
+                    <p:column id="lblPalavrasChave" headerText="Palavras-chave" style="text-align: center">
+                        <h:outputText value="#{termoCompromisso.palavrasChave}"/>
+                    </p:column>
                         
                     <f:facet name="footer">
                         <p:commandButton process="termo" ajax="false" value="Aceitar" action="#{guiAceitarSolicitacaoOrientacao.aceitarSolicitacao()}" style="width:140px"/>

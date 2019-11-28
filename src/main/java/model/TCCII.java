@@ -65,6 +65,7 @@ public class TCCII implements Serializable {
     @OneToMany(mappedBy = "tccII", targetEntity = MovimentacaoTCCII.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<MovimentacaoTCCII> movimentacoesTCC;
     
+    
     public TCCII(){
         movimentacoesTCC = new ArrayList<>();
     }
@@ -170,7 +171,7 @@ public class TCCII implements Serializable {
     public void setMovimentacoesTCC(List<MovimentacaoTCCII> movimentacoesTCC) {
         this.movimentacoesTCC = movimentacoesTCC;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;

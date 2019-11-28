@@ -41,6 +41,7 @@ public class GuiSolicitarOrientador {
     private int etapa;
     private Sessao guiSessao;
     private String mensagem;
+    private String palavrasChave;
     
     private final AlunoDAO alunoDAO = AlunoDAO.getInstance();
     private ProfessorDAO professorDAO = ProfessorDAO.getInstance();
@@ -85,6 +86,7 @@ public class GuiSolicitarOrientador {
             termoCompromisso.setTitulo(titulo);
             termoCompromisso.setDataHoraSolicitacao(LocalDate.now());
             termoCompromisso.setEstadoTermoCompromissoENUM(EstadoTermoCompromissoENUM.SOLICITACAO_ANALISE);
+            termoCompromisso.setPalavrasChave(palavrasChave);
             try {
                 termoCompromissoDAO.incluir(termoCompromisso);
                 mensagemConfirma("Solicitação realizada com sucesso!");
@@ -231,9 +233,13 @@ public class GuiSolicitarOrientador {
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
     }
-    
-    
 
+    public String getPalavrasChave() {
+        return palavrasChave;
+    }
 
+    public void setPalavrasChave(String palavrasChave) {
+        this.palavrasChave = palavrasChave;
+    }
     
 }

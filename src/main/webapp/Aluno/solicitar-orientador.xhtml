@@ -13,20 +13,23 @@
             <p:panel header="Solicitar Orientador">
                 <h:panelGrid columns="2" cellpadding="5" cellspacing="0">
                     <p:outputLabel for="tema" value="Tema" />
-                    <p:inputText id="tema" value="#{guiSolicitarOrientador.tema}" required="true" placeholder="Descreva o tema o seu TCC" style="width: 40%"/>
-
+                    <p:inputText id="tema" value="#{guiSolicitarOrientador.tema}" required="true" placeholder="Informe o tema o seu TCC" style="width: 40%"/>
+                    
                     <p:outputLabel for="titulo" value="Titulo"/>
-                    <p:inputText id="titulo" value="#{guiSolicitarOrientador.titulo}" required="true" placeholder="Descreva o título do seu TCC" style="width: 40%"/>
+                    <p:inputText id="titulo" value="#{guiSolicitarOrientador.titulo}" required="true" placeholder="Informe o título do seu TCC" style="width: 40%"/>
+                    
+                    <p:outputLabel for="palavra-chave" value="Palavras-chave"/>
+                    <p:inputText id="palavra-chave" value="#{guiSolicitarOrientador.palavrasChave}" required="true" placeholder="Informe as palavras chaves do TCC separado por ';' ou ','" style="width: 40%"/>
 
                     <p:outputLabel for="professor" value="Professor Orientador"/>
-                    <p:dataTable style="width: 50%" id="professor" var="professorOrientador" value="#{guiSolicitarOrientador.professoresOrientadores}" selection="#{guiSolicitarOrientador.professorOrientador}" rowKey="#{professorOrientador.id}" emptyMessage="#{guiSolicitarOrientador.mensagem}" >
-                        <p:column selectionMode="single" style="width:16px;text-align:center"/>
-                        <p:column headerText="Nome" style="text-align: left">
-                            <p:outputLabel value="#{professorOrientador.usuario.nome}"/>
-                        </p:column>
-                    </p:dataTable>
-
+                        <p:dataTable style="width: 50%" id="professor" var="professorOrientador" value="#{guiSolicitarOrientador.professoresOrientadores}" selection="#{guiSolicitarOrientador.professorOrientador}" rowKey="#{professorOrientador.id}" emptyMessage="#{guiSolicitarOrientador.mensagem}" >
+                            <p:column selectionMode="single" style="width:16px;text-align:center"/>
+                            <p:column headerText="Nome" style="text-align: left">
+                                <p:outputLabel value="#{professorOrientador.usuario.nome}"/>
+                            </p:column>
+                        </p:dataTable>
                     <p:outputLabel/>
+                   
                     <p:commandButton value="Enviar Solicitação" ajax="false" action="#{guiSolicitarOrientador.realizarSolicitacao()}"/>
                 </h:panelGrid>   
                 <br></br>

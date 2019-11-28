@@ -59,6 +59,7 @@ public class TCCI implements Serializable{
     @OneToMany(mappedBy = "tccI", targetEntity = MovimentacaoTCCI.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<MovimentacaoTCCI> movimentacoesTCC;
     
+    
     public TCCI(){
         movimentacoesTCC = new ArrayList<>();
     }

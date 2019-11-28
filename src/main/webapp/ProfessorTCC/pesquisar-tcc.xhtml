@@ -56,7 +56,7 @@
             <p:fieldset legend="TCCI" toggleable="true" collapsed="true">
                 <p:panelGrid columns="1" styleClass="ui-fluid">
                     <p:growl id="msgs" showDetail="true" />
-                    <p:dataTable var="tcci" value="#{guiPesquisarTCC.tccsI}" widgetVar="tccsTable"
+                    <p:dataTable var="tcci" value="#{guiPesquisarTCC.tccsI}" widgetVar="tccsiTable"
                                  emptyMessage="Nenhum TCC encontrado" filteredValue="#{guiPesquisarTCC.tccsIFiltred}"
                                  rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15" paginatorPosition="bottom">
@@ -64,7 +64,7 @@
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText value="Pesquisar:" />
-                                <p:inputText id="globalFilter" onkeyup="PF('tccsTable').filter()" style="width:150px" placeholder="Palavra-chave"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('tccsiTable').filter()" style="width:150px" placeholder="Palavra-chave"/>
                             </p:outputPanel>
                         </f:facet>
 
@@ -83,6 +83,10 @@
                         <p:column headerText="Professor TCC" filterBy="#{tcci.professorTcc}">
                             <h:outputText value="#{tcci.professorTcc}" />
                         </p:column>
+                        
+                        <p:column headerText="Palavras-chave" filterBy="#{tcci.termoCompromisso.palavrasChave}">
+                            <h:outputText value="#{tcci.termoCompromisso.palavrasChave}" />
+                        </p:column>
 
                         <p:column headerText="Download" style="width:100px;text-align: center">
                                 <p:commandButton value="Down" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);">
@@ -99,7 +103,7 @@
 
             <p:fieldset legend="TCCII" toggleable="true" collapsed="true">
                 <p:panelGrid columns="1" styleClass="ui-fluid">
-                    <p:dataTable var="tccii" value="#{guiPesquisarTCC.tccsII}" widgetVar="tccsTable"
+                    <p:dataTable var="tccii" value="#{guiPesquisarTCC.tccsII}" widgetVar="tccsiiTable"
                                  emptyMessage="Nenhum TCC encontrado" filteredValue="#{guiPesquisarTCC.tccsIIFiltred}"
                                  rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15" paginatorPosition="bottom">
@@ -107,7 +111,7 @@
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText value="Pesquisar:" />
-                                <p:inputText id="globalFilter" onkeyup="PF('tccsTable').filter()" style="width:150px" placeholder="Palavra-chave"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('tccsiiTable').filter()" style="width:150px" placeholder="Palavra-chave"/>
                             </p:outputPanel>
                         </f:facet>
 
@@ -125,6 +129,10 @@
 
                         <p:column headerText="Professor TCC" filterBy="#{tccii.professorTcc}">
                             <h:outputText value="#{tccii.professorTcc}" />
+                        </p:column>
+                        
+                        <p:column headerText="Palavras-chave" filterBy="#{tccii.termoCompromisso.palavrasChave}">
+                            <h:outputText value="#{tccii.termoCompromisso.palavrasChave}" />
                         </p:column>
 
                         <p:column headerText="Download" style="width:100px;text-align: center">
