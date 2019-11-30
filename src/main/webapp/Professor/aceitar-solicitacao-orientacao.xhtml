@@ -9,7 +9,15 @@
     <body>
         <h:form>
             <p:growl id="growl" showDetail="true" sticky="true" />
-            <p:panel header="Solicitações de Orientação">                
+            <p:panel header="Solicitações de Orientação">
+                <p:fieldset legend="Disponibilidade" toggleable="true" collapsed="true">
+                    <p:outputLabel value="Está disponível como orientador?   "/>
+                    <p:selectBooleanCheckbox value="#{guiAceitarSolicitacaoOrientacao.disponivel}"/>
+                    <br/>
+                    <p:commandButton ajax="false" value="Salvar" action="#{guiAceitarSolicitacaoOrientacao.alterarDisponibilidade()}"/>
+                </p:fieldset>
+                <br/>
+                <br/>
                 <p:dataTable id="termo" var="termoCompromisso" value="#{guiAceitarSolicitacaoOrientacao.termosCompromisso}" selection="#{guiAceitarSolicitacaoOrientacao.termoCompromisso}" rowKey="#{termoCompromisso.id}">
                     <p:column selectionMode="single" style="width:16px;text-align:center"/>
                     <p:column id="lblId" headerText="Id" style="text-align: left; width:50px">

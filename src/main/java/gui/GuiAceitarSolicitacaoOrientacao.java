@@ -39,7 +39,7 @@ public class GuiAceitarSolicitacaoOrientacao {
     private TCCI tccI;
     private TCCII tccII;
     private Professor professor;
-    
+    private boolean disponivel;
     private Aluno aluno;
     
     private final TermoCompromissoDAO termoCompromissoDAO = TermoCompromissoDAO.getInstance();
@@ -140,6 +140,11 @@ public class GuiAceitarSolicitacaoOrientacao {
         tccI = null;
         tccII = null;
     }
+    
+    public void alterarDisponibilidade(){
+        Professor professorLogado = professorDAO.buscarMatricula(sessao.getUsuarioSessao().getMatricula());
+        professorLogado.setDisponibilidade(disponivel);
+    }
    
     public void mensagemConfirma(String mensagem) {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -206,5 +211,15 @@ public class GuiAceitarSolicitacaoOrientacao {
     public void setAluno(Aluno aluno) {
         this.aluno = aluno;
     }
+
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
+    }
+    
+    
     
 }

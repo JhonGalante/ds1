@@ -28,6 +28,7 @@ public class Professor implements Serializable {
     @NotNull
     @OneToOne
     private Usuario usuario;
+    private boolean disponibilidade;
     
     
     //Métodos
@@ -43,6 +44,14 @@ public class Professor implements Serializable {
         this.usuario = usuario;
     }
 
+    public boolean isDisponibilidade() {
+        return disponibilidade;
+    }
+
+    public void setDisponibilidade(boolean disponibilidade) {
+        this.disponibilidade = disponibilidade;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
