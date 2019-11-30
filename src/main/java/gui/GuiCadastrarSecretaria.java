@@ -7,7 +7,9 @@ package gui;
 
 import dao.SecretariaDAO;
 import dao.UsuarioDAO;
+import helper.HashHelper;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,12 +58,12 @@ public class GuiCadastrarSecretaria {
         senha = null;
     }
     
-    public void cadastrar() throws IOException {
+    public void cadastrar() throws IOException, NoSuchAlgorithmException {
         usuario = new Usuario();
         usuario.setMatricula(matricula);
         usuario.setEmail(email);
         usuario.setNome(nome);
-        usuario.setSenha(senha);
+        usuario.setSenha(HashHelper.criptografarSenha(senha));
         usuario.setTipo(TipoUsuarioENUM.SECRETARIA);
         secretaria = new Secretaria();
         secretaria.setUsuario(usuario);

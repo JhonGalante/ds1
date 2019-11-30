@@ -3,6 +3,7 @@ package gui;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import dao.UsuarioDAO;
+import helper.HashHelper;
 import helper.Sessao;
 import java.io.IOException;
 import javax.faces.application.FacesMessage;
@@ -24,16 +25,18 @@ public class GuiLogin {
     private Usuario usuario;
     private String matricula;
     private String senha;
+    private String senhaCript;
     private final Sessao sessao = Sessao.getInstance();
     
     
     public String logar() throws IOException{
         try {
             usuario = usuarioDAO.buscarMatricula(matricula);
+            senhaCript = HashHelper.criptografarSenha(senha);
         } catch (Exception ex) {
             Logger.getLogger(GuiLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (usuario.getSenha().equals(senha) && usuario != null){
+        if (usuario.getSenha().equals(senhaCript) && usuario != null){
             ExternalContext ext = FacesContext.getCurrentInstance().getExternalContext();
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             session.setAttribute("usuarioLogado", usuario);

@@ -7,7 +7,10 @@ package gui;
 
 import dao.AlunoDAO;
 import dao.UsuarioDAO;
+import helper.HashHelper;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +31,7 @@ public class GuiCadastrarAluno {
     
     private final UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
     private final AlunoDAO alunoDAO = AlunoDAO.getInstance();
+    
     
     private List<Aluno> alunos;
     
@@ -75,12 +79,12 @@ public class GuiCadastrarAluno {
         curso = null;
     }
     
-    public void cadastrar() throws IOException {
+    public void cadastrar() throws IOException, NoSuchAlgorithmException {
         usuario = new Usuario();
         usuario.setMatricula(matricula);
         usuario.setEmail(email);
         usuario.setNome(nome);
-        usuario.setSenha(senha);
+        usuario.setSenha(HashHelper.criptografarSenha(senha));
         usuario.setTipo(TipoUsuarioENUM.ALUNO);
         aluno = new Aluno();
         aluno.setCurso(curso);
@@ -97,6 +101,9 @@ public class GuiCadastrarAluno {
         limparCampos();
         iniciarListaAlunos();
     }
+    
+    
+    
     public void mensagemConfirma(String mensagem) {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Sucesso",  "Mensagem: " + mensagem) );
