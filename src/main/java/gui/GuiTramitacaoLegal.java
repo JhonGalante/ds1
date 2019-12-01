@@ -15,6 +15,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import model.ArquivoTramitacao;
+import model.EstadoTccENUM;
 import model.TCCI;
 import model.TCCII;
 import org.apache.commons.lang.ArrayUtils;
@@ -45,13 +46,13 @@ public class GuiTramitacaoLegal implements Serializable {
         session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         
         for (TCCI tcci : tcciDAO.listar()) {
-            if (tcci.getArquivoTramitacao() == null) {
+            if (tcci.getArquivoTramitacao() == null && tcci.getEstadoTccENUM().equals(EstadoTccENUM.FINALIZADO)) {
                 projetos.add(new TCCPadrao(tcci.getId(), tcci.getTermoCompromisso(), 1));
             }
         }
 
         for (TCCII tccii : tcciiDAO.listar()) {
-            if (tccii.getArquivoTramitacao() == null) {
+            if (tccii.getArquivoTramitacao() == null && tccii.getEstadoTccENUM().equals(EstadoTccENUM.FINALIZADO)) {
                 projetos.add(new TCCPadrao(tccii.getId(), tccii.getTermoCompromisso(), 2));
             }
         }

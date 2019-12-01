@@ -29,6 +29,13 @@
                     <p:column headerText="Orientador" class="column">
                         <h:outputText value="#{projeto.termoCompromisso.professor}" />
                     </p:column>
+                    <p:column headerText="Orientador" class="column">
+                        <h:outputText value="#{projeto.estadoTccENUM}" />
+                    </p:column>
+                    <p:column headerText="Orientador" class="column">
+                        <h:outputText value="#{projeto.nota}" />
+                    </p:column>
+                    
                     <f:facet name="footer">
                         <h:outputText value="Selecione um Projeto" />
                         <p:commandButton icon="fa fa-fw fa-hand-o-up" value="Selecionar" style="margin-left: 10px;" action="#{guiTramitacaoLegal.selecionarProjeto}" ajax="false"/>
