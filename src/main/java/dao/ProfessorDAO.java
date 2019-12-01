@@ -94,5 +94,10 @@ public class ProfessorDAO implements InterfaceDAO{
         Professor professor = (Professor) q.getSingleResult();
         return professor;
     }
+    
+    public List<Professor> listarProfessorDisponiveis() throws Exception{
+        Query q = em.createQuery("select p from Professor p WHERE p.disponibilidade = true");
+        return q.getResultList();
+    }
 
 }

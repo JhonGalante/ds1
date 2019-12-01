@@ -42,6 +42,8 @@ public class GuiAceitarSolicitacaoOrientacao {
     private boolean disponivel;
     private Aluno aluno;
     
+    private Professor professorLogado;
+    
     private final TermoCompromissoDAO termoCompromissoDAO = TermoCompromissoDAO.getInstance();
     private final TCCIDAO tccIDAO = TCCIDAO.getInstance();
     private final TCCIIDAO tccIIDAO = TCCIIDAO.getInstance();
@@ -49,23 +51,18 @@ public class GuiAceitarSolicitacaoOrientacao {
     private final Sessao sessao = Sessao.getInstance();
     
     public GuiAceitarSolicitacaoOrientacao() throws Exception {
+        professorLogado = professorDAO.buscarMatricula(sessao.getUsuarioSessao().getMatricula());
+        disponivel = professorLogado.isDisponibilidade();
         termosCompromisso = iniciarListaSolicitacoes();
     }
     
     public List<TermoCompromisso> iniciarListaSolicitacoes() throws IOException, Exception {
         limparSelecao();
         List<TermoCompromisso> termosTemp = new ArrayList<>();
-        Professor professorTemp;
-        try {
-            professorTemp = professorDAO.buscarMatricula(sessao.getUsuarioSessao().getMatricula());
-        } catch(Exception ex) {
-            Logger.getLogger(GuiAceitarSolicitacaoOrientacao.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
         // Filtrei por for pois a cláusula WHERE não estava funcionando corretamente no BuscarTermosPendentesAceitacao
         for (TermoCompromisso termo : termoCompromissoDAO.listar()) {
             if ((EstadoTermoCompromissoENUM.SOLICITACAO_ANALISE) == termo.getEstadoTermoCompromissoENUM()
-                    && termo.getProfessor().equals(professorTemp)) {
+                    && termo.getProfessor().equals(professorLogado)) {
                 termosTemp.add(termo);
             }
         }
@@ -141,9 +138,9 @@ public class GuiAceitarSolicitacaoOrientacao {
         tccII = null;
     }
     
-    public void alterarDisponibilidade(){
-        Professor professorLogado = professorDAO.buscarMatricula(sessao.getUsuarioSessao().getMatricula());
+    public void alterarDisponibilidade() throws Exception{
         professorLogado.setDisponibilidade(disponivel);
+        professorDAO.alterar(professorLogado);
     }
    
     public void mensagemConfirma(String mensagem) {
