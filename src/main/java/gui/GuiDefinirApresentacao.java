@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import dao.AlunoDAO;
@@ -10,6 +5,7 @@ import dao.ProfessorDAO;
 import dao.TCCIDAO;
 import dao.TCCIIDAO;
 import dao.TermoCompromissoDAO;
+import helper.Sessao;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -49,7 +45,9 @@ public class GuiDefinirApresentacao {
     private TermoCompromisso termoTemp;
     private TCCI tcciTemp;
     private TCCII tcciiTemp;
-
+    private Professor professorLogado;
+    
+    private final Sessao sessao = Sessao.getInstance();
     private final ProfessorDAO professorDao = ProfessorDAO.getInstance();
     private final TCCIDAO tccIDao = TCCIDAO.getInstance();
     private final TCCIIDAO tccIIDao = TCCIIDAO.getInstance();
@@ -59,6 +57,7 @@ public class GuiDefinirApresentacao {
     public GuiDefinirApresentacao() throws Exception {
         professores = professorDao.listar();
         alunos = alunoDao.listar();
+        professorLogado = professorDao.buscarMatricula(sessao.getUsuarioSessao().getMatricula());
         preencherTabela(alunos);
 
     }
@@ -111,12 +110,12 @@ public class GuiDefinirApresentacao {
             if (termoTemp != null) {
                 if (aluno.getEtapaTcc() == 1) {
                     tcciTemp = tccIDao.buscarPorTermo(termoTemp);
-                    if (tcciTemp.getApresentacao() == null && tcciTemp.getEstadoTccENUM() == EstadoTccENUM.FINALIZADO) {
+                    if (tcciTemp.getApresentacao() == null && tcciTemp.getEstadoTccENUM() == EstadoTccENUM.FINALIZADO && tcciTemp.getProfessorTcc().equals(professorLogado)) {
                         alunosDisp.add(aluno);
                     }
                 } else if (aluno.getEtapaTcc() == 2) {
                     tcciiTemp = tccIIDao.buscarPorTermo(termoTemp);
-                    if (tcciiTemp.getApresentacao() == null && tcciiTemp.getEstadoTccENUM() == EstadoTccENUM.FINALIZADO) {
+                    if (tcciiTemp.getApresentacao() == null && tcciiTemp.getEstadoTccENUM() == EstadoTccENUM.FINALIZADO && tcciTemp.getProfessorTcc().equals(professorLogado)) {
                         alunosDisp.add(aluno);
                     }
                 }

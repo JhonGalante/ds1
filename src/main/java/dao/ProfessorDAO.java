@@ -99,5 +99,15 @@ public class ProfessorDAO implements InterfaceDAO{
         Query q = em.createQuery("select p from Professor p WHERE p.disponibilidade = true");
         return q.getResultList();
     }
+    
+    public Professor buscarProfessorTCCI(){
+        Query q = em.createQuery("select p from Professor p WHERE p.professorTCCI = true");
+        return (Professor) q.getSingleResult();
+    }
+    
+    public Professor buscarProfessorTCCII(){
+        Query q = em.createQuery("select p from Professor p WHERE p.professorTCCII = true");
+        return (Professor) q.getSingleResult();
+    }
 
 }

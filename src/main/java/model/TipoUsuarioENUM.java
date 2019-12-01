@@ -13,7 +13,6 @@ public enum TipoUsuarioENUM {
     ALUNO,
     PROFESSOR,
     SECRETARIA,
-    VISITANTE,
-    PROFESSORTCC
+    VISITANTE
     
 }

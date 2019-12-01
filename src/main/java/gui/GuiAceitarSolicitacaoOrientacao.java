@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.persistence.NoResultException;
 import model.Aluno;
 import model.EstadoTccENUM;
 import model.EstadoTermoCompromissoENUM;
@@ -85,9 +86,13 @@ public class GuiAceitarSolicitacaoOrientacao {
             tccI = new TCCI();
             tccI.setTermoCompromisso(termoCompromisso);
             tccI.setEstadoTccENUM(EstadoTccENUM.ENTREGA);
-            // Coloquei o mesmo professor apenas para realizar testes.
-            // Precisamos definir em que momento e como será definido quem será o professor de TCC
-            tccI.setProfessorTcc(termoCompromisso.getProfessor());
+
+            try{
+                tccI.setProfessorTcc(professorDAO.buscarProfessorTCCI());
+            }catch(NoResultException ex){
+                ex.printStackTrace();
+                tccI.setProfessorTcc(null);
+            }
             try {
                 termoCompromissoDAO.alterar(termoCompromisso);
                 tccIDAO.incluir(tccI);
@@ -102,17 +107,15 @@ public class GuiAceitarSolicitacaoOrientacao {
             tccII.setTermoCompromisso(termoCompromisso);
             tccII.setEstadoTccENUM(EstadoTccENUM.ENTREGA);
             tccII.setDispRepo(false);
-            // Coloquei o mesmo professor apenas para realizar testes.
-            // Precisamos definir em que momento e como será definido quem será o professor de TCC
-            tccII.setProfessorTcc(termoCompromisso.getProfessor());
             try {
+                tccII.setProfessorTcc(professorDAO.buscarProfessorTCCII());
                 termoCompromissoDAO.alterar(termoCompromisso);
                 tccIIDAO.incluir(tccII);
                 mensagemConfirma("Solicitação ACEITA com sucesso.");
             } catch(Exception ex) {
                 Logger.getLogger(GuiAceitarSolicitacaoOrientacao.class.getName()).log(Level.SEVERE, null, ex);
                 mensagemRecusa("Não foi possível realizar esta operação.");
-            }
+            } 
         }
 
         termosCompromisso = iniciarListaSolicitacoes();

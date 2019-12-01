@@ -29,7 +29,8 @@ public class Professor implements Serializable {
     @OneToOne
     private Usuario usuario;
     private boolean disponibilidade;
-    
+    private boolean professorTCCI;
+    private boolean professorTCCII;
     
     //Métodos
     public Long getId() {
@@ -50,6 +51,22 @@ public class Professor implements Serializable {
 
     public void setDisponibilidade(boolean disponibilidade) {
         this.disponibilidade = disponibilidade;
+    }
+
+    public boolean isProfessorTCCI() {
+        return professorTCCI;
+    }
+
+    public void setProfessorTCCI(boolean professorTCCI) {
+        this.professorTCCI = professorTCCI;
+    }
+
+    public boolean isProfessorTCCII() {
+        return professorTCCII;
+    }
+
+    public void setProfessorTCCII(boolean professorTCCII) {
+        this.professorTCCII = professorTCCII;
     }
     
     @Override

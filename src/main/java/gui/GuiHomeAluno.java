@@ -59,27 +59,37 @@ public class GuiHomeAluno {
                 termo = termoTemp;
             }
         }
-        
-        try{
-            if (aluno.getEtapaTcc() == 1) {
-                tcci = tccIDao.buscarPorTermo(termo);
-                estadoTcc = tcci.getEstadoTccENUM();
-            } else if (aluno.getEtapaTcc() == 2) {
-                tccii = tccIIDao.buscarPorTermo(termo);
-                estadoTcc = tccii.getEstadoTccENUM();
+        if(termo != null){
+            try{
+                if (aluno.getEtapaTcc() == 1) {
+                    tcci = tccIDao.buscarPorTermo(termo);
+                    if(tcci != null){
+                        estadoTcc = tcci.getEstadoTccENUM();
+                    }
+                } else if (aluno.getEtapaTcc() == 2) {
+                    tccii = tccIIDao.buscarPorTermo(termo);
+                    if(tccii != null){
+                        estadoTcc = tccii.getEstadoTccENUM();
+                    }
+                }
+
+            } catch(NullPointerException ex){
+                ex.printStackTrace();
                 
             }
-            
-        } catch(NullPointerException ex){
-            ex.printStackTrace();
-            
+
+            this.setMensagem(exibirMensagem(estadoTcc));
+        }else{
+            mensagem = "Você ainda não possui um orientador para o seu TCC. Acesse a página de Controle de TCC para solicitar um ou acompanhar a sua solicitação.";
         }
-        
-        this.setMensagem(exibirMensagem(estadoTcc));
 
     }
     
     public String exibirMensagem(EstadoTccENUM estadoTccENUM){
+        if(estadoTccENUM == null){
+            mensagem = "Sua solicitação ainda não foi aceita pelo orientador.";
+            return mensagem;
+        }
         if(estadoTccENUM.equals(EstadoTccENUM.AGUARDANDO_NOTA)){
             mensagem = "O seu TCC já foi enviado e será avaliado em breve pelo professor.";
         }
@@ -99,11 +109,6 @@ public class GuiHomeAluno {
         if(estadoTccENUM.equals(EstadoTccENUM.NOVA_ENTREGA)){
             mensagem = "O seu TCC já foi analisado pelo professor e está pendente de correções. Acesse a página de Controle de TCC para mais detalhes.";
         }
-        
-        if(estadoTccENUM.equals(null)){
-            mensagem = "Você ainda não possui um orientador para o seu TCC. Acesse a página de Controle de TCC para solicitar um ou acompanhar a sua solicitação.";
-        }
-        
         return mensagem;
     }
 

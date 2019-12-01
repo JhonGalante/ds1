@@ -61,7 +61,7 @@ public class GuiControleTCCProfessor {
         movs = new ArrayList<>();
         
         for (TCCI tcci : tcciDAO.listar()) {
-            if (tcci.getProfessorTcc().equals(professorTemp)
+            if ((tcci.getProfessorTcc().equals(professorTemp) || tcci.getTermoCompromisso().getProfessor().equals(professorTemp))
                     && !tcci.getMovimentacoesTCC().isEmpty()) {
                 projetos.add(new TCCPadrao(tcci.getId(), 0, tcci.getTermoCompromisso(),
                         tcci.getMovimentacoesTCC().get(tcci.getMovimentacoesTCC().size() - 1).getDataHora(), 1));
@@ -69,7 +69,7 @@ public class GuiControleTCCProfessor {
         }
 
         for (TCCII tccii : tcciiDAO.listar()) {
-            if (tccii.getProfessorTcc().equals(professorTemp)
+            if ((tccii.getProfessorTcc().equals(professorTemp) || tccii.getTermoCompromisso().getProfessor().equals(professorTemp))
                     && !tccii.getMovimentacoes().isEmpty()) {
                 projetos.add(new TCCPadrao(tccii.getId(), 0, tccii.getTermoCompromisso(),
                         tccii.getMovimentacoes().get(tccii.getMovimentacoes().size() - 1).getDataHora(), 2));

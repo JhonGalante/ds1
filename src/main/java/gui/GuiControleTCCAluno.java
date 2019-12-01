@@ -61,6 +61,7 @@ public class GuiControleTCCAluno {
     private String status;
     private int etapaTcc;
     private boolean versaoFinal;
+    private Aluno aluno;
     
     private List<Object> movs;
     private Object selectedMov;
@@ -84,7 +85,7 @@ public class GuiControleTCCAluno {
         tccii = new TCCII();
         
         ApresentacaoTCC apresentacao;
-        Aluno aluno = alunoDao.buscarMatricula(sessao.getUsuarioSessao().getMatricula());
+        aluno = alunoDao.buscarMatricula(sessao.getUsuarioSessao().getMatricula());
         List<TermoCompromisso> termos = termoDao.listar();
         TermoCompromisso termo = null;
 
@@ -142,11 +143,11 @@ public class GuiControleTCCAluno {
     }
     
     public void realizarUpload(){
-        if(tcci != null){
+        if(aluno.getEtapaTcc() == 1){
             uploadTCCI();
             preencherListaMovTCCI(tcci);
             addMessage("Upload realizado com sucesso!");
-        }else if(tccii != null){
+        }else if(aluno.getEtapaTcc() == 2){
             uploadTCCII();
             preencherListaMovTCCII(tccii);
             addMessage("Upload realizado com sucesso!");

@@ -129,7 +129,7 @@ public class GuiAvaliarProjeto {
         projetos.clear();
         for(TCCI tcci: tcciDAO.listar()){
             if(tcci.getEstadoTccENUM() == EstadoTccENUM.AGUARDANDO_NOTA &&
-                    tcci.getProfessorTcc().equals(professorLogado) && 
+                    (tcci.getTermoCompromisso().getProfessor().equals(professorLogado) || tcci.getProfessorTcc().equals(professorLogado)) && 
                     tcci.getNota() == null && !tcci.getMovimentacoesTCC().isEmpty()){
                 projetos.add(new TCCPadrao(tcci.getId(), 0,tcci.getTermoCompromisso(), 
                         tcci.getDataEntregaFinal(), 1));
@@ -138,7 +138,7 @@ public class GuiAvaliarProjeto {
         
         for(TCCII tccii: tcciiDAO.listar()){
             if(tccii.getEstadoTccENUM() == EstadoTccENUM.AGUARDANDO_NOTA &&
-                    tccii.getProfessorTcc().equals(professorLogado) && 
+                    (tccii.getTermoCompromisso().getProfessor().equals(professorLogado) || tccii.getProfessorTcc().equals(professorLogado)) &&
                     tccii.getNota() == null && !tccii.getMovimentacoes().isEmpty()){
                 projetos.add(new TCCPadrao(tccii.getId(), 0,tccii.getTermoCompromisso(), 
                         tccii.getDataEntregaFinal(), 2));

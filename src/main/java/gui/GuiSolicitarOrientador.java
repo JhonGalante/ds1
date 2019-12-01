@@ -54,7 +54,7 @@ public class GuiSolicitarOrientador {
     
     public void iniciarListaProfessoresOrientadores() throws IOException {
         try {
-            professoresOrientadores = professorDAO.listar();
+            professoresOrientadores = professorDAO.listarProfessorDisponiveis();
             termosCompromisso = termoCompromissoDAO.listar();
             aluno = alunoDAO.buscarMatricula(guiSessao.getUsuarioSessao().getMatricula());
         } catch(Exception ex) {

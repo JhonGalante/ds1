@@ -1,16 +1,17 @@
 package gui;
 
+import dao.ProfessorDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import dao.UsuarioDAO;
 import helper.HashHelper;
-import helper.Sessao;
 import java.io.IOException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import model.Professor;
 import model.TipoUsuarioENUM;
 import model.Usuario;
 
@@ -22,11 +23,11 @@ import model.Usuario;
 public class GuiLogin {
     
     private final UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
+    private final ProfessorDAO professorDAO = ProfessorDAO.getInstance();
     private Usuario usuario;
     private String matricula;
     private String senha;
     private String senhaCript;
-    private final Sessao sessao = Sessao.getInstance();
     
     
     public String logar() throws IOException{
@@ -36,7 +37,7 @@ public class GuiLogin {
         } catch (Exception ex) {
             Logger.getLogger(GuiLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (usuario.getSenha().equals(senha) && usuario != null){
+        if (usuario.getSenha().equals(senhaCript) && usuario != null){
             ExternalContext ext = FacesContext.getCurrentInstance().getExternalContext();
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             session.setAttribute("usuarioLogado", usuario);
@@ -47,11 +48,12 @@ public class GuiLogin {
                     return null;
                 }
                 if (usuario.getTipo().equals(TipoUsuarioENUM.PROFESSOR)){
-                    ext.redirect("Professor/home.xhtml");
-                    return null;
-                }
-                if(usuario.getTipo().equals(TipoUsuarioENUM.PROFESSORTCC)){
-                    ext.redirect("ProfessorTCC/home.xhtml");
+                    Professor professor = professorDAO.buscarMatricula(usuario.getMatricula());
+                    if(professor.isProfessorTCCI() || professor.isProfessorTCCII()){
+                        ext.redirect("ProfessorTCC/home.xhtml");
+                    }else{
+                        ext.redirect("Professor/home.xhtml");
+                    }
                     return null;
                 }
                 if (usuario.getTipo().equals(TipoUsuarioENUM.SECRETARIA)){
