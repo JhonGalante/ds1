@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -36,6 +37,10 @@ public class MovimentacaoTCCI implements Serializable {
     @OneToOne(cascade=CascadeType.ALL)
     private ArquivoMovimentacao arquivoMovimentacao;
     private String comentario;
+    private LocalDate dataProximaEntrega;
+    @NotNull
+    @OneToOne
+    private Usuario usuarioMovimento;
     @ManyToOne
     private TCCI tccI;
     
@@ -93,7 +98,22 @@ public class MovimentacaoTCCI implements Serializable {
         this.dataHora = dataHora;
     }
 
+    public LocalDate getDataProximaEntrega() {
+        return dataProximaEntrega;
+    }
 
+    public void setDataProximaEntrega(LocalDate dataProximaEntrega) {
+        this.dataProximaEntrega = dataProximaEntrega;
+    }
+
+    public Usuario getUsuarioMovimento() {
+        return usuarioMovimento;
+    }
+
+    public void setUsuarioMovimento(Usuario usuarioMovimento) {
+        this.usuarioMovimento = usuarioMovimento;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

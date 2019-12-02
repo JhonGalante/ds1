@@ -5,6 +5,7 @@
  */
 package helper;
 
+import java.time.LocalDate;
 import model.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -21,13 +22,17 @@ public class MovimentacaoPadrao{
     private TipoMovimentacaoENUM tipoMovimentacaoENUM;
     private ArquivoMovimentacao arquivoMovimentacao;
     private String comentario;
+    private LocalDate prazoProximaEntrega;
+    private Usuario usuarioMov;
 
-    public MovimentacaoPadrao(Long id, LocalDateTime dataHora, TipoMovimentacaoENUM tipoMovimentacaoENUM, ArquivoMovimentacao arquivoMovimentacao, String comentario) {
+    public MovimentacaoPadrao(Long id, LocalDateTime dataHora, TipoMovimentacaoENUM tipoMovimentacaoENUM, ArquivoMovimentacao arquivoMovimentacao, String comentario, LocalDate prazoProximaEntrega, Usuario usuarioMov) {
         this.id = id;
         this.dataHora = dataHora;
         this.tipoMovimentacaoENUM = tipoMovimentacaoENUM;
         this.arquivoMovimentacao = arquivoMovimentacao;
         this.comentario = comentario;
+        this.prazoProximaEntrega = prazoProximaEntrega;
+        this.usuarioMov = usuarioMov;
     }
 
     
@@ -72,7 +77,22 @@ public class MovimentacaoPadrao{
         this.dataHora = dataHora;
     }
 
+    public LocalDate getPrazoProximaEntrega() {
+        return prazoProximaEntrega;
+    }
 
+    public void setPrazoProximaEntrega(LocalDate prazoProximaEntrega) {
+        this.prazoProximaEntrega = prazoProximaEntrega;
+    }
+
+    public Usuario getUsuarioMov() {
+        return usuarioMov;
+    }
+
+    public void setUsuarioMov(Usuario usuarioMov) {
+        this.usuarioMov = usuarioMov;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

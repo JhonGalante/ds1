@@ -78,6 +78,14 @@
                     <p:column headerText="Tipo de Movimentacao" sortBy="#{historico.tipoMovimentacaoENUM}">
                         <h:outputText value="#{historico.tipoMovimentacaoENUM}" />
                     </p:column>
+                    
+                    <p:column headerText="Usuário" sortBy="#{historico.usuarioMovimento.nome}">
+                        <h:outputText value="#{historico.usuarioMovimento.nome}" />
+                    </p:column>
+                            
+                    <p:column headerText="Prazo" sortBy="#{historico.dataProximaEntrega}">
+                        <h:outputText value="#{historico.dataProximaEntrega}" />
+                    </p:column>
 
                     <p:column headerText="Download" style="width:100px;text-align: center">
                         <h:form>

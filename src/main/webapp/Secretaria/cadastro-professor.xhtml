@@ -24,7 +24,12 @@
                     
                     <p:outputLabel for="senha" value="Senha"/>
                     <p:password id="senha" value="#{guiCadastrarProfessor.senha}" required="true"/>
-                    
+                    <br/>
+                    <br/>
+                    <p:selectBooleanCheckbox itemLabel="Professor de TCCI?" value="#{guiCadastrarProfessor.profTCCI}"/>
+                    <br/>
+                    <p:selectBooleanCheckbox itemLabel="Professor de TCCI?" value="#{guiCadastrarProfessor.profTCCII}"/>
+                    <br/>
                 </h:panelGrid>          
                 
             <p:commandButton value="Cadastrar" ajax="false" action="#{guiCadastrarProfessor.cadastrar()}"/>

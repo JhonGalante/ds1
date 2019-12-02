@@ -15,8 +15,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -48,6 +51,7 @@ public class GuiControleTCCProfessor {
     private TCCPadrao projetoSelecionado;
     private MovimentacaoPadrao movSelecionado;
     private String comentario;
+    private Date prazoProximaEntrega;
     private UploadedFile file;
 
     private final TCCIDAO tcciDAO = TCCIDAO.getInstance();
@@ -97,12 +101,14 @@ public class GuiControleTCCProfessor {
                 preencherListaMovTCCI(tcci);
                 comentario = null;
                 file = null;
+                prazoProximaEntrega = null;
             } else {
                 TCCII tccii = tcciiDAO.buscarPorId(projetoSelecionado.getId());
                 uploadTCCII(tccii);
                 preencherListaMovTCCII(tccii);
                 comentario = null;
                 file = null;
+                prazoProximaEntrega = null;
             }
             addMessage("Upload realizado com sucesso!");
         }else{
@@ -163,6 +169,8 @@ public class GuiControleTCCProfessor {
             mov.setComentario(comentario);
             mov.setTipoMovimentacaoENUM(TipoMovimentacaoENUM.CONSULTA);
             mov.setDataHora(LocalDateTime.now());
+            mov.setDataProximaEntrega(prazoProximaEntrega.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            mov.setUsuarioMovimento(sessao.getUsuarioSessao());
             mov.setTcci(tcci);
 
             //Puxa a lista de movimentações do objeto TCC, adiciona a nova movimentacao a lista e retorna ao objeto
@@ -203,6 +211,8 @@ public class GuiControleTCCProfessor {
             mov.setComentario(comentario);
             mov.setTipoMovimentacaoENUM(TipoMovimentacaoENUM.CONSULTA);
             mov.setDataHora(LocalDateTime.now());
+            mov.setDataProximaEntrega(prazoProximaEntrega.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            mov.setUsuarioMovimento(sessao.getUsuarioSessao());
             mov.setTccii(tccii);
 
             //Puxa a lista de movimentações do objeto TCC, adiciona a nova movimentacao a lista e retorna ao objeto
@@ -224,7 +234,7 @@ public class GuiControleTCCProfessor {
         movs.clear();
         for (MovimentacaoTCCI movI : tcci.getMovimentacoesTCC()) {
             movs.add(new MovimentacaoPadrao(movI.getId(), movI.getDataHora(), movI.getTipoMovimentacaoENUM(), 
-                        movI.getArquivoMovimentacao(), movI.getComentario()));
+                        movI.getArquivoMovimentacao(), movI.getComentario(), movI.getDataProximaEntrega(), movI.getUsuarioMovimento()));
         }
     }
 
@@ -232,7 +242,7 @@ public class GuiControleTCCProfessor {
         movs.clear();
         for (MovimentacaoTCCII movII : tccii.getMovimentacoes()) {
             movs.add(new MovimentacaoPadrao(movII.getId(), movII.getDataHora(), movII.getTipoMovimentacaoENUM(), 
-                        movII.getArquivoMovimentacao(), movII.getComentario()));
+                        movII.getArquivoMovimentacao(), movII.getComentario(), movII.getDataProximaEntrega(), movII.getUsuarioMovimento()));
         }
     }
 
@@ -282,6 +292,14 @@ public class GuiControleTCCProfessor {
 
     public void setMovSelecionado(MovimentacaoPadrao movSelecionado) {
         this.movSelecionado = movSelecionado;
+    }
+
+    public Date getPrazoProximaEntrega() {
+        return prazoProximaEntrega;
+    }
+
+    public void setPrazoProximaEntrega(Date prazoProximaEntrega) {
+        this.prazoProximaEntrega = prazoProximaEntrega;
     }
     
     public void addMessage(String summary) {

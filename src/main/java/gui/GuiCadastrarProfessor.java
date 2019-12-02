@@ -37,6 +37,8 @@ public class GuiCadastrarProfessor {
     private String email;
     private String nome;
     private String senha;
+    private boolean profTCCI;
+    private boolean profTCCII;
 
     public GuiCadastrarProfessor() throws Exception {
         this.professores = professorDAO.listar();
@@ -55,6 +57,8 @@ public class GuiCadastrarProfessor {
         email = null;
         nome = null;
         senha = null;
+        profTCCI = false;
+        profTCCII = false;
     }
     
     public void cadastrar() throws IOException, NoSuchAlgorithmException {
@@ -66,6 +70,11 @@ public class GuiCadastrarProfessor {
         usuario.setTipo(TipoUsuarioENUM.PROFESSOR);
         professor = new Professor();
         professor.setUsuario(usuario);
+        if(!profTCCI && !profTCCII){
+            professor.setDisponibilidade(true);
+        }
+        professor.setProfessorTCCI(profTCCI);
+        professor.setProfessorTCCII(profTCCII);
         
         try {
             usuarioDAO.incluir(usuario);
@@ -133,7 +142,19 @@ public class GuiCadastrarProfessor {
         this.professor = professor;
     }
 
-    
-    
+    public boolean isProfTCCI() {
+        return profTCCI;
+    }
 
+    public void setProfTCCI(boolean profTCCI) {
+        this.profTCCI = profTCCI;
+    }
+
+    public boolean isProfTCCII() {
+        return profTCCII;
+    }
+
+    public void setProfTCCII(boolean profTCCII) {
+        this.profTCCII = profTCCII;
+    }
 }

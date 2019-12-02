@@ -183,6 +183,8 @@ public class GuiControleTCCAluno {
             mov.setComentario(comentario);
             mov.setTipoMovimentacaoENUM(TipoMovimentacaoENUM.ENTREGA);
             mov.setDataHora(LocalDateTime.now());
+            mov.setUsuarioMovimento(Sessao.getInstance().getUsuarioSessao());
+            
             mov.setTcci(tcci);
 
             //Puxa a lista de movimentações do objeto TCC, adiciona a nova movimentacao a lista e retorna ao objeto
@@ -220,6 +222,7 @@ public class GuiControleTCCAluno {
             mov.setComentario(comentario);
             mov.setTipoMovimentacaoENUM(TipoMovimentacaoENUM.ENTREGA);
             mov.setDataHora(LocalDateTime.now());
+            mov.setUsuarioMovimento(Sessao.getInstance().getUsuarioSessao());
             mov.setTccii(tccii);
 
             //Puxa a lista de movimentações do objeto TCC, adiciona a nova movimentacao a lista e retorna ao objeto
