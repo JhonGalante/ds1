@@ -15,7 +15,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -26,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import model.ArquivoMovimentacao;
+import model.EstadoTccENUM;
 import model.MovimentacaoTCCI;
 import model.MovimentacaoTCCII;
 import model.Professor;
@@ -169,7 +169,11 @@ public class GuiControleTCCProfessor {
             mov.setComentario(comentario);
             mov.setTipoMovimentacaoENUM(TipoMovimentacaoENUM.CONSULTA);
             mov.setDataHora(LocalDateTime.now());
-            mov.setDataProximaEntrega(prazoProximaEntrega.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            if(prazoProximaEntrega != null){
+                mov.setDataProximaEntrega(prazoProximaEntrega.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            }else{
+                mov.setDataProximaEntrega(null);
+            }
             mov.setUsuarioMovimento(sessao.getUsuarioSessao());
             mov.setTcci(tcci);
 
@@ -177,6 +181,7 @@ public class GuiControleTCCProfessor {
             List<MovimentacaoTCCI> movimentacoes = tcci.getMovimentacoesTCC();
             movimentacoes.add(mov);
             tcci.setMovimentacoesTCC(movimentacoes);
+            tcci.setEstadoTccENUM(EstadoTccENUM.NOVA_ENTREGA);
 
             //Atualiza o objeto no banco
             tcciDAO.alterar(tcci);
@@ -219,7 +224,8 @@ public class GuiControleTCCProfessor {
             List<MovimentacaoTCCII> movimentacoes = tccii.getMovimentacoes();
             movimentacoes.add(mov);
             tccii.setMovimentacoes(movimentacoes);
-
+            tccii.setEstadoTccENUM(EstadoTccENUM.NOVA_ENTREGA);
+            
             //Atualiza o objeto no banco
             tcciiDAO.alterar(tccii);
 

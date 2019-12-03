@@ -62,6 +62,7 @@ public class GuiControleTCCAluno {
     private int etapaTcc;
     private boolean versaoFinal;
     private Aluno aluno;
+    private Float nota;
     
     private List<Object> movs;
     private Object selectedMov;
@@ -113,6 +114,7 @@ public class GuiControleTCCAluno {
                 titulo = tcci.getTermoCompromisso().getTitulo();
                 professorOrientador = tcci.getTermoCompromisso().getProfessor().getUsuario().getNome();
                 status = tcci.getEstadoTccENUM().toString();
+                nota = tcci.getNota();
                 etapaTcc = tcci.getTermoCompromisso().getEtapaTcc();
 
             } else if (aluno.getEtapaTcc() == 2) {
@@ -132,6 +134,7 @@ public class GuiControleTCCAluno {
                 professorOrientador = tccii.getTermoCompromisso().getProfessor().getUsuario().getNome();
                 status = tccii.getEstadoTccENUM().toString();
                 etapaTcc = tccii.getTermoCompromisso().getEtapaTcc();
+                nota = tccii.getNota();
                 
             } else {
                 FacesContext context = FacesContext.getCurrentInstance();
@@ -146,11 +149,11 @@ public class GuiControleTCCAluno {
         if(aluno.getEtapaTcc() == 1){
             uploadTCCI();
             preencherListaMovTCCI(tcci);
-            addMessage("Upload realizado com sucesso!");
+            
         }else if(aluno.getEtapaTcc() == 2){
             uploadTCCII();
             preencherListaMovTCCII(tccii);
-            addMessage("Upload realizado com sucesso!");
+            
         }
         comentario = null;
         file = null;
@@ -191,12 +194,13 @@ public class GuiControleTCCAluno {
             List<MovimentacaoTCCI> movimentacoes = tcci.getMovimentacoesTCC();
             movimentacoes.add(mov);
             tcci.setMovimentacoesTCC(movimentacoes);
+            tcci.setEstadoTccENUM(EstadoTccENUM.ANALISE);
             
             if (versaoFinal) tcci.setEstadoTccENUM(EstadoTccENUM.AGUARDANDO_NOTA);
 
             //Atualiza o objeto no banco
             tccIDao.alterar(tcci);
-
+            addMessage("Upload realizado com sucesso!");
         } catch (Exception ex) {
             ex.printStackTrace();
             FacesMessage message = new FacesMessage("Erro. Por favor, tente novamente");
@@ -229,12 +233,14 @@ public class GuiControleTCCAluno {
             List<MovimentacaoTCCII> movimentacoes = tccii.getMovimentacoes();
             movimentacoes.add(mov);
             tccii.setMovimentacoes(movimentacoes);
-
+            tccii.setEstadoTccENUM(EstadoTccENUM.ANALISE);
+            
             if (versaoFinal) tccii.setEstadoTccENUM(EstadoTccENUM.AGUARDANDO_NOTA);            
             
             //Atualiza o objeto no banco
             tccIIDao.alterar(tccii);
-
+            addMessage("Upload realizado com sucesso!");
+            
         } catch (Exception ex) {
             ex.printStackTrace();
             FacesMessage message = new FacesMessage("Erro. Por favor, tente novamente");
@@ -260,7 +266,7 @@ public class GuiControleTCCAluno {
         InputStream stream = new ByteArrayInputStream(arquivoByte);
         selectedMovFile = new DefaultStreamedContent(stream, "application/pdf",     movI.getTcci().getTermoCompromisso().getTema() + " - " +
                                                                                     movI.getDataHora() + " - " + 
-                                                                                    movI.getTcci().getTermoCompromisso().getAluno().getUsuario().getNome());
+                                                                                    movI.getTcci().getTermoCompromisso().getAluno().getUsuario().getNome() + ".pdf");
     }
     
     public void downloadTCCII() throws FileNotFoundException{
@@ -270,7 +276,7 @@ public class GuiControleTCCAluno {
         InputStream stream = new ByteArrayInputStream(arquivoByte);
         selectedMovFile = new DefaultStreamedContent(stream, "application/pdf",     movII.getTccii().getTermoCompromisso().getTema() + " - " +
                                                                                     movII.getDataHora() + " - " + 
-                                                                                    movII.getTccii().getTermoCompromisso().getAluno().getUsuario().getNome());
+                                                                                    movII.getTccii().getTermoCompromisso().getAluno().getUsuario().getNome() + ".pdf");
     }
     
     private void preencherListaMovTCCI(TCCI tcci){
@@ -395,6 +401,14 @@ public class GuiControleTCCAluno {
 
     public void setVersaoFinal(boolean versaoFinal) {
         this.versaoFinal = versaoFinal;
+    }
+
+    public Float getNota() {
+        return nota;
+    }
+
+    public void setNota(Float nota) {
+        this.nota = nota;
     }
     
     public static void addMessage(String summary) {

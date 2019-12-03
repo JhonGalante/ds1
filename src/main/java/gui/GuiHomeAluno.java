@@ -10,6 +10,8 @@ import dao.TCCIDAO;
 import dao.TCCIIDAO;
 import dao.TermoCompromissoDAO;
 import helper.Sessao;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -31,6 +33,8 @@ public class GuiHomeAluno {
     private TCCI tcci;
     private TCCII tccii;
     private String mensagem;
+    private String prazoProxEntrega;
+    private String dataApresentacao;
     
     private final Sessao sessao;
     private final TCCIDAO tccIDao = TCCIDAO.getInstance();
@@ -65,11 +69,15 @@ public class GuiHomeAluno {
                     tcci = tccIDao.buscarPorTermo(termo);
                     if(tcci != null){
                         estadoTcc = tcci.getEstadoTccENUM();
+                         if(!tcci.getMovimentacoesTCC().isEmpty()) prazoProxEntrega = tcci.getMovimentacoesTCC().get(tcci.getMovimentacoesTCC().size()-1).getDataProximaEntrega().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                         dataApresentacao = tcci.getApresentacao().getDataApresentacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                     }
                 } else if (aluno.getEtapaTcc() == 2) {
                     tccii = tccIIDao.buscarPorTermo(termo);
                     if(tccii != null){
                         estadoTcc = tccii.getEstadoTccENUM();
+                        if(!tcci.getMovimentacoesTCC().isEmpty()) prazoProxEntrega = tcci.getMovimentacoesTCC().get(tcci.getMovimentacoesTCC().size()-1).getDataProximaEntrega().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                        dataApresentacao = tccii.getApresentacao().getDataApresentacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                     }
                 }
 
@@ -94,6 +102,10 @@ public class GuiHomeAluno {
             mensagem = "O seu TCC já foi enviado e será avaliado em breve pelo professor.";
         }
         
+        if(estadoTccENUM.equals(EstadoTccENUM.APRESENTACAO)){
+            mensagem = "A defesa do seu TCC foi agendada para "+dataApresentacao+"! Acesse a página de controle de TCC para mais detalhes.";
+        }
+        
         if(estadoTccENUM.equals(EstadoTccENUM.ANALISE)){
             mensagem = "O seu TCC já foi enviado e está sendo analisado pelo professor.";
         }
@@ -107,7 +119,7 @@ public class GuiHomeAluno {
         }
         
         if(estadoTccENUM.equals(EstadoTccENUM.NOVA_ENTREGA)){
-            mensagem = "O seu TCC já foi analisado pelo professor e está pendente de correções. Acesse a página de Controle de TCC para mais detalhes.";
+            mensagem = "O seu TCC já foi analisado pelo professor e está pendente de correções. Sua próxima entrega será em: "+prazoProxEntrega+".";
         }
         return mensagem;
     }

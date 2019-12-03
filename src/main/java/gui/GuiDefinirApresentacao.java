@@ -110,12 +110,12 @@ public class GuiDefinirApresentacao {
             if (termoTemp != null) {
                 if (aluno.getEtapaTcc() == 1) {
                     tcciTemp = tccIDao.buscarPorTermo(termoTemp);
-                    if (tcciTemp.getApresentacao() == null && tcciTemp.getEstadoTccENUM() == EstadoTccENUM.FINALIZADO && tcciTemp.getProfessorTcc().equals(professorLogado)) {
+                    if (tcciTemp.getApresentacao() == null && tcciTemp.getEstadoTccENUM() == EstadoTccENUM.AGUARDANDO_NOTA && tcciTemp.getProfessorTcc().equals(professorLogado)) {
                         alunosDisp.add(aluno);
                     }
                 } else if (aluno.getEtapaTcc() == 2) {
                     tcciiTemp = tccIIDao.buscarPorTermo(termoTemp);
-                    if (tcciiTemp.getApresentacao() == null && tcciiTemp.getEstadoTccENUM() == EstadoTccENUM.FINALIZADO && tcciTemp.getProfessorTcc().equals(professorLogado)) {
+                    if (tcciiTemp.getApresentacao() == null && tcciiTemp.getEstadoTccENUM() == EstadoTccENUM.AGUARDANDO_NOTA && tcciTemp.getProfessorTcc().equals(professorLogado)) {
                         alunosDisp.add(aluno);
                     }
                 }
@@ -137,10 +137,12 @@ public class GuiDefinirApresentacao {
     public void incluirApresentacao(ApresentacaoTCC apresentacao) throws Exception {
         if (tcci != null) {
             tcci.setApresentacao(apresentacao);
+            tcci.setEstadoTccENUM(EstadoTccENUM.APRESENTACAO);
             tccIDao.alterar(tcci);
             mensagemConfirma("Apresentação agendada com sucesso!");
         } else if (tccii != null) {
             tccii.setApresentacao(apresentacao);
+            tccii.setEstadoTccENUM(EstadoTccENUM.APRESENTACAO);
             tccIIDao.alterar(tccii);
             mensagemConfirma("Apresentação agendada com sucesso!");
         } else {

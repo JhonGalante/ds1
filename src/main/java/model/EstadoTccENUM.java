@@ -14,5 +14,6 @@ public enum EstadoTccENUM {
     NOVA_ENTREGA, // aluno envia nova versão para análise
     ANALISE, // professor analisa o envio do aluno
     AGUARDANDO_NOTA, // aluno marcou o checkbox de versão final
+    APRESENTACAO, //Aluno está com apresentação agendada
     FINALIZADO // professor avaliou e finalizou o tcc, tanto para aprovado quanto reprovado
 }
