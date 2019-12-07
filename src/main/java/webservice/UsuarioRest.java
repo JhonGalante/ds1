@@ -61,16 +61,21 @@ public class UsuarioRest{
         JSONObject response = new JSONObject();
         if(usuario == null){
             response.put("token", "404");
+            return response.toString();
         }
         if(usuario.getSenha().compareTo(senha) != 0){
             response.put("token", "501");
+            return response.toString();
         }
         if(usuario.getTipo() == TipoUsuarioENUM.ALUNO){
             response.put("token", "201");
+            return response.toString();
         }
         if(usuario.getTipo() == TipoUsuarioENUM.PROFESSOR){
             response.put("token", "202");
+            return response.toString();
         }
+        response.put("token", "203");
         return response.toString();
     }
     
