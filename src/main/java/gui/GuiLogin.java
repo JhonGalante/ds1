@@ -37,7 +37,7 @@ public class GuiLogin {
         } catch (Exception ex) {
             Logger.getLogger(GuiLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (usuario.getSenha().equals(senhaCript) && usuario != null){
+        if (usuario.getSenha().equals(senha) && usuario != null){
             ExternalContext ext = FacesContext.getCurrentInstance().getExternalContext();
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             session.setAttribute("usuarioLogado", usuario);

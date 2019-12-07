@@ -62,7 +62,7 @@ public class UsuarioRest{
                     .entity("Usuario não encontrado")
                     .build();
         }
-        if(usuario.getSenha().compareTo(senhaCript) != 0){
+        if(usuario.getSenha().compareTo(senha) != 0){
             return Response.status(501)
                     .entity("Senha incorreta")
                     .build();
