@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import model.TipoUsuarioENUM;
 import model.Usuario;
+import org.primefaces.json.JSONObject;
 
 
 /**
@@ -53,38 +54,24 @@ public class UsuarioRest{
     @POST
     @Path("validar-login")
     @Consumes("application/x-www-form-urlencoded")
-    public Response validarLogin(@FormParam("matricula") String matricula, 
+    @Produces(MediaType.APPLICATION_JSON)
+    public String validarLogin(@FormParam("matricula") String matricula, 
                                 @FormParam("senha") String senha) throws NoSuchAlgorithmException{
         Usuario usuario = dao.buscarMatricula(matricula);
-        String senhaCript = HashHelper.criptografarSenha(senha);
+        JSONObject response = new JSONObject();
         if(usuario == null){
-            return Response.status(404)
-                    .entity("Usuario não encontrado")
-                    .build();
+            response.put("token", "404");
         }
         if(usuario.getSenha().compareTo(senha) != 0){
-            return Response.status(501)
-                    .entity("Senha incorreta")
-                    .build();
+            response.put("token", "501");
         }
         if(usuario.getTipo() == TipoUsuarioENUM.ALUNO){
-            return Response.status(201)
-                    .entity("Usuario do tipo Aluno logado com sucesso!")
-                    .build();
+            response.put("token", "201");
         }
         if(usuario.getTipo() == TipoUsuarioENUM.PROFESSOR){
-            return Response.status(202)
-                    .entity("Usuario do tipo Professor logado com sucesso!")
-                    .build();
+            response.put("token", "202");
         }
-        if(usuario.getTipo() == TipoUsuarioENUM.SECRETARIA){
-            return Response.status(203)
-                    .entity("Usuario do tipo Secretaria logado com sucesso!")
-                    .build();
-        }
-        return Response.status(204)
-                .entity("Usuario do tipo Visitante logado com sucesso!")
-                .build();
+        return response.toString();
     }
     
 }
