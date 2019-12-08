@@ -114,7 +114,8 @@ public class TermoCompromissoDAO implements InterfaceDAO {
     }
 
     public List<TermoCompromisso> buscarTermosPendentesAceitacao(String matriculaProfessor) throws Exception {
-        Query q = em.createQuery("SELECT t FROM TermoCompromisso t WHERE t.professor.usuario.matricula =:matriculaProfessor AND t.estadoTermoCompromissoENUM = 1"); // 1 = Analise
+        Query q = em.createQuery("SELECT t FROM TermoCompromisso t WHERE t.professor.usuario.matricula =:matriculaProfessor AND t.estadoTermoCompromissoENUM = 1")
+                .setParameter("matriculaProfessor", matriculaProfessor); // 1 = Analise
         return q.getResultList();
     }
 

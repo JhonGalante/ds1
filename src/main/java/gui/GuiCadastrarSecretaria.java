@@ -63,7 +63,7 @@ public class GuiCadastrarSecretaria {
         usuario.setMatricula(matricula);
         usuario.setEmail(email);
         usuario.setNome(nome);
-        usuario.setSenha(HashHelper.criptografarSenha(senha));
+        usuario.setSenha(senha);
         usuario.setTipo(TipoUsuarioENUM.SECRETARIA);
         secretaria = new Secretaria();
         secretaria.setUsuario(usuario);

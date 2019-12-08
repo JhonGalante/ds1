@@ -66,7 +66,7 @@ public class GuiCadastrarProfessor {
         usuario.setMatricula(matricula);
         usuario.setEmail(email);
         usuario.setNome(nome);
-        usuario.setSenha(HashHelper.criptografarSenha(senha));
+        usuario.setSenha(senha);
         usuario.setTipo(TipoUsuarioENUM.PROFESSOR);
         professor = new Professor();
         professor.setUsuario(usuario);

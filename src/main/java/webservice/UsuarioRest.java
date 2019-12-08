@@ -33,13 +33,6 @@ public class UsuarioRest{
     private final Gson gson = new Gson();
     
     @GET
-    @Path("helloworld")
-    public String helloWorld(){
-        Usuario usuario = dao.buscarMatricula("333");
-        return usuario.getNome();
-    }
-    
-    @GET
     @Path("buscar-por-id/{matricula}")
     @Produces(MediaType.APPLICATION_JSON)
     public String buscarPorId(@PathParam("matricula") String matricula){

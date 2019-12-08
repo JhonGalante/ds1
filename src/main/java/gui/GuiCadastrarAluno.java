@@ -84,7 +84,7 @@ public class GuiCadastrarAluno {
         usuario.setMatricula(matricula);
         usuario.setEmail(email);
         usuario.setNome(nome);
-        usuario.setSenha(HashHelper.criptografarSenha(senha));
+        usuario.setSenha(senha);
         usuario.setTipo(TipoUsuarioENUM.ALUNO);
         aluno = new Aluno();
         aluno.setCurso(curso);
