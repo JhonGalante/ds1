@@ -30,6 +30,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(webservice.MovimentacaoRest.class);
+        resources.add(webservice.NewCrossOriginResourceSharingFilter.class);
         resources.add(webservice.ProfessorRest.class);
         resources.add(webservice.TccRest.class);
         resources.add(webservice.TermoRest.class);
