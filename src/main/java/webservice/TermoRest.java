@@ -3,8 +3,11 @@ package webservice;
 import com.google.gson.Gson;
 import dao.AlunoDAO;
 import dao.ProfessorDAO;
+import dao.TCCIDAO;
+import dao.TCCIIDAO;
 import dao.TermoCompromissoDAO;
 import dao.UsuarioDAO;
+import gui.GuiAceitarSolicitacaoOrientacao;
 import gui.GuiSolicitarOrientador;
 import helper.HashHelper;
 import java.security.NoSuchAlgorithmException;
@@ -13,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Named;
+import javax.persistence.NoResultException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -23,8 +27,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import model.Aluno;
+import model.EstadoTccENUM;
 import model.EstadoTermoCompromissoENUM;
 import model.Professor;
+import model.TCCI;
+import model.TCCII;
 import model.TermoCompromisso;
 import model.TipoUsuarioENUM;
 import model.Usuario;
@@ -44,6 +51,8 @@ public class TermoRest{
     private final TermoCompromissoDAO termoDao = TermoCompromissoDAO.getInstance();
     private final ProfessorDAO profDao = ProfessorDAO.getInstance();
     private final AlunoDAO alunoDao = AlunoDAO.getInstance();
+    private final TCCIDAO tcciDao = TCCIDAO.getInstance();
+    private final TCCIIDAO tcciiDao = TCCIIDAO.getInstance();
     private final Gson gson = new Gson();
     
     
@@ -56,6 +65,7 @@ public class TermoRest{
         
         for(TermoCompromisso termo : termoDao.buscarTermosPendentesAceitacao(matricula)){
             JSONObject object = new JSONObject();
+            object.put("id", termo.getId());
             object.put("aluno", termo.getAluno().getUsuario().getNome());
             object.put("etapa", termo.getAluno().getEtapaTcc());
             object.put("curso", termo.getAluno().getCurso());
@@ -98,6 +108,53 @@ public class TermoRest{
         }  
     }
     
+    @POST
+    @Path("aceitar-solicitacao")
+    @Consumes("application/x-www-form-urlencoded")
+    public Response aceitarSolicitacao(@FormParam("id") Long id) throws NoSuchAlgorithmException, Exception{
+        
+        TCCI tccI;
+        TCCII tccII;
+        TermoCompromisso termoCompromisso = termoDao.pesquisarPorId(id);
+        termoCompromisso.setEstadoTermoCompromissoENUM(EstadoTermoCompromissoENUM.SOLICITACAO_ACEITA);
+        termoCompromisso.setDataHoraAceiteSolicitacao(LocalDate.now());
+
+        if (termoCompromisso.getEtapaTcc() == 1) {
+            tccI = new TCCI();
+            tccI.setTermoCompromisso(termoCompromisso);
+            tccI.setEstadoTccENUM(EstadoTccENUM.ENTREGA);
+
+            try{
+                tccI.setProfessorTcc(profDao.buscarProfessorTCCI());
+            }catch(NoResultException ex){
+                ex.printStackTrace();
+                tccI.setProfessorTcc(null);
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            try {
+                termoDao.alterar(termoCompromisso);
+                tcciDao.incluir(tccI);
+            } catch(Exception ex) {
+                Logger.getLogger(GuiAceitarSolicitacaoOrientacao.class.getName()).log(Level.SEVERE, null, ex);
+                return Response.status(Response.Status.CONFLICT).build();
+            }
+        }
+        if (termoCompromisso.getEtapaTcc() == 2) {
+            tccII = new TCCII();
+            tccII.setTermoCompromisso(termoCompromisso);
+            tccII.setEstadoTccENUM(EstadoTccENUM.ENTREGA);
+            tccII.setDispRepo(false);
+            try {
+                tccII.setProfessorTcc(profDao.buscarProfessorTCCII());
+                termoDao.alterar(termoCompromisso);
+                tcciiDao.incluir(tccII);
+            } catch(Exception ex) {
+                Logger.getLogger(GuiAceitarSolicitacaoOrientacao.class.getName()).log(Level.SEVERE, null, ex);
+                return Response.status(Response.Status.CONFLICT).build();
+            } 
+        }
+        return Response.ok().build();
+    }
  
     public Boolean validarSolicitacao(Aluno aluno, Professor professorOrientador) throws Exception {
         if (professorOrientador == null) {

@@ -73,7 +73,6 @@ public class MovimentacaoRest{
                 obj.put("comentario", movI.getComentario());
                 obj.put("data-publicacao", movI.getDataHora());
                 obj.put("data-prox-entrega", movI.getDataProximaEntrega());
-                obj.put("tipo-movimentacao", movI.getTipoMovimentacaoENUM());
                 arrayObj.put(obj);
             }
         }else{
@@ -83,7 +82,6 @@ public class MovimentacaoRest{
                 obj.put("comentario", movII.getComentario());
                 obj.put("data-publicacao", movII.getDataHora());
                 obj.put("data-prox-entrega", movII.getDataProximaEntrega());
-                obj.put("tipo-movimentacao", movII.getTipoMovimentacaoENUM());
                 arrayObj.put(obj);
             }
         }

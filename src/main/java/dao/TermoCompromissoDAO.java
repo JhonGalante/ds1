@@ -88,6 +88,12 @@ public class TermoCompromissoDAO implements InterfaceDAO {
         Query q = em.createQuery("from TermoCompromisso as t order by t.id");
         return q.getResultList();
     }
+    
+    public TermoCompromisso pesquisarPorId(Long id){
+        Query q = em.createQuery("from TermoCompromisso as t where t.id = :id")
+                .setParameter("id", id);
+        return (TermoCompromisso) q.getSingleResult();
+    }
 
     public TermoCompromisso pesquisarPorAlunoEtapa(Aluno aluno, int etapa) {
         Query q = em.createQuery("from TermoCompromisso as t where t.aluno.usuario.matricula=:matricula AND t.etapaTcc = :etapa AND t.estadoTermoCompromissoENUM = :estado")
