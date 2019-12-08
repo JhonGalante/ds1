@@ -68,13 +68,5 @@
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
     
-    <servlet>
-        <servlet-name>Gateway Servlet</servlet-name>
-        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
-        <init-param>
-            <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
-            <param-value>my.app.CrossOriginResourceSharingFilter</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
+    
 </web-app>
