@@ -88,7 +88,7 @@ public class GuiAceitarSolicitacaoOrientacao {
             tccI.setEstadoTccENUM(EstadoTccENUM.ENTREGA);
 
             try{
-                tccI.setProfessorTcc(professorDAO.buscarProfessorTCCI());
+                //tccI.setProfessorTcc(professorDAO.buscarProfessorTCCI());
             }catch(NoResultException ex){
                 ex.printStackTrace();
                 tccI.setProfessorTcc(null);
@@ -108,7 +108,7 @@ public class GuiAceitarSolicitacaoOrientacao {
             tccII.setEstadoTccENUM(EstadoTccENUM.ENTREGA);
             tccII.setDispRepo(false);
             try {
-                tccII.setProfessorTcc(professorDAO.buscarProfessorTCCII());
+               // tccII.setProfessorTcc(professorDAO.buscarProfessorTCCII());
                 termoCompromissoDAO.alterar(termoCompromisso);
                 tccIIDAO.incluir(tccII);
                 mensagemConfirma("Solicitação ACEITA com sucesso.");

@@ -40,7 +40,6 @@ public class TCCII implements Serializable {
     @OneToOne
     private TCCI tccI;
     
-    @NotNull
     @OneToOne
     private Professor professorTcc;
     

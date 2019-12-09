@@ -32,18 +32,35 @@ public class MovimentacaoTCCI implements Serializable {
     private Long id;
     @NotNull
     private LocalDateTime dataHora;
-    @NotNull
     private TipoMovimentacaoENUM tipoMovimentacaoENUM;
     @OneToOne(cascade=CascadeType.ALL)
     private ArquivoMovimentacao arquivoMovimentacao;
     private String comentario;
     private LocalDate dataProximaEntrega;
-    @NotNull
     @OneToOne
     private Usuario usuarioMovimento;
     @ManyToOne
     private TCCI tccI;
-    
+
+    public MovimentacaoTCCI(LocalDateTime dataHora, TipoMovimentacaoENUM tipoMovimentacaoENUM, String comentario, Usuario usuarioMovimento, TCCI tccI) {
+        this.dataHora = dataHora;
+        this.tipoMovimentacaoENUM = tipoMovimentacaoENUM;
+        this.comentario = comentario;
+        this.usuarioMovimento = usuarioMovimento;
+        this.tccI = tccI;
+    }
+
+    public MovimentacaoTCCI(LocalDateTime dataHora, TipoMovimentacaoENUM tipoMovimentacaoENUM, String comentario,Usuario usuarioMovimento, LocalDate dataProximaEntrega, TCCI tccI) {
+        this.dataHora = dataHora;
+        this.tipoMovimentacaoENUM = tipoMovimentacaoENUM;
+        this.comentario = comentario;
+        this.dataProximaEntrega = dataProximaEntrega;
+        this.usuarioMovimento = usuarioMovimento;
+        this.tccI = tccI;
+    }
+
+    public MovimentacaoTCCI() {
+    }
     
     //Métodos
     public Long getId() {

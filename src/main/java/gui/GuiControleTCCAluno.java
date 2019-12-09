@@ -34,6 +34,7 @@ import model.TCCI;
 import model.TCCII;
 import model.TermoCompromisso;
 import model.TipoMovimentacaoENUM;
+import model.Usuario;
 import org.apache.commons.lang.ArrayUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -173,12 +174,15 @@ public class GuiControleTCCAluno {
         ArquivoMovimentacao arqMov = new ArquivoMovimentacao();
         
         try {
-            InputStream input = file.getInputstream();
             ByteArrayOutputStream output = new ByteArrayOutputStream();
-            byte[] buffer = new byte[1024];
+            if(file != null){
+                InputStream input = file.getInputstream();
+                
+                byte[] buffer = new byte[1024];
 
-            for (int tamanho = 0; (tamanho = input.read(buffer)) > 0;) {
-                output.write(buffer, 0, tamanho);
+                for (int tamanho = 0; (tamanho = input.read(buffer)) > 0;) {
+                    output.write(buffer, 0, tamanho);
+                }
             }
 
             arqMov.setBinario(ArrayUtils.toObject(output.toByteArray()));
@@ -186,6 +190,7 @@ public class GuiControleTCCAluno {
             mov.setComentario(comentario);
             mov.setTipoMovimentacaoENUM(TipoMovimentacaoENUM.ENTREGA);
             mov.setDataHora(LocalDateTime.now());
+            Usuario usuario = Sessao.getInstance().getUsuarioSessao();
             mov.setUsuarioMovimento(Sessao.getInstance().getUsuarioSessao());
             
             mov.setTcci(tcci);
@@ -213,12 +218,14 @@ public class GuiControleTCCAluno {
         ArquivoMovimentacao arqMov = new ArquivoMovimentacao();
         
         try {
-            InputStream input = file.getInputstream();
             ByteArrayOutputStream output = new ByteArrayOutputStream();
-            byte[] buffer = new byte[1024];
+            if(file != null){
+                InputStream input = file.getInputstream();
+                byte[] buffer = new byte[1024];
 
-            for (int tamanho = 0; (tamanho = input.read(buffer)) > 0;) {
-                output.write(buffer, 0, tamanho);
+                for (int tamanho = 0; (tamanho = input.read(buffer)) > 0;) {
+                    output.write(buffer, 0, tamanho);
+                }
             }
 
             arqMov.setBinario(ArrayUtils.toObject(output.toByteArray()));

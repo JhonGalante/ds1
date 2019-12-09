@@ -11,6 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import model.Professor;
 import model.TCCI;
 import model.TCCII;
 import model.TermoCompromisso;
@@ -111,6 +112,13 @@ public class TCCIIDAO implements InterfaceDAO{
             e.printStackTrace();
             return null;
         }
+    }
+
+    public List<TCCII> buscarPorProfessor(Professor professor) {
+        Query q = em.createQuery("select t from TCCII as t where t.termoCompromisso.professor.id = :professorId")
+                .setParameter("professorId", professor.getId());
+        
+        return q.getResultList();
     }
     
 

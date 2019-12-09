@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javafx.scene.input.KeyCode.T;
 import javax.inject.Named;
 import javax.persistence.NoResultException;
 import javax.ws.rs.Consumes;
@@ -58,12 +59,13 @@ public class TermoRest{
     
     @POST
     @Path("buscar-termos-professor")
-    @Consumes("application/x-www-form-urlencoded")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String buscarTermosProfessor(@FormParam("matricula") String matricula) throws Exception{
+    public String buscarTermosProfessor(String res) throws Exception{
+        JSONObject obj = new JSONObject(res);
         JSONArray arrayObject = new JSONArray();
         
-        for(TermoCompromisso termo : termoDao.buscarTermosPendentesAceitacao(matricula)){
+        for(TermoCompromisso termo : termoDao.buscarTermosPendentesAceitacao(obj.getString("matricula"))){
             JSONObject object = new JSONObject();
             object.put("id", termo.getId());
             object.put("aluno", termo.getAluno().getUsuario().getNome());
@@ -79,22 +81,19 @@ public class TermoRest{
     
     @POST
     @Path("enviar-solicitacao")
-    @Consumes("application/x-www-form-urlencoded")
-    public Response enviarSolicitacao(@FormParam("aluno-matricula") String alunoMatricula,
-                                    @FormParam("tema") String tema, 
-                                    @FormParam("titulo") String titulo,
-                                    @FormParam("palavras-chave") String palavrasChave,
-                                    @FormParam("professor-orientador") String professorOrientador) throws NoSuchAlgorithmException, Exception{
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response enviarSolicitacao(String res) throws NoSuchAlgorithmException, Exception{
         
         TermoCompromisso termo = new TermoCompromisso();
-        Aluno aluno = alunoDao.buscarMatricula(alunoMatricula);
-        Professor professor = profDao.buscarMatricula(professorOrientador);
+        JSONObject obj = new JSONObject(res);
+        Aluno aluno = alunoDao.buscarMatricula(obj.getString("matricula-aluno"));
+        Professor professor = profDao.buscarMatricula(obj.getString("matricula-professor"));
         if(!validarSolicitacao(aluno, professor)) return Response.status(Response.Status.CONFLICT).build();
         
         termo.setAluno(aluno);
-        termo.setTema(tema);
-        termo.setTitulo(titulo);
-        termo.setPalavrasChave(palavrasChave);
+        termo.setTema(obj.getString("tema"));
+        termo.setTitulo(obj.getString("titulo"));
+        termo.setPalavrasChave(obj.getString("palavras-chave"));
         termo.setProfessor(professor);
         termo.setDataHoraSolicitacao(LocalDate.now());
         termo.setEstadoTermoCompromissoENUM(EstadoTermoCompromissoENUM.SOLICITACAO_ANALISE);
@@ -110,12 +109,12 @@ public class TermoRest{
     
     @POST
     @Path("aceitar-solicitacao")
-    @Consumes("application/x-www-form-urlencoded")
-    public Response aceitarSolicitacao(@FormParam("id") Long id) throws NoSuchAlgorithmException, Exception{
-        
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response aceitarSolicitacao(String res) throws NoSuchAlgorithmException, Exception{
+        JSONObject obj = new JSONObject(res);
         TCCI tccI;
         TCCII tccII;
-        TermoCompromisso termoCompromisso = termoDao.pesquisarPorId(id);
+        TermoCompromisso termoCompromisso = termoDao.pesquisarPorId(Long.parseLong(obj.getString("id")));
         termoCompromisso.setEstadoTermoCompromissoENUM(EstadoTermoCompromissoENUM.SOLICITACAO_ACEITA);
         termoCompromisso.setDataHoraAceiteSolicitacao(LocalDate.now());
 
@@ -125,7 +124,7 @@ public class TermoRest{
             tccI.setEstadoTccENUM(EstadoTccENUM.ENTREGA);
 
             try{
-                tccI.setProfessorTcc(profDao.buscarProfessorTCCI());
+                //tccI.setProfessorTcc(profDao.buscarProfessorTCCI());
             }catch(NoResultException ex){
                 ex.printStackTrace();
                 tccI.setProfessorTcc(null);
@@ -145,7 +144,7 @@ public class TermoRest{
             tccII.setEstadoTccENUM(EstadoTccENUM.ENTREGA);
             tccII.setDispRepo(false);
             try {
-                tccII.setProfessorTcc(profDao.buscarProfessorTCCII());
+                //tccII.setProfessorTcc(profDao.buscarProfessorTCCII());
                 termoDao.alterar(termoCompromisso);
                 tcciiDao.incluir(tccII);
             } catch(Exception ex) {

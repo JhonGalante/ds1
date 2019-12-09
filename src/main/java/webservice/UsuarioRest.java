@@ -46,30 +46,30 @@ public class UsuarioRest{
     
     @POST
     @Path("validar-login")
-    @Consumes("application/x-www-form-urlencoded")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String validarLogin(@FormParam("matricula") String matricula, 
-                                @FormParam("senha") String senha) throws NoSuchAlgorithmException{
-        Usuario usuario = dao.buscarMatricula(matricula);
+    public Response validarLogin(String res) throws NoSuchAlgorithmException{
+        JSONObject obj = new JSONObject(res);
+        Usuario usuario = dao.buscarMatricula(obj.getString("matricula"));
         JSONObject response = new JSONObject();
         if(usuario == null){
             response.put("token", "404");
-            return response.toString();
+            return Response.status(404).entity(response.toString()).build();
         }
-        if(usuario.getSenha().compareTo(senha) != 0){
+        if(usuario.getSenha().compareTo(obj.getString("senha")) != 0){
             response.put("token", "501");
-            return response.toString();
+            return Response.status(501).entity(response.toString()).build();
         }
         if(usuario.getTipo() == TipoUsuarioENUM.ALUNO){
             response.put("token", "201");
-            return response.toString();
+            return Response.status(201).entity(response.toString()).build();
         }
         if(usuario.getTipo() == TipoUsuarioENUM.PROFESSOR){
             response.put("token", "202");
-            return response.toString();
+            return Response.status(202).entity(response.toString()).build();
         }
         response.put("token", "203");
-        return response.toString();
+        return Response.status(203).entity(response.toString()).build();
     }
     
 }

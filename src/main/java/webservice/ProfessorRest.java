@@ -32,7 +32,7 @@ public class ProfessorRest{
     @POST
     @Path("buscar-orinteadores-disponiveis")
     @Produces(MediaType.APPLICATION_JSON)
-    public String buscarPorId() throws Exception{
+    public String buscarOrientadoresDisponiveis() throws Exception{
         return gson.toJson(dao.listarProfessorDisponiveis());
     }
     
