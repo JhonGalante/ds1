@@ -62,10 +62,12 @@ public class UsuarioRest{
         }
         if(usuario.getTipo() == TipoUsuarioENUM.ALUNO){
             response.put("token", "201");
+            response.put("nome", usuario.getNome());
             return Response.status(201).entity(response.toString()).build();
         }
         if(usuario.getTipo() == TipoUsuarioENUM.PROFESSOR){
             response.put("token", "202");
+            response.put("nome", usuario.getNome());
             return Response.status(202).entity(response.toString()).build();
         }
         response.put("token", "203");
